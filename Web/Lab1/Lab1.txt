@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<head>
+<title>Basic Concept of Web Technology</title>
+</head>
+<body>
+define client-server model of communications
+</body>
+</html>
