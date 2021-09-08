@@ -3,6 +3,20 @@
 <title>Basic Concept of Web Technology</title>
 </head>
 <body>
-define client-server model of communications
+HTML:
+Client-server model of Communications:
+Name of Different types of Servers: 
+Web server: 
+Data Centers: 
+Why do we need URL? 
+Example of URL and specify all components:
+difference Static:     Dynamic: 
+Why do we need DNS?
+Examples of gTLD: 
+Examples of ccTLD:
+How can you pass a user's information from the clinet to the web server? 
+Function of HTTP? 
+How a single web pages is displayed on a web browser? 
+Examples of HTTP request methods: 
 </body>
 </html>
