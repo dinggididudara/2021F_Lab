@@ -7,7 +7,7 @@ import java.util.Scanner;
  * Course: CST8130 - Data Structures
  * CET-CS-Level 3
  * @author/Professor James Mwangi PhD. 
- * 
+ *  
   */
 public class Numbers {
 	/**

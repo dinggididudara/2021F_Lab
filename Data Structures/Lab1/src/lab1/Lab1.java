@@ -43,7 +43,7 @@ public class Lab1 { //Lab1 class
 					case 2: //scan maximum size of array
 						System.out.print("Enter new size of array: ");
 						int size = sc.nextInt();
-						new Numbers(size);
+						n = new Numbers(size);
 						break;
 						
 					case 3: //scan new values from user
