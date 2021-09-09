@@ -11,7 +11,6 @@ import java.util.Scanner;
  * 
   */
 public class Lab1 { //Lab1 class
-	public static float[] arr = new float[0]; //array for user's values
 	/**
 	 * 
 	 * @param args
@@ -22,6 +21,7 @@ public class Lab1 { //Lab1 class
 	} //main end
 	
 	static void displayMainMenu(){ //displaying main menu
+		Numbers n;
 		while(true) {
 			try {
 				System.out.println("Please select one of the following:");
@@ -34,16 +34,16 @@ public class Lab1 { //Lab1 class
 				System.out.print("> ");
 				Scanner sc = new Scanner(System.in); //scanner for 
 				int option = sc.nextInt();
-				Numbers n = new Numbers();
+				
 				switch(option){
 					case 1: //initialize an arry = empty it
-						arr = new float[0];
+						n = new Numbers(0); //empty it
 						break;
 						
 					case 2: //scan maximum size of array
 						System.out.print("Enter new size of array: ");
 						int size = sc.nextInt();
-						arr = new float[size];
+						new Numbers(size);
 						break;
 						
 					case 3: //scan new values from user
@@ -52,14 +52,14 @@ public class Lab1 { //Lab1 class
 						
 					case 4: //display array's values
 						System.out.println("Numbers are: ");
-						for(int i=0;i<arr.length;i++) {
-							System.out.println(arr[i]);
-						}
+						for(int i=0;i<numbers.length;i++) { //print all elements
+							System.out.println(numbers[i]);
+						} //for end
 						System.out.println("");
 						break;
 						
 					case 5: //display average, minimum , maximum
-						System.out.printf("Average is: %f, Minimum value is %f, Maximum value is %f\n", n.calcAverage().ave, n.findMinMax().min, n.findMinMax().max);
+						n.toString();
 						System.out.println("");
 						break;
 						
@@ -67,7 +67,7 @@ public class Lab1 { //Lab1 class
 						System.out.println("Exiting...");
 						System.exit(0);
 						break;
-				}
+				} //switch-case end
 			
 			} catch (InputMismatchException e) {
 				System.err.println("Invalid input, please try again.");

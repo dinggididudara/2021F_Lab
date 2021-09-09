@@ -18,6 +18,15 @@ public class Numbers {
 	 * Store the number of items currently in the array.
 	 */
 	private int numItems;
+	
+	/**
+	 * Store total and average
+	 */
+	float total=0;
+	float average=0;
+	float min;
+	float max;
+	
 	/**
 	 * Default Constructor
 	 */
@@ -29,7 +38,8 @@ public class Numbers {
 	 * @param size - Max size of the numbers array
 	 */
 	public Numbers(int size) {
-		numbers = new Float[size];
+		numItems = size;
+		numbers = new Float[numItems];
 	}
 	/**
 	 * Adds a value in the array
@@ -54,31 +64,35 @@ public class Numbers {
 	 * @return float value that represents the average
 	 */
 	public float calcAverage() {
-		float total=0;
-		float ave=0;
 		for(int i=0;i<numbers.length;i++) {
 			total += numbers[i];
 		}
-		ave = total / numbers.length;
-		return ave;
+		average = total / numbers.length;
+		return average;
+	}
+	
+	public float getAve(){
+		return average;
 	}
 	
 	public float findMinMax() {
-		float min=0;
-		float max=0;
+		min=numbers[0];
+		max=numbers[0];
 		for(int i=0;i<numbers.length;i++) {
-			if(numbers[i]>=numbers[i+1]) {
+			if(numbers[i]<=min) {
 				min = numbers[i];
-			} else if(numbers[i]<=numbers[i+1]) {
+			} else if(numbers[i]>=max) { 
 				max = numbers[i];
-			}
-		}
-		return min;
-	}
+			} //else-if end
+		} //for end
+		return min + max;
+	} //findMinMax end
+	
+	
 	@Override
 	public String toString() { //toString method
 //		String str[]= new String[numbers.length];
-		String aveStr = String.toString(ave);
+		String aveStr = String.toString(average);
 		String minStr = String.toString(min);
 		String maxStr = String.toString(max);
 			return "Average is: " + aveStr + ", Minimum value is " + minStr + ", Maximum value is " + maxStr;
