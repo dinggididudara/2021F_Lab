@@ -6,6 +6,7 @@ import java.util.Scanner;
  * This class contains the dynamically allocated array and it's processing
  * Student Name: Soomin
  * Student Number: 040899389 
+ * Section #:301
  * Course: CST8130 - Data Structures
  * @author/Professor: James Mwangi PhD. 
  * 
@@ -21,7 +22,7 @@ public class Lab1 { //Lab1 class
 	} //main end
 	
 	static void displayMainMenu(){ //displaying main menu
-		Numbers n;
+		Numbers n = new Numbers();
 		while(true) {
 			try {
 				System.out.println("Please select one of the following:");
@@ -36,7 +37,7 @@ public class Lab1 { //Lab1 class
 				int option = sc.nextInt();
 				
 				switch(option){
-					case 1: //initialize an arry = empty it
+					case 1: //initialize an array = empty it
 						n = new Numbers(0); //empty it
 						break;
 						
@@ -51,21 +52,20 @@ public class Lab1 { //Lab1 class
 						break;
 						
 					case 4: //display array's values
-						System.out.println("Numbers are: ");
-						for(int i=0;i<numbers.length;i++) { //print all elements
-							System.out.println(numbers[i]);
-						} //for end
-						System.out.println("");
+						n.toString();
 						break;
 						
 					case 5: //display average, minimum , maximum
-						n.toString();
+						System.out.printf("Average is: %f, minimum is %f, maximum is %f", n.getAverage(), n.getMin(), n.getMax());
 						System.out.println("");
 						break;
 						
 					case 6:
 						System.out.println("Exiting...");
 						System.exit(0);
+						break;
+					default :
+						System.err.println("Invalid input, please try again.");
 						break;
 				} //switch-case end
 			
