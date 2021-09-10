@@ -87,7 +87,7 @@ public class Numbers {
 	/**
 	 * finds minimum and maximum elements
 	 */
-	public void findMinMax() {
+	public void findMinMax() { 
 		min=numbers[0];
 		max=numbers[0];
 		for(int i=0;i<numbers.length;i++) {

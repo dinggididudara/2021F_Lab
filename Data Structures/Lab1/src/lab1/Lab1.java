@@ -56,7 +56,7 @@ public class Lab1 { //Lab1 class
 					break;
 
 				case 4: //display array's values
-					n.toString();
+					n.toString(); 
 					break;
 
 				case 5: //display average, minimum , maximum
