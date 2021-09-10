@@ -21,8 +21,11 @@ public class Lab1 { //Lab1 class
 		displayMainMenu();
 	} //main end
 	
-	static void displayMainMenu(){ //displaying main menu
+	static void displayMainMenu(){//displaying main menu
 		Numbers n = new Numbers();
+		Scanner sc = new Scanner(System.in); //scanner
+
+		int option = 0; //initialize
 		while(true) {
 			try {
 				System.out.println("Please select one of the following:");
@@ -33,43 +36,49 @@ public class Lab1 { //Lab1 class
 				System.out.println("5: Display average of the values, minimum value, maximum value");
 				System.out.println("6: To Exit");
 				System.out.print("> ");
-				Scanner sc = new Scanner(System.in); //scanner for 
-				int option = sc.nextInt();
-				
+
+				String line = sc.next(); //scan line
+				option = Integer.valueOf(line); //cast to integer
+
 				switch(option){
-					case 1: //initialize an array = empty it
-						n = new Numbers(0); //empty it
-						break;
-						
-					case 2: //scan maximum size of array
-						System.out.print("Enter new size of array: ");
-						int size = sc.nextInt();
-						n = new Numbers(size);
-						break;
-						
-					case 3: //scan new values from user
-						n.addValue(sc); //scan new value from user
-						break;
-						
-					case 4: //display array's values
-						n.toString();
-						break;
-						
-					case 5: //display average, minimum , maximum
-						System.out.printf("Average is: %f, minimum is %f, maximum is %f", n.getAverage(), n.getMin(), n.getMax());
-						System.out.println("");
-						break;
-						
-					case 6:
-						System.out.println("Exiting...");
-						System.exit(0);
-						break;
-					default :
-						System.err.println("Invalid input, please try again.");
-						break;
+				case 1: //initialize an array = empty it
+					n = new Numbers(0); //empty it
+					break;
+
+				case 2: //scan maximum size of array
+					System.out.print("Enter new size of array: ");
+					int size = sc.nextInt();
+					n = new Numbers(size);
+					break;
+
+				case 3: //scan new values from user
+					n.addValue(sc); //scan new value from user
+					break;
+
+				case 4: //display array's values
+					n.toString();
+					break;
+
+				case 5: //display average, minimum , maximum
+					n.calcAverage();
+					n.findMinMax();
+					System.out.printf("Average is: %f, minimum is %f, maximum is %f\n", n.average, n.min, n.max);
+					System.out.println("");
+					break;
+
+				case 6:
+					System.out.print("Exiting...");
+					sc.close();
+					System.exit(0);
+					break;
+
+				default :
+					System.err.println("Invalid input, please try again.");
+					break;
 				} //switch-case end
-			
-			} catch (InputMismatchException e) {
+			} catch(NumberFormatException nfe) {
+				System.err.println("Invalid input, please try again.");
+			} catch (InputMismatchException ime) {
 				System.err.println("Invalid input, please try again.");
 			} catch(Exception e){
 				System.err.println("Error. Please try again.");
