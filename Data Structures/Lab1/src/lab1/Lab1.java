@@ -1,4 +1,5 @@
 package lab1;
+import java.text.DecimalFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
@@ -24,7 +25,9 @@ public class Lab1 { //Lab1 class
 	static void displayMainMenu(){//displaying main menu
 		Numbers n = new Numbers();
 		Scanner sc = new Scanner(System.in); //scanner
-
+		
+		DecimalFormat df = new DecimalFormat("#.#");
+		
 		int option = 0; //initialize
 		while(true) {
 			try {

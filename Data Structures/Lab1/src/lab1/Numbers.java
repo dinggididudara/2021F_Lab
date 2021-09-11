@@ -28,7 +28,6 @@ public class Numbers {
 	float average;
 	float min;
 	float max;
-	
 	/**
 	 * Default Constructor
 	 */
@@ -78,25 +77,40 @@ public class Numbers {
 	 * @return float value that represents the average
 	 */
 	public float calcAverage() {
-		for(int i=0;i<numbers.length;i++) {
-			total += numbers[i];
-		}
-		average = (float) total / numbers.length;
+		int end=0;
+		if(numbers[0] != null) {
+			for(int i=0;i<numbers.length;i++) {
+				if(numbers[i] != null) {
+					total += numbers[i];
+				} else if(numbers[i] == null) {
+					end = i;
+					break;
+				}//if end
+			} //for end
+			average = total / end;
+		} else {
+			average = (float) 0.0;
+		} 
 		return average;
 	}
 	/**
 	 * finds minimum and maximum elements
 	 */
 	public void findMinMax() { 
-		min=numbers[0];
-		max=numbers[0];
-		for(int i=0;i<numbers.length;i++) {
-			if(numbers[i]<=min) {
-				min = (float) numbers[i];
-			} else if(numbers[i]>=max) { 
-				max = (float) numbers[i];
-			} //else-if end
-		} //for end
+		if(numbers[0] != null) {
+			min=numbers[0];
+			max=numbers[0];
+			for(int i=0;i<numbers.length;i++) {
+				if(numbers[i]<=min) {
+					min = (float) numbers[i];
+				} else if(numbers[i]>=max) { 
+					max = (float) numbers[i];
+				} //else-if end
+			} //for end
+		} else {
+			min = (float) 0.0;
+			max = (float) 0.0;
+		} //if-else end
 	} //findMinMax end
 	
 	@Override
@@ -105,8 +119,6 @@ public class Numbers {
 		for(int i=0;i<numbers.length;i++) { //print all elements
 			if(numbers[i]!=null) {
 				System.out.println(numbers[i]);
-			} else {
-//				numbers[i] = (float) 0.0;
 			} //if-else end
 		} //for end
 		System.out.println("");
