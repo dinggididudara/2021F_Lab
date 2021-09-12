@@ -1,5 +1,4 @@
 package lab1;
-import java.text.DecimalFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
@@ -25,8 +24,6 @@ public class Lab1 { //Lab1 class
 	static void displayMainMenu(){//displaying main menu
 		Numbers n = new Numbers();
 		Scanner sc = new Scanner(System.in); //scanner
-		
-		DecimalFormat df = new DecimalFormat("#.#");
 		
 		int option = 0; //initialize
 		while(true) {
@@ -59,13 +56,11 @@ public class Lab1 { //Lab1 class
 					break;
 
 				case 4: //display array's values
-					n.toString(); 
+					n.displayAll();
 					break;
 
 				case 5: //display average, minimum , maximum
-					n.calcAverage();
-					n.findMinMax();
-					System.out.printf("Average is: %f, minimum is %f, maximum is %f\n", n.average, n.min, n.max);
+					System.out.println(n.toString()); //printing average, minimum, maximum
 					System.out.println("");
 					break;
 
@@ -78,6 +73,7 @@ public class Lab1 { //Lab1 class
 				default :
 					System.err.println("Invalid input, please try again.");
 					break;
+					
 				} //switch-case end
 			} catch(NumberFormatException nfe) {
 				System.err.println("Invalid input, please try again.");

@@ -28,11 +28,12 @@ public class Numbers {
 	float average;
 	float min;
 	float max;
+	
 	/**
 	 * Default Constructor
 	 */
 	public Numbers(){//default constructor
-		
+
 	}
 	/**
 	 * Constructor that initializes the numbers array.
@@ -77,20 +78,23 @@ public class Numbers {
 	 * @return float value that represents the average
 	 */
 	public float calcAverage() {
-		int end=0;
+		int end=0; //last index number that user input
 		if(numbers[0] != null) {
 			for(int i=0;i<numbers.length;i++) {
 				if(numbers[i] != null) {
-					total += numbers[i];
-				} else if(numbers[i] == null) {
-					end = i;
+					total += numbers[i];	
+				} else if(numbers[i] == null){ //if meet null element(empty element)
 					break;
-				}//if end
-			} //for end
-			average = total / end;
-		} else {
+				} //if end
+//				end = i+1;
+			} //for end  
+			average = total / ((float) numItems);
+//			average =  (total / ((float) end)); //total is float, end is int type(cast to float)
+		} else if(numbers[0] == null){ //if user did not input anything yet in array
 			average = (float) 0.0;
-		} 
+		} else {
+			System.err.println("Error");
+		}
 		return average;
 	}
 	/**
@@ -102,9 +106,9 @@ public class Numbers {
 			max=numbers[0];
 			for(int i=0;i<numbers.length;i++) {
 				if(numbers[i]<=min) {
-					min = (float) numbers[i];
+					min = numbers[i];
 				} else if(numbers[i]>=max) { 
-					max = (float) numbers[i];
+					max = numbers[i];
 				} //else-if end
 			} //for end
 		} else {
@@ -112,9 +116,10 @@ public class Numbers {
 			max = (float) 0.0;
 		} //if-else end
 	} //findMinMax end
-	
-	@Override
-	public String toString() { //toString method
+	/**
+	 * display all elements
+	 */
+	public void displayAll() {
 		System.out.println("Numbers are: ");
 		for(int i=0;i<numbers.length;i++) { //print all elements
 			if(numbers[i]!=null) {
@@ -122,6 +127,22 @@ public class Numbers {
 			} //if-else end
 		} //for end
 		System.out.println("");
-		return null;
-	} //toString end
+	}
+//	@Override
+//	public String toString() { //toString method
+//		System.out.println("Numbers are: ");
+//		for(int i=0;i<numbers.length;i++) { //print all elements
+//			if(numbers[i]!=null) {
+//				System.out.println(numbers[i]);
+//			} //if-else end
+//		} //for end
+//		System.out.println("");
+//		return null;
+//	} //toString end
+	@Override
+	public String toString() {
+		calcAverage();
+		findMinMax();
+		return "Average is: " + Float.toString(average) + ", Minimum value is " + Float.toString(min) + ", Maximum value is " + Float.toString(max);
+	}
 } //Numbers class end
