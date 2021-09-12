@@ -20,7 +20,9 @@ public class Lab1 { //Lab1 class
 	public static void main(String[] args) {
 		displayMainMenu();
 	} //main end
-	
+	/**
+	 * displaying main menu
+	 */
 	static void displayMainMenu(){//displaying main menu
 		Numbers n = new Numbers();
 		Scanner sc = new Scanner(System.in); //scanner
@@ -64,13 +66,13 @@ public class Lab1 { //Lab1 class
 					System.out.println("");
 					break;
 
-				case 6:
+				case 6: //Exit
 					System.out.print("Exiting...");
 					sc.close();
 					System.exit(0);
 					break;
 
-				default :
+				default : //Others
 					System.err.println("Invalid input, please try again.");
 					break;
 					

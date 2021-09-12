@@ -128,17 +128,7 @@ public class Numbers {
 		} //for end
 		System.out.println("");
 	}
-//	@Override
-//	public String toString() { //toString method
-//		System.out.println("Numbers are: ");
-//		for(int i=0;i<numbers.length;i++) { //print all elements
-//			if(numbers[i]!=null) {
-//				System.out.println(numbers[i]);
-//			} //if-else end
-//		} //for end
-//		System.out.println("");
-//		return null;
-//	} //toString end
+
 	@Override
 	public String toString() {
 		calcAverage();
