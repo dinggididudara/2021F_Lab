@@ -4,20 +4,19 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * 
+ * Lab2BinLinSearchTest : main method 
  * 
  *
  */
 public class Lab2BinLinSearchTest {
 	/**
-	 * main method : displaying main menu
+	 * main method : displaying main menu and leading to that option
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		BinaryLinearSearch b = new BinaryLinearSearch();
 		while(true) {
 		try {
-
-
 			System.out.println("Select your option in the menu:");
 			System.out.println("1.Initialize and populate an array of 30 random integers.");
 			System.out.println("2.Perform recursive binary and linear search.");
@@ -25,10 +24,10 @@ public class Lab2BinLinSearchTest {
 			System.out.println("4.Exit");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
-
+			
 			switch(option) {
 			case 1:
-
+				b.generateRandomInts(sc);
 			case 2:
 
 			case 3:
@@ -37,7 +36,7 @@ public class Lab2BinLinSearchTest {
 				System.out.println("exiting...");
 				System.exit(0);
 			default:
-				System.err.println("Wrong Option. Please try again.");
+				System.err.println("Please choose the option 1 to 4.");
 				break;
 			}
 			}catch(InputMismatchException ime) {
