@@ -28,6 +28,7 @@ public class Lab2BinLinSearchTest {
 			switch(option) {
 			case 1:
 				b.generateRandomInts(sc);
+				break;
 			case 2:
 
 			case 3:
