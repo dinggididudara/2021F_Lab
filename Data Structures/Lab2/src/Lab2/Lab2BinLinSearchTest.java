@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Lab2BinLinSearchTest : main method 
+ * Lab2BinLinSearchTest : Main method, displaying main menu
  * 
  *
  */
