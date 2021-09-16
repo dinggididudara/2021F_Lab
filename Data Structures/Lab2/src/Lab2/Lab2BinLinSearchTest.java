@@ -28,12 +28,14 @@ public class Lab2BinLinSearchTest {
 			switch(option) {
 			case 1:
 				b.generateRandomInts(sc);
-				break;
 			case 2:
-
+				b.recursiveBinarySearch(sc);
+				b.recursiveLinearSearch(sc);
 			case 3:
-
+				b.iterativeBinarySearch(sc);
+				b.iterativeLinearSearch(sc);
 			case 4:
+				sc.close();
 				System.out.println("exiting...");
 				System.exit(0);
 			default:
