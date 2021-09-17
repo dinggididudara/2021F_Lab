@@ -1,3 +1,13 @@
+/**
+ * CET - CS Academic Level 3
+ * Linear and Binary Search
+ * Student Name: Soomin
+ * Student Number: 040899389 
+ * Section #:301
+ * Course: CST8130 - Data Structures
+ * @author/Professor: James Mwangi PhD. 
+ * 
+  */
 package Lab2;
 
 import java.util.InputMismatchException;
@@ -30,10 +40,8 @@ public class Lab2BinLinSearchTest {
 				b.generateRandomInts(sc);
 			case 2:
 				b.recursiveBinarySearch(sc);
-				b.recursiveLinearSearch(sc);
 			case 3:
 				b.iterativeBinarySearch(sc);
-				b.iterativeLinearSearch(sc);
 			case 4:
 				sc.close();
 				System.out.println("exiting...");
@@ -41,7 +49,7 @@ public class Lab2BinLinSearchTest {
 			default:
 				System.err.println("Please choose the option 1 to 4.");
 				break;
-			}
+			} //switch-case end
 			}catch(InputMismatchException ime) {
 				System.err.println("*****Input Mismatch Exception*****");
 			}catch (Exception e) {
