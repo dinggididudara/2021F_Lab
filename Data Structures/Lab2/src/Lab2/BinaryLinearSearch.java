@@ -22,6 +22,8 @@ public class BinaryLinearSearch {
 	protected int low, mid, high;
 	protected int total = low + high;
 	
+//-------------recursive : stack frame's push, pop / call another method--------------------------// 	
+	
 	/**
 	 * recursiveBinarySearch : recursive binary search
 	 * @param sc
@@ -30,13 +32,7 @@ public class BinaryLinearSearch {
 		System.out.print("Please enter an integer value to search: ");
 		searchKey = sc.nextInt();
 		
-		if(total%2 == 0) { //if it is even number
-			mid = total/2;
-		} else if(total%2 != 0) { //if it is odd number
-			mid = (total+1)/2;
-		} //if-else end
-		
-		System.out.print(mid + " ");
+		remainingElements(searchKey);
 		
 		nanoTime();
 		currentTimeMills();
@@ -49,17 +45,15 @@ public class BinaryLinearSearch {
 	 */
 	int recursiveLinearSearch(Scanner sc, int searchKey) {
 		int no = 0;
-		System.out.print("Please enter an integer value to search: ");
-		searchKey = sc.nextInt();
 
-		for(int i=0;i<randomArr.length;i++) { //linear search
-			if(randomArr[i]==searchKey) {
-				no = i;
+		for(int i=1;i<=randomArr.length;i++) { //linear search
+			if(randomArr[i-1]==searchKey) {
+				no = i-1;
 				break;
 			} //if end
 		} //for end
 		
-		if (no == 0) {
+		if (no == 0) { //if no is initial value
 			System.out.println(searchKey + " was not found");
 			return -1;
 		} else {
@@ -70,22 +64,29 @@ public class BinaryLinearSearch {
 
 			return no;
 		} //if-else end
-		
-		
 	} //recursiveLinearSearch end
 	
-//------------iterative----------------------------------------------------------------------//
+	void remainingElements(int searchKey){ //for recursive search
+		if(total%2 == 0) { //if it is even number
+			mid = total/2;
+		} else if(total%2 != 0) { //if it is odd number
+			mid = (total+1)/2;
+		} //if-else end
+		System.out.print(mid + " ");
+	}
+	
+//------------iterative: for,while,do-while loop--------------------------------------------------//
 		
 	/**
-	 * 	iterativeBinarySearch : 
+	 * 	iterativeBinarySearch : main iterative binary search
 	 * @param sc
 	 */
-	void iterativeBinarySearch(Scanner sc){ //iterative + looping construct
+	int iterativeBinarySearch(Scanner sc){ //iterative + looping construct
 		System.out.print("Please enter an integer value to search: ");
 		searchKey = sc.nextInt();
 		
 		low = 0; //initial low value
-		high = randomArr.length; //initial high value
+		high = randomArr.length-1; //initial high value
 		
 		for(int i=0;i<randomArr.length;i++) {
 			if(total%2 == 0) { //if it is even number
@@ -94,39 +95,49 @@ public class BinaryLinearSearch {
 				mid = (total+1)/2;
 			} //if-else end
 			System.out.print(mid + " "); //print mid
-			if(mid==searchKey) { //middle point is input
-				System.out.println( searchKey + " found at index " + i + " : Iterative Binary");
-				break;
-			}else if(mid>searchKey) { //if search key is smaller than middle point
+			if(randomArr[mid]==searchKey) { //middle point is input, found!
+				return mid;
+			}else if(randomArr[mid]>searchKey) { //if search key is smaller than middle point
 				low = 0;
 				high = mid -1;
-			}else if(mid<searchKey) { //if search key is bigger than middle point
+			}else if(randomArr[mid]<searchKey) { //if search key is bigger than middle point
 				low = mid + 1 ;
 				high = mid*2 - 1;
 			} //if-else end
-			
-			nanoTime();
-			currentTimeMills();
-			iterativeLinearSearch(sc, searchKey);
 		} //for end
+		
+		
+		return -1; //if not found, return -1
+	} //iterativeBinarySearch end
+	/**
+	 * iterativeBinarySearchResult : result for the iterative binary search
+	 * @param sc Scanner
+	 */
+	void iterativeBinarySearchResult(Scanner sc) { //printing the result
+		iterativeBinarySearch(sc);
+		if (mid != -1) {
+			System.out.println(searchKey + " found at index " + mid + " : Iterative Binary");
+		} else {
+			System.out.println(searchKey + " was not found");
+		} //if-else end
+		
+		nanoTime();
+		currentTimeMills();
+		iterativeLinearSearch(searchKey);		
 	} //iterativeBinarySearch end
 	/**
 	 * iterativeLinearSearch : get search key from user input and search with linear search
 	 * @param sc Scanner for search key from user
 	 */
-	int iterativeLinearSearch(Scanner sc, int searchKey) { //iterative linear search
+	int iterativeLinearSearch(int searchKey) { //iterative linear search
 		int no = 0;
-		System.out.print("Please enter an integer value to search: ");
-		searchKey = sc.nextInt();
-
 		for(int i=1;i<=randomArr.length;i++) { //linear search
 			if(randomArr[i-1]==searchKey) {
 				no = i-1;
 				break;
 			} //if end
 		} //for end
-		
-		if (no == 0) {
+		if (no == 0) { //if no is initial value
 			System.out.println(searchKey + " was not found");
 			return -1;
 		} else {
@@ -139,15 +150,21 @@ public class BinaryLinearSearch {
 		} //if-else end
 	} //iterativeLinearSearch end
 	
+//----------------------------generate random numbers and printing time---------------------------//	
+	
 	/**
 	 * generateRandomInts : generating 30 random integers and storing in array
 	 * @param sc Scanner
 	 */
 	void generateRandomInts(Scanner sc) {
-		SecureRandom random = new SecureRandom(); //between 10 to 100, random 30
+		SecureRandom random = new SecureRandom(); //for random numbers
+		randomArr = new int[30];
+		
 		System.out.println("Array of randomly generated integers: ");
 		System.out.print("Unsorted array: [ ");
+		
 		for(int i=0;i<30;i++) {
+			random.nextInt(randomArr);
 			randomArr[i] = (int) random.nextInt(100);
 			System.out.print(randomArr[i] + " ");
 		} //for end
@@ -160,10 +177,6 @@ public class BinaryLinearSearch {
 		} //for end
 		System.out.println("]");
 	} //generateRandomInts end
-	
-	void remainingElements(){
-		
-	}
 	/**
 	 * nanoTime : calculate taken time in nano seconds
 	 */

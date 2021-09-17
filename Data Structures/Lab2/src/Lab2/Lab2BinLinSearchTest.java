@@ -41,7 +41,7 @@ public class Lab2BinLinSearchTest {
 			case 2:
 				b.recursiveBinarySearch(sc);
 			case 3:
-				b.iterativeBinarySearch(sc);
+				b.iterativeBinarySearchResult(sc);
 			case 4:
 				sc.close();
 				System.out.println("exiting...");
