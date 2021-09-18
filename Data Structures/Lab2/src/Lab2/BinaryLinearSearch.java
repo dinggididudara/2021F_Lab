@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public class BinaryLinearSearch {
 	protected int searchKey;
-	protected int[] randomArr; //array for random numbers
+	protected static int[] randomArr; //array for random numbers
 	protected int low, mid, high;
 	protected int total = low + high;
 	
@@ -31,9 +31,10 @@ public class BinaryLinearSearch {
 	void recursiveBinarySearch(Scanner sc) { //recursion
 		System.out.print("Please enter an integer value to search: ");
 		searchKey = sc.nextInt();
-				
+		
 		remainingElements(searchKey);
 		
+		System.out.println("");
 		nanoTime();
 		currentTimeMills();
 		recursiveLinearSearch(sc, searchKey);
@@ -43,10 +44,15 @@ public class BinaryLinearSearch {
 	 * @param searchKey
 	 */
 	void remainingElements(int searchKey){ //for recursive search
+		for(int j=0;j<30;j++) {
+			System.out.print(randomArr[j] + " "); //print sorted array
+		} //for end
+		System.out.println("");
+				
 		low = 0; //initial low value
-		high = randomArr.length-1; //initial high value
+		high = 29; //initial high value
 		
-		for(int i=0;i<randomArr.length;i++) {
+		for(int i=0;i<30;i++) {
 			if(total%2 == 0) { //if it is even number
 				mid = total/2;
 			} else if(total%2 != 0) { //if it is odd number
@@ -55,18 +61,16 @@ public class BinaryLinearSearch {
 			System.out.print(mid + " "); //print mid
 			
 			if(randomArr[mid]==searchKey) { //middle point is input, found!
+				System.out.println("");
 				System.out.println(searchKey + " found at index at " + i + ": Recursive Binary Search");
 				break;
 			}else if(randomArr[mid]>searchKey) { //if search key is smaller than middle point
-				low = 0;
 				high = mid -1;
 			}else if(randomArr[mid]<searchKey) { //if search key is bigger than middle point
 				low = mid + 1 ;
-				high = mid*2 - 1;
+//				high = mid*2 - 1;
 			} //if-else end
-			System.out.println("");
 		} //for end
-		System.out.println();
 	} //remainingElements end
 	/**
 	 * recursiveLinearSearch : 
@@ -96,7 +100,6 @@ public class BinaryLinearSearch {
 		} //if-else end
 	} //recursiveLinearSearch end
 	
-	
 //------------iterative: for,while,do-while loop--------------------------------------------------//
 		
 	/**
@@ -107,10 +110,15 @@ public class BinaryLinearSearch {
 		System.out.print("Please enter an integer value to search: ");
 		searchKey = sc.nextInt();
 		
-		low = 0; //initial low value
-		high = randomArr.length-1; //initial high value
+		for(int j=0;j<30;j++) {
+			System.out.print(randomArr[j] + " "); //print sorted array
+		} //for end
+		System.out.println("");
 		
-		for(int i=0;i<randomArr.length;i++) {
+		low = 0; //initial low value
+		high = 29; //initial high value
+		
+		for(int i=0;i<30;i++) {
 			if(total%2 == 0) { //if it is even number
 				mid = total/2;
 			} else if(total%2 != 0) { //if it is odd number
@@ -120,15 +128,14 @@ public class BinaryLinearSearch {
 			if(randomArr[mid]==searchKey) { //middle point is input, found!
 				return mid;
 			}else if(randomArr[mid]>searchKey) { //if search key is smaller than middle point
-				low = 0;
+//				low = 0;
 				high = mid -1;
 			}else if(randomArr[mid]<searchKey) { //if search key is bigger than middle point
 				low = mid + 1 ;
-				high = mid*2 - 1;
+//				high = mid*2 - 1;
 			} //if-else end
 		} //for end
-		
-		
+		System.out.println("");
 		return -1; //if not found, return -1
 	} //iterativeBinarySearch end
 	/**
@@ -145,6 +152,7 @@ public class BinaryLinearSearch {
 		
 		nanoTime();
 		currentTimeMills();
+		
 		iterativeLinearSearch(searchKey);		
 	} //iterativeBinarySearch end
 	/**
@@ -185,7 +193,7 @@ public class BinaryLinearSearch {
 		System.out.println("Array of randomly generated integers: ");
 		System.out.print("Unsorted array: [ ");
 		int a=0; //array index start number
-		for(int i=0;i<100000;i++) { 
+		for(int i=0;i<100000;i++) {
 			int number = random.nextInt(100); //generate random number
 			if(randomArr[29] > 0 ) { //if last element is not null(zero) = if it is full
 				break;
