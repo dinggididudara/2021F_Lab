@@ -33,7 +33,8 @@ public class BinaryLinearSearch {
 	 * @param sc
 	 */
 	void recursiveBinarySearch(Scanner sc) { //recursion
-		System.out.print("Please enter an integer value to search: ");
+		System.out.println("Please enter an integer value to search: ");
+		System.out.print(">");
 		searchKey = sc.nextInt();
 
 		remainingElements(searchKey);
@@ -139,7 +140,8 @@ public class BinaryLinearSearch {
 	 * @param sc
 	 */
 	int iterativeBinarySearch(Scanner sc){ //iterative + looping construct
-		System.out.print("Please enter an integer value to search: ");
+		System.out.println("Please enter an integer value to search: ");
+		System.out.print(">");
 		searchKey = sc.nextInt();
 		
 		for(int j=0;j<30;j++) {
@@ -257,7 +259,7 @@ public class BinaryLinearSearch {
 		System.out.println("Array of randomly generated integers: ");
 		System.out.print("Unsorted array: [ ");
 		int a=0; //array index start number
-		for(int i=0;i<100000;i++) {
+		for(int i=0;i<100000;i++) { //print only 20
 			int number = random.nextInt(100); //generate random number
 			if(randomArr[29] > 0 ) { //if last element is not null(zero) = if it is full
 				break;
@@ -268,7 +270,7 @@ public class BinaryLinearSearch {
 				a++; //increase index number
 			} //if end
 		} //for end
-		System.out.println("]");
+		System.out.println("...]");
 		
 		Arrays.sort(randomArr); //sorted array
 		System.out.print("Sorted array:   [ ");
@@ -288,6 +290,7 @@ public class BinaryLinearSearch {
 	 */
 	void currentTimeMills(long startTimeMil, long endTimeMil){ //get current time in mills
 		System.out.println("Time taken in milliseconds: " + (endTimeMil-startTimeMil));
+		System.out.println("");
 	} //currentTimeMills end
 	
 } //BinaryLinearSearch class end

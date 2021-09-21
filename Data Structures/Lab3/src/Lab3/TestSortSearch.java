@@ -33,6 +33,7 @@ public class TestSortSearch {
 			System.out.println("3: Perform iterative binary and linear search.");
 			System.out.println("4: Sort the array");
 			System.out.println("5: Quit");
+			System.out.print(">");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
 			
