@@ -18,66 +18,157 @@ import java.util.Scanner;
  *
  */
 public class SortingAlgorithms {
+	protected long startTimeNano; //for checking time - nano
+	protected long endTimeNano; //for checking time - nano
+	protected long startTimeMil; //for checking time - milli
+	protected long endTimeMil; //for checking time - milli
 
-	void menuDisplay() { //menu display
-		System.out.println("Select a sorting algorithm to sort the data array");
-		System.out.println("\tB. Bubble Sort");
-		System.out.println("\tI. Insertion Sort");
-		System.out.println("\tS. Selection Sort");
-		System.out.println("\tM. Merge Sort");
-		System.out.println("\tQ. Quick Sort");
-		System.out.println("\tR. Return to Main Menu");
-
-		Scanner sc = new Scanner(System.in);
-		byte option = sc.nextByte();
-
-		switch(option) {
-		case 'B':
-			break;
-		case 'I':
-			break;
-		case 'S':
-			break;
-		case 'M':
-			break;
-		case 'Q':
-			break;
-		case 'R':
-			break;
-		default:
+	void menuDisplay(int[] randomArr) { //menu display
+		while(true) {
+			System.out.println("Select a sorting algorithm to sort the data array");
 			System.out.println("");
-			break;
-		} //switch-case end
-	}
+			System.out.println("\tB. Bubble Sort");
+			System.out.println("\tI. Insertion Sort");
+			System.out.println("\tS. Selection Sort");
+			System.out.println("\tM. Merge Sort");
+			System.out.println("\tQ. Quick Sort");
+			System.out.println("\tR. Return to Main Menu");
+			System.out.println("");
+			System.out.print(">");
+			Scanner sc = new Scanner(System.in);
+			byte option = sc.nextByte();
+
+			switch(option) {
+			case 'B':
+				bubbleSort(randomArr);
+				break;
+			case 'I':
+				insertionSort(randomArr);
+				break;
+			case 'S':
+				selectionSort(randomArr);
+				break;
+			case 'M':
+				mergeSort(randomArr);
+				break;
+			case 'Q':
+				break;
+			case 'R':
+				System.out.println("Returning to main menu...");
+				//return to the main method
+				break;
+			default:
+				System.err.println("Invalid option, please try again");
+				break;
+			} //switch-case end
+		} //while end
+	} //menuDisplay end
 	/**
-	 * 
+	 * bubble sort: 
 	 */
-	void bubbleSort() {
+	void bubbleSort(int[] randomArr) {
 		System.out.println("Bubble Sort: Simple sorting algorithm\t- o(n2) Complexity -");
+		startTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+
+		//do sort
+		System.out.print("[");
+		for(int i=0; i < 20; i++) {
+			
+		}
+		System.out.println("...]");
+
+		endTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+		nanoTime(startTimeNano, endTimeNano);
+		currentTimeMills(startTimeMil, endTimeMil);
 	} //bubble sort end
 	/**
-	 * 
+	 * insertion sort: using unsorted array
 	 */
-	void insertionSort() {
+	void insertionSort(int[] randomArr) {
 		System.out.println("Insertion Sort: Simple sorting algorithm\t- o(n2) Complexity -");
+		startTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+
+		//show unsorted array
+		System.out.print("[");
+		for(int i=0; i < 20; i++) {
+			System.out.println(randomArr[i]);
+		}
+		System.out.println("...]");
+		
+		//doing insertion sorting
+		System.out.println("[");
+		for(int j=0;j<20;j++) {
+			System.out.println();
+		}
+		System.out.println("...]");
+
+		endTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+		nanoTime(startTimeNano, endTimeNano);
+		currentTimeMills(startTimeMil, endTimeMil);
 	} //insertion sort end
 	/**
-	 * 
+	 * Selection sort
 	 */
-	void selectionSort() {
+	void selectionSort(int[] randomArr) {
 		System.out.println("Selection Sort: Simple sorting algorithm\t- o(n2) Complexity -");
+		startTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+
+		//do sort
+		System.out.print("[");
+		for(int i=0; i < 20; i++) {
+			
+		}
+		System.out.println("...]");
+
+		endTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+		nanoTime(startTimeNano, endTimeNano);
+		currentTimeMills(startTimeMil, endTimeMil);
 	} //selection sort end
 	/**
-	 * 
+	 * Merge Sort
 	 */
-	void mergeSort() {
+	void mergeSort(int[] randomArr) {
 		System.out.println("Merge Sort: Simple sorting algorithm\t- o(n log n) Complexity -");
+		startTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+
+		//do sort
+		System.out.print("[");
+		for(int i=0; i < 20; i++) {
+			
+		}
+		System.out.println("...]");
+
+		endTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+		nanoTime(startTimeNano, endTimeNano);
+		currentTimeMills(startTimeMil, endTimeMil);
 	} //merge sort end
 	/**
-	 * 
+	 * Quick Sort
 	 */
-	void quickSort() {
+	void quickSort(int[] randomArr) {
 		System.out.println("Quick Sort: Simple sorting algorithm\t- o(n log n) Complexity -");
+		startTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+
+		//do sort
+		System.out.print("[");
+		for(int i=0; i < 20; i++) {
+			
+		}
+		System.out.println("...]");
+
+		endTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+		nanoTime(startTimeNano, endTimeNano);
+		currentTimeMills(startTimeMil, endTimeMil);
 	} //quick sort end
 	/**
 	 * nanoTime : calculate taken time in nano seconds

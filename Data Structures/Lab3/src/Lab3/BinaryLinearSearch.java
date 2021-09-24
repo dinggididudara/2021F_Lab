@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public class BinaryLinearSearch {
 	protected int searchKey;
-	protected static int[] randomArr; //array for random numbers
+	protected int[] randomArr; //array for random numbers
 	protected int low, mid, high;
 	protected int total;
 	protected long startTimeNano; //for checking time
@@ -272,12 +272,12 @@ public class BinaryLinearSearch {
 		} //for end
 		System.out.println("...]");
 		
-		Arrays.sort(randomArr); //sorted array
-		System.out.print("Sorted array:   [ ");
-		for(int j=0;j<30;j++) {
-			System.out.print(randomArr[j] + " "); //print sorted array
-		} //for end
-		System.out.println("]");
+//		Arrays.sort(randomArr); //sorted array
+//		System.out.print("Sorted array:   [ ");
+//		for(int j=0;j<30;j++) {
+//			System.out.print(randomArr[j] + " "); //print sorted array
+//		} //for end
+//		System.out.println("]");
 	} //generateRandomInts end
 	/**
 	 * nanoTime : calculate taken time in nano seconds

@@ -25,6 +25,7 @@ public class TestSortSearch {
 	 */
 	public static void main(String[] args) {
 		BinaryLinearSearch b = new BinaryLinearSearch();
+		SortingAlgorithms s = new SortingAlgorithms();
 		while(true) {
 		try {
 			System.out.println("Select your option in the menu below:");
@@ -48,7 +49,7 @@ public class TestSortSearch {
 				b.iterativeBinarySearchResult(sc);
 				break;
 			case 4:
-				
+				s.menuDisplay(b.randomArr);
 				break;
 			case 5:
 				sc.close();
