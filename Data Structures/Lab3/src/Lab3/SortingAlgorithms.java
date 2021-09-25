@@ -68,7 +68,6 @@ public class SortingAlgorithms {
 	 */
 	void bubbleSort(int[] randomArr) {
 		printUnsortedArr(randomArr);		
-
 		//do sort
 		System.out.println("Bubble Sort: Simple sorting algorithm\t- o(n2) Complexity -");
 		startTimeNano = System.nanoTime();
@@ -92,7 +91,7 @@ public class SortingAlgorithms {
 	 * insertion sort: using unsorted array
 	 */
 	void insertionSort(int[] randomArr) {
-		
+
 		int nextTurn;
 
 		//show unsorted array
@@ -126,23 +125,28 @@ public class SortingAlgorithms {
 	 */
 	void selectionSort(int[] randomArr) {
 		printUnsortedArr(randomArr);
-		
-
-		//do sort
+		//do sorting
 		System.out.println("Selection Sort: Simple sorting algorithm\t- o(n2) Complexity -");
 		startTimeNano = System.nanoTime();
 		endTimeMil = System.currentTimeMillis();
-		
+
 		int min; //minimum index
-		System.out.print("[");
+		int temp=0; //temporary storage
+
 		for(int i=0; i < 20; i++) {
 			min = i;
-			for(int j=i+1; j < 20; j++) {
-				if(randomArr[j] < randomArr[min]) {
+			for(int j=i+1; j < 19; j++) { //searching the minimum value one by one
+				if(randomArr[j] < randomArr[min]) { //if smaller than minimum index's value
 					min = j;
-				}
-				swap(randomArr[i], randomArr[min]);
-			}
+					temp = randomArr[i];
+					randomArr[i] = randomArr[min];
+					randomArr[min] = temp;
+				} //if end
+			} //for end
+		} //for end
+		System.out.print("[");
+		for(int i=0;i<20;i++) {
+			System.out.print(randomArr[i]);
 		}
 		System.out.println("...]");
 
@@ -161,7 +165,7 @@ public class SortingAlgorithms {
 		}
 		System.out.println("...]");
 		System.out.println("");
-		
+
 		//do sort
 		startTimeNano = System.nanoTime();
 		endTimeMil = System.currentTimeMillis();
@@ -186,7 +190,7 @@ public class SortingAlgorithms {
 		//do sort
 		startTimeNano = System.nanoTime();
 		endTimeMil = System.currentTimeMillis();
-		
+
 		int pivot = randomArr[0];
 		System.out.println("Quick Sort: Simple sorting algorithm\t- o(n log n) Complexity -");
 		System.out.println("");
