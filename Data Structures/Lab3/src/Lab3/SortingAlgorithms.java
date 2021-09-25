@@ -74,7 +74,7 @@ public class SortingAlgorithms {
 		//do sort
 		System.out.print("[");
 		for(int i=0; i < 20; i++) {
-			
+
 		}
 		System.out.println("...]");
 
@@ -87,9 +87,9 @@ public class SortingAlgorithms {
 	 * insertion sort: using unsorted array
 	 */
 	void insertionSort(int[] randomArr) {
-		System.out.println("Insertion Sort: Simple sorting algorithm\t- o(n2) Complexity -");
 		startTimeNano = System.nanoTime();
 		endTimeMil = System.currentTimeMillis();
+		int nextTurn;
 
 		//show unsorted array
 		System.out.print("[");
@@ -97,12 +97,22 @@ public class SortingAlgorithms {
 			System.out.println(randomArr[i]);
 		}
 		System.out.println("...]");
-		
+
 		//doing insertion sorting
+		System.out.println("Insertion Sort: Simple sorting algorithm\t- o(n2) Complexity -");
+
 		System.out.println("[");
 		for(int j=0;j<20;j++) {
-			System.out.println();
-		}
+			for(int z = j; z > 0; z--) {
+				if(randomArr[z] > randomArr[z+1]) {
+					randomArr[z] = randomArr[z+1];
+					randomArr[z+1] = randomArr[z];
+				} else {
+					break;
+				} //else-if end
+			}
+			System.out.println(randomArr[j]);
+		} //for end
 		System.out.println("...]");
 
 		endTimeNano = System.nanoTime();
@@ -114,14 +124,16 @@ public class SortingAlgorithms {
 	 * Selection sort
 	 */
 	void selectionSort(int[] randomArr) {
-		System.out.println("Selection Sort: Simple sorting algorithm\t- o(n2) Complexity -");
-		startTimeNano = System.nanoTime();
-		endTimeMil = System.currentTimeMillis();
+		
+		
 
 		//do sort
+		startTimeNano = System.nanoTime();
+		endTimeMil = System.currentTimeMillis();
+		System.out.println("Selection Sort: Simple sorting algorithm\t- o(n2) Complexity -");
 		System.out.print("[");
 		for(int i=0; i < 20; i++) {
-			
+
 		}
 		System.out.println("...]");
 
@@ -134,14 +146,21 @@ public class SortingAlgorithms {
 	 * Merge Sort
 	 */
 	void mergeSort(int[] randomArr) {
-		System.out.println("Merge Sort: Simple sorting algorithm\t- o(n log n) Complexity -");
+		System.out.println("[");
+		for(int i=0;i < 20;i++) {
+			System.out.print(randomArr[i]);
+		}
+		System.out.println("...]");
+		System.out.println("");
+		
+		//do sort
 		startTimeNano = System.nanoTime();
 		endTimeMil = System.currentTimeMillis();
-
-		//do sort
+		System.out.println("Merge Sort: Simple sorting algorithm\t- o(n log n) Complexity -");
+		System.out.println("");
 		System.out.print("[");
 		for(int i=0; i < 20; i++) {
-			
+			//cut half,half,half,half,...and copy
 		}
 		System.out.println("...]");
 
@@ -151,17 +170,25 @@ public class SortingAlgorithms {
 		currentTimeMills(startTimeMil, endTimeMil);
 	} //merge sort end
 	/**
-	 * Quick Sort
+	 * Quick Sort : using unsorted array
 	 */
 	void quickSort(int[] randomArr) {
-		System.out.println("Quick Sort: Simple sorting algorithm\t- o(n log n) Complexity -");
+		printUnsortedArr(randomArr);		
+		//do sort
 		startTimeNano = System.nanoTime();
 		endTimeMil = System.currentTimeMillis();
-
-		//do sort
+		
+		int pivot = randomArr[0];
+		System.out.println("Quick Sort: Simple sorting algorithm\t- o(n log n) Complexity -");
+		System.out.println("");
 		System.out.print("[");
-		for(int i=0; i < 20; i++) {
-			
+		for(int i=1; i < 20; i++) {
+			if(pivot > randomArr[i]) {
+				randomArr[i] = pivot;
+				randomArr[i-1] = randomArr[i]; //change position
+			} else {
+				continue;
+			}
 		}
 		System.out.println("...]");
 
@@ -170,6 +197,18 @@ public class SortingAlgorithms {
 		nanoTime(startTimeNano, endTimeNano);
 		currentTimeMills(startTimeMil, endTimeMil);
 	} //quick sort end
+	/**
+	 * printUnsortedArr : printing unsorted Array for the sorting
+	 * @param randomArr random array from TestSortSearch class
+	 */
+	void printUnsortedArr(int[] randomArr) {
+		System.out.println("[");
+		for(int i=0;i<20;i++) {
+			System.out.print(randomArr[i]);
+		}
+		System.out.println("...]");
+		System.out.println("");
+	}
 	/**
 	 * nanoTime : calculate taken time in nano seconds
 	 */
