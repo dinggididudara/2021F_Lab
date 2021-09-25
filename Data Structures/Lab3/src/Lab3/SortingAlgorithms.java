@@ -70,7 +70,7 @@ public class SortingAlgorithms {
 	 * bubble sort: compare two values right next, larger number send to the right side.
 	 */
 	void bubbleSort(int[] randomArr) {
-		printUnsortedArr(randomArr);		
+		printArr(randomArr);		
 		//do sort
 		System.out.println("Bubble Sort: Simple sorting algorithm\t- o(n2) Complexity -");
 		startTimeNano = System.nanoTime();
@@ -97,7 +97,7 @@ public class SortingAlgorithms {
 	 */
 	void insertionSort(int[] randomArr) {
 		//show unsorted array
-		printUnsortedArr(randomArr);
+		printArr(randomArr);
 		//doing insertion sorting
 		System.out.println("Insertion Sort: Simple sorting algorithm\t- o(n2) Complexity -");
 		startTimeNano = System.nanoTime();
@@ -125,7 +125,7 @@ public class SortingAlgorithms {
 	 * 
 	 */
 	void selectionSort(int[] randomArr) {
-		printUnsortedArr(randomArr);
+		printArr(randomArr);
 		//do sorting
 		System.out.println("Selection Sort: Simple sorting algorithm\t- o(n2) Complexity -");
 		startTimeNano = System.nanoTime();
@@ -159,15 +159,14 @@ public class SortingAlgorithms {
 	 * Merge Sort : divide and conquer
 	 */
 	void mergeSort(int[] randomArr) {
-		printUnsortedArr(randomArr);
+		printArr(randomArr);
 		//do sort
 		System.out.println("Merge Sort: Simple sorting algorithm\t- o(n log n) Complexity -");
 		System.out.println("");
 		startTimeNano = System.nanoTime();
 		endTimeMil = System.currentTimeMillis();
 		System.out.print("[");
-	
-		mergeSort(randomArr, 0, )
+		mergeSort(randomArr, 0, 20);
 		System.out.println("...]");
 
 		endTimeNano = System.nanoTime();
@@ -176,40 +175,39 @@ public class SortingAlgorithms {
 		currentTimeMills(startTimeMil, endTimeMil);
 	} //merge sort end
 	/**
-	 * merge sort :
-	 * @param randomArr
-	 * @param start
-	 * @param end
+	 * merge sort
+	 * @param randomArr random array
+	 * @param start start index
+	 * @param end end index
 	 */
 	void mergeSort(int[] randomArr, int start, int end) {
 		if(start<end) {
-			int mid = (start+end)/2;
-			mergeSort(randomArr, start, end);
-			mergeSort(randomArr, mid+1, end);
+			int mid = (start+end)/2; //find middle index
+			mergeSort(randomArr, start, end); //send start, end index
+			mergeSort(randomArr, mid+1, end); //send (middle point + 1) index, end index
 
 			int a = start;
 			int b = mid + 1;
 			int index = a;
 			
-			while (a <= mid || b <= end) {
-				if(b > end || (a <= mid && src[a] < src[b])) {
-					temp[index++] = src[a++];
-				} else {
-					temp[index++] = src[b++];
+			while (a <= mid || b <= end) { //do until start index is smaller than mid or end index is smaller than end index
+				if(b > end || (a <= mid && randomArr[a] < randomArr[b])) { //if (b is smaller than end) or (a is smaller than middle index && a index value < b index value) 
+					temp[index++] = randomArr[a++]; //put that next value in temporary array 
+				} else { //if not
+					temp[index++] = randomArr[b++]; //put next value of end index in temporary array - in next index number
 				} //if-else end
 			} //while end
-			for(int i=start; i <= end;i++) {
-				src[i] = temp[i];
+			for(int i = start; i <= end; i++) { 
+				randomArr[i] = temp[i]; //put temporary array to randomArr
 			}
 		} //if end
-
-
+		printArr(randomArr); //print array
 	} //mergeSort end
 	/**
-	 * Quick Sort : using unsorted array
+	 * Quick Sort : divide and conquer
 	 */
 	void quickSort(int[] randomArr) {
-		printUnsortedArr(randomArr);		
+		printArr(randomArr);		
 		//do sort
 		startTimeNano = System.nanoTime();
 		endTimeMil = System.currentTimeMillis();
@@ -237,11 +235,11 @@ public class SortingAlgorithms {
 	 * printUnsortedArr : printing unsorted Array for the sorting
 	 * @param randomArr random array from TestSortSearch class
 	 */
-	void printUnsortedArr(int[] randomArr) {
+	void printArr(int[] randomArr) {
 		System.out.println("[");
 		for(int i=0;i<20;i++) {
 			System.out.print(randomArr[i]);
-		}
+		} //for end
 		System.out.println("...]");
 		System.out.println("");
 	}
