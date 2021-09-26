@@ -18,7 +18,8 @@ import java.util.Scanner;
  */
 public class BinaryLinearSearch {
 	protected int searchKey;
-	protected static int[] randomArr; //array for random numbers
+	protected int[] randomArr; //array for random numbers - sorted
+	protected int[] unsorted; //unsorted array
 	protected int low, mid, high;
 	protected int total;
 	protected long startTimeNano; //for checking time
@@ -36,16 +37,13 @@ public class BinaryLinearSearch {
 		System.out.println("Please enter an integer value to search: ");
 		System.out.print(">");
 		searchKey = sc.nextInt();
-
-		System.out.print("[ ");
-		for(int i=0;i<20;i++) {
-			System.out.print(randomArr[i] + " ");
-		}
-		System.out.println("...]");
-
+		//unsorted array print
+		System.out.println("");
+		printSortedArr();
+		//recursive binary search
 		remainingElements(searchKey);
-
-		recursiveLinearSearch(sc, searchKey);
+		//recursive linear search
+		recursiveLinearSearch(searchKey);
 	} //recursiveBinarySearch end
 	/**
 	 * remainingElements : calculate middle point, comparing with search key, print index
@@ -54,17 +52,18 @@ public class BinaryLinearSearch {
 	void remainingElements(int searchKey){ //for recursive search
 		startTimeNano = System.nanoTime();
 		startTimeMil = System.currentTimeMillis();
-
+		
 		low = 0; //initial low value
-		high = 29; //initial high value
+		high = randomArr.length-1; //initial high value
 
-		for(int i=0;i<30;i++) {
+		for(int i=0;i<randomArr.length;i++) {
 			total = low + high;
 			if(total%2 == 0) { //if it is even number
 				mid = total/2;
 			} else if(total%2 != 0) { //if it is odd number
 				mid = (total+1)/2;
 			} //if-else end
+
 			if(randomArr[mid]==searchKey) { //middle point is input, found!
 				endTimeNano = System.nanoTime();
 				endTimeMil = System.currentTimeMillis();
@@ -100,18 +99,21 @@ public class BinaryLinearSearch {
 	 * @param sc Scanner
 	 * @return 
 	 */
-	int recursiveLinearSearch(Scanner sc, int searchKey) {
+	int recursiveLinearSearch(int searchKey) {
 		startTimeNano = System.nanoTime();
 		startTimeMil = System.currentTimeMillis();
-		int no = 0;
-		for(int i=1;i<=randomArr.length;i++) { //linear search
-			if(randomArr[i-1]==searchKey) {
-				no = i-1;
+
+		int no = -1; //initial number -1
+		for(int i = 0;i < randomArr.length;i++) { //linear search
+			if(randomArr[i]==searchKey) {
+				no = i;
 				break;
-			} //if end
+			} else{
+				continue;
+			}//else-if end
 		} //for end
 
-		if (no == 0) { //if no is initial value
+		if (no == -1) { //if no is initial value
 			endTimeNano = System.nanoTime();
 			endTimeMil = System.currentTimeMillis();
 
@@ -120,6 +122,7 @@ public class BinaryLinearSearch {
 
 			nanoTime(startTimeNano, endTimeNano);
 			currentTimeMills(startTimeMil, endTimeMil);
+
 			return -1;
 		} else {
 			endTimeNano = System.nanoTime();
@@ -145,18 +148,13 @@ public class BinaryLinearSearch {
 		System.out.println("Please enter an integer value to search: ");
 		System.out.print(">");
 		searchKey = sc.nextInt();
-
-		System.out.print("[ ");
-		for(int i=0;i<20;i++) {
-			System.out.print(randomArr[i] + " ");
-		}
-		System.out.println("...]");
 		System.out.println("");
+		printSortedArr();
 
 		low = 0; //initial low value
-		high = 29; //initial high value
+		high = randomArr.length-1; //initial high value
 
-		for(int i=0;i<randomArr.length;i++) {
+		for(int i = 0; i < randomArr.length; i++) {
 			total = low + high;
 			if(total%2 == 0) { //if it is even number
 				mid = total/2;
@@ -170,6 +168,7 @@ public class BinaryLinearSearch {
 			}else if(randomArr[mid]<searchKey) { //if search key is bigger than middle point
 				low = mid + 1 ;
 			} //if-else end 
+			
 			if((high-low) == 1){
 				endTimeNano = System.nanoTime();
 				endTimeMil = System.currentTimeMillis();
@@ -190,8 +189,9 @@ public class BinaryLinearSearch {
 	void iterativeBinarySearchResult(Scanner sc) { //printing the result
 		startTimeNano = System.nanoTime();
 		startTimeMil = System.currentTimeMillis();
+
 		iterativeBinarySearch(sc);
-		if (mid != -1) {
+		if (mid != -1) { //if not return -1
 			endTimeNano = System.nanoTime();
 			endTimeMil = System.currentTimeMillis();
 			System.out.println(searchKey + " found at index " + mid + " : Iterative Binary Search");
@@ -202,7 +202,7 @@ public class BinaryLinearSearch {
 			endTimeNano = System.nanoTime();
 			endTimeMil = System.currentTimeMillis();
 
-			System.out.println(searchKey + " was not found");
+			System.out.println(searchKey + " was not found : Iterative Binary Search");
 			System.out.println("");
 			nanoTime(startTimeNano, endTimeNano);
 			currentTimeMills(startTimeMil, endTimeMil);
@@ -217,14 +217,18 @@ public class BinaryLinearSearch {
 	int iterativeLinearSearch(int searchKey) { //iterative linear search
 		startTimeNano = System.nanoTime();
 		startTimeMil = System.currentTimeMillis();
-		int no = 0;
-		for(int i=1;i<=randomArr.length;i++) { //linear search
-			if(randomArr[i-1]==searchKey) {
-				no = i-1;
+//		Arrays.sort(randomArr);
+		int no = -1;
+		for(int i = 0; i < randomArr.length; i++) { //linear search
+			if(randomArr[i]==searchKey) {
+				no = i;
 				break;
-			} //if end
+			} else{
+				continue;
+			}//else-if end
 		} //for end
-		if (no == 0) { //if no is initial value
+		
+		if (no == -1) { //if no is initial value
 			endTimeNano = System.nanoTime();
 			endTimeMil = System.currentTimeMillis();
 
@@ -256,6 +260,7 @@ public class BinaryLinearSearch {
 	void generateRandomInts(Scanner sc) {
 		SecureRandom random = new SecureRandom(); //for random numbers
 		randomArr = new int[1000];
+		unsorted = new int[1000];
 
 		System.out.println("Array of randomly generated integers: ");
 		int a=0; //array index start number
@@ -264,7 +269,7 @@ public class BinaryLinearSearch {
 
 			if(number>20) { //random range minimum 20
 				randomArr[a] = number;
-				//				System.out.print(randomArr[a] + " ");
+				unsorted[a] = number; //copy to unsorted array
 				a++; //increase index number
 			} //if end
 			if(a == 1000) { //if last element
@@ -272,24 +277,26 @@ public class BinaryLinearSearch {
 			} //if end			
 		} //for end
 		System.out.print("[ ");
-		for(int d=0;d<20;d++) {
+		for(int d=0;d<30;d++) {
 			System.out.print(randomArr[d] + " ");
 		}
 		System.out.println("...]");
 		System.out.println("");
+
+		Arrays.sort(randomArr); //randomArr = sorted array
 	} //generateRandomInts end
 	/**
-	 * sorted array
+	 * unsorted array print
 	 */
-	//	void sortedArr() {
-	//		Arrays.sort(randomArr); //sorted array
-	//		System.out.print("[ ");
-	//		for(int j=0;j<20;j++) {
-	//			System.out.print(randomArr[j] + " "); //print sorted array
-	//		} //for end
-	//		System.out.println("...]");
-	//		System.out.println("");
-	//	}
+	void printSortedArr() {
+		Arrays.sort(randomArr);
+		System.out.print("[ ");
+		for(int j=0;j<20;j++) {
+			System.out.print(randomArr[j] + " "); //print sorted array
+		} //for end
+		System.out.println("...]");
+		System.out.println("");
+	}
 	/**
 	 * nanoTime : calculate taken time in nano seconds
 	 */

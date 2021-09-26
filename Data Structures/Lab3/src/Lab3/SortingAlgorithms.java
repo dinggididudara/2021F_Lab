@@ -25,7 +25,7 @@ public class SortingAlgorithms {
 
 	protected int[] temp; //using for merge sort. temporary array
 
-	void menuDisplay(Scanner sc, int[] randomArr) { //menu display
+	void menuDisplay(Scanner sc, int[] unsorted) { //menu display
 		while(true) {
 			System.out.println("Select a sorting algorithm to sort the data array");
 			System.out.println("");
@@ -42,19 +42,19 @@ public class SortingAlgorithms {
 
 			switch(option) {
 			case "B":
-				bubbleSort(randomArr);
+				bubbleSort(unsorted);
 				break;
 			case "I":
-				insertionSort(randomArr);
+				insertionSort(unsorted);
 				continue;
 			case "S":
-				selectionSort(randomArr);
+				selectionSort(unsorted);
 				continue;
 			case "M":
-				mergeSort(randomArr);
+				mergeSort(unsorted);
 				continue;
 			case "Q":
-				quickSort(randomArr);
+				quickSort(unsorted);
 				continue;
 			case "R":
 				System.out.println("Returning to main menu...");
@@ -72,8 +72,8 @@ public class SortingAlgorithms {
 	/**
 	 * bubble sort: compare two values right next, larger number send to the right side.
 	 */
-	void bubbleSort(int[] randomArr) {
-		printArr(randomArr);		
+	void bubbleSort(int[] unsorted) {
+		printArr(unsorted);		
 		//do sort
 		System.out.println("Bubble Sort: Simple sorting algorithm\t- o(n2) Complexity -");
 		System.out.println("");
@@ -82,13 +82,13 @@ public class SortingAlgorithms {
 		System.out.print("[");
 		for(int i = 0; i < 20; i++) {
 			for(int j = 1; j < (20-i); j++) {
-				if(randomArr[j]<randomArr[j-1]) {
-					int temp = randomArr[j-1];
-					randomArr[j] = randomArr[j-1];
-					randomArr[j-1] = temp;
+				if(unsorted[j]<unsorted[j-1]) {
+					int temp = unsorted[j-1];
+					unsorted[j] = unsorted[j-1];
+					unsorted[j-1] = temp;
 				}
 			} //for end
-			System.out.print(randomArr[i] + " ");
+			System.out.print(unsorted[i] + " ");
 		} //for end
 		System.out.println("...]");
 		System.out.println("");
@@ -101,24 +101,24 @@ public class SortingAlgorithms {
 	/**
 	 * insertion sort: using unsorted array
 	 */
-	void insertionSort(int[] randomArr) {
+	void insertionSort(int[] unsorted) {
 		//show unsorted array
-		printArr(randomArr);
+		printArr(unsorted);
 		//doing insertion sorting
 		System.out.println("Insertion Sort: Simple sorting algorithm\t- o(n2) Complexity -");
 		System.out.println("");
 		startTimeNano = System.nanoTime();
 		endTimeMil = System.currentTimeMillis();
-		System.out.println("[");
+		System.out.print("[");
 		for(int i=0;i<20;i++) {
-			int key = randomArr[i];
-			int j = i=1;
-			while(j >= 0 && key < randomArr[j]) {
-				int temp = randomArr[j];
-				randomArr[j] = randomArr[j+1];
-				randomArr[j+1] = temp;
+			int key = unsorted[i];
+			int j = i-1;
+			while(j >= 0 && key < unsorted[j]) {
+				int temp = unsorted[j];
+				unsorted[j] = unsorted[j+1];
+				unsorted[j+1] = temp;
 			} //while end
-			System.out.print(randomArr[i] + " ");
+			System.out.print(unsorted[i] + " ");
 		}//for end
 		System.out.println("...]");
 		System.out.println("");
@@ -132,8 +132,8 @@ public class SortingAlgorithms {
 	 * Selection sort
 	 * 
 	 */
-	void selectionSort(int[] randomArr) {
-		printArr(randomArr);
+	void selectionSort(int[] unsorted) {
+		printArr(unsorted);
 		//do sorting
 		System.out.println("Selection Sort: Simple sorting algorithm\t- o(n2) Complexity -");
 		System.out.println("");
@@ -145,17 +145,17 @@ public class SortingAlgorithms {
 		for(int i=0; i < 20; i++) {
 			min = i;
 			for(int j=i+1; j < 19; j++) { //searching the minimum value one by one
-				if(randomArr[j] < randomArr[min]) { //if smaller than minimum index's value
+				if(unsorted[j] < unsorted[min]) { //if smaller than minimum index's value
 					min = j;
-					int temp = randomArr[i];
-					randomArr[i] = randomArr[min];
-					randomArr[min] = temp;
+					int temp = unsorted[i];
+					unsorted[i] = unsorted[min];
+					unsorted[min] = temp;
 				} //if end
 			} //for end
 		} //for end
 		System.out.print("[");
 		for(int i=0;i<20;i++) {
-			System.out.print(randomArr[i] + " ");
+			System.out.print(unsorted[i] + " ");
 		}
 		System.out.println("...]");
 		System.out.println("");
@@ -168,15 +168,15 @@ public class SortingAlgorithms {
 	/**
 	 * Merge Sort : divide and conquer
 	 */
-	void mergeSort(int[] randomArr) {
-		printArr(randomArr);
+	void mergeSort(int[] unsorted) {
+		printArr(unsorted);
 		//do sort
 		System.out.println("Merge Sort: Simple sorting algorithm\t- o(n log n) Complexity -");
 		System.out.println("");
 		startTimeNano = System.nanoTime();
 		endTimeMil = System.currentTimeMillis();
 		System.out.print("[");
-		mergeSort(randomArr, 0, 20);
+		mergeSort(unsorted, 0, 20);
 		System.out.println("...]");
 
 		endTimeNano = System.nanoTime();
@@ -186,18 +186,18 @@ public class SortingAlgorithms {
 	} //merge sort end
 	/**
 	 * merge sort
-	 * @param randomArr random array
+	 * @param unsorted random array
 	 * @param start start index
 	 * @param end end index
 	 */
-	void mergeSort(int[] randomArr, int start, int end) {
+	void mergeSort(int[] unsorted, int start, int end) {
 		if(start >= end) {
 			return;
-		}
+		} //if end
 		
 		int mid = (start+end)/2; //find middle index //error
-		mergeSort(randomArr, start, end); //send start, end index
-		mergeSort(randomArr, mid+1, end); //send (middle point + 1) index, end index
+		mergeSort(unsorted, start, mid); //send start, end index / recursive with new parameters
+		mergeSort(unsorted, mid+1, end); //send (middle point + 1) index, end index
 		
 		//merging
 		int a = start;
@@ -205,26 +205,26 @@ public class SortingAlgorithms {
 		int index = a;
 
 		while (a <= mid || b <= end) { //within the range
-			if(b > end || (a <= mid && randomArr[a] < randomArr[b])) { //if (b is smaller than end) or (a is smaller than middle index && a index value < b index value) 
-				temp[index++] = randomArr[a++]; //put that next value in temporary array 
+			if(b > end || (a <= mid && unsorted[a] < unsorted[b])) { //if (b is smaller than end) or (a is smaller than middle index && a index value < b index value) 
+				temp[index++] = unsorted[a++]; //put that next value in temporary array 
 			} else { //if not
-				temp[index++] = randomArr[b++]; //put next value of end index in temporary array - in next index number
+				temp[index++] = unsorted[b++]; //put next value of end index in temporary array - in next index number
 			} //if-else end
 		} //while end
 		for(int i = a; i <= end; i++) { 
-			randomArr[i] = temp[i]; //put temporary array to randomArr
+			unsorted[i] = temp[i]; //put temporary array to randomArr
 		} //for end
 	
-	printArr(randomArr); //print array
+	printArr(unsorted); //print array
 } //mergeSort end
 /**
  * Quick Sort : divide and conquer
  */
-void quickSort(int[] randomArr) {
+void quickSort(int[] unsorted) {
 	//print unsorted array
-	printArr(randomArr);		
+	printArr(unsorted);		
 	//do sort
-	int pivot = randomArr[0];
+	int pivot = unsorted[0];
 	System.out.println("Quick Sort: Simple sorting algorithm\t- o(n log n) Complexity -");
 	System.out.println("");
 	
@@ -232,13 +232,13 @@ void quickSort(int[] randomArr) {
 	endTimeMil = System.currentTimeMillis();
 	System.out.print("[");
 	for(int i=1; i < 20; i++) {
-		if(pivot > randomArr[i]) {
-			randomArr[i] = pivot;
-			randomArr[i-1] = randomArr[i]; //change position
+		if(pivot >= unsorted[i]) {
+			unsorted[i] = pivot;
+			unsorted[i-1] = unsorted[i]; //change position
 		} else {
 			continue;
 		} //if-else end
-		System.out.print(randomArr[i] + " ");
+		System.out.print(unsorted[i] + " ");
 	} //for end
 	System.out.println("...]");
 
@@ -249,12 +249,12 @@ void quickSort(int[] randomArr) {
 } //quick sort end
 /**
  * printUnsortedArr : printing unsorted Array for the sorting
- * @param randomArr random array from TestSortSearch class
+ * @param unsorted random array from TestSortSearch class
  */
-void printArr(int[] randomArr) {
+void printArr(int[] unsorted) {
 	System.out.print("[");
 	for(int i=0;i<20;i++) {
-		System.out.print(randomArr[i] + " ");
+		System.out.print(unsorted[i] + " ");
 	} //for end
 	System.out.println("...]");
 	System.out.println("");
