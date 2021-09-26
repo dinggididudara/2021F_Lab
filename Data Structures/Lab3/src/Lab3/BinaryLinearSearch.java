@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class BinaryLinearSearch {
 	protected int searchKey;
 	protected int[] randomArr; //array for random numbers - sorted
-	protected int[] unsorted; //unsorted array
+	protected static int[] unsorted; //unsorted array
 	protected int low, mid, high;
 	protected int total;
 	protected long startTimeNano; //for checking time
@@ -285,6 +285,17 @@ public class BinaryLinearSearch {
 
 		Arrays.sort(randomArr); //randomArr = sorted array
 	} //generateRandomInts end
+	/**
+	 * printing unsorted array
+	 */
+	static void printUnsortedArr() {
+		System.out.println("");
+		System.out.print("[ ");
+		for(int i=0; i < 20; i++) {
+			System.out.print(unsorted[i] + " ");
+		} //for end
+		System.out.println("...]");
+	}
 	/**
 	 * unsorted array print
 	 */
