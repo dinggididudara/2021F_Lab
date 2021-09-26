@@ -1,0 +1,68 @@
+
+
+*
+{
+	margin: 5px;
+	font-family: serif;
+}
+
+#header
+{
+	background-color: rgb(28, 98, 110);
+	font-size: 20pt;
+    color: rgb(255, 255, 255);
+    position: relative;
+    top: 20px;
+    text-align: left;
+    width: 900px;
+    height: 140px;
+}
+
+table
+{
+    border: 5px solid orange;
+    padding: 3px;
+}
+
+#menu 
+{
+    border-style: solid;
+    border-color: black;
+	font-size: 20pt;
+    text-align: center;
+    background-color: azure;
+    width: 400px;
+    height: 50px;
+    position: relative;
+    bottom: 40px;
+    left: 495px;
+}
+
+#heading
+{
+    font-size: 25px;
+    font-weight: bold;
+    text-indent: 15px;
+}
+
+div
+{   
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height:auto;
+    background-color: blanchedalmond;
+    border: 2px solid purple;
+    width: 900px;
+}
+
+#footer 
+{
+	bottom: 0px;
+    background-color: rgb(40, 77, 51);
+    color: white;
+    clear: both;
+    text-align: center;
+    font-size: 15px;
+    width: 900px;
+}

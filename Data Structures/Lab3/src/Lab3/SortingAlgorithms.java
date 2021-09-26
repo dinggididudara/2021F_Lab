@@ -195,7 +195,7 @@ public class SortingAlgorithms {
 			return;
 		} //if end
 		
-		int mid = (start+end)/2; //find middle index //error
+		int mid = (start+end)/2; //find middle index
 		mergeSort(unsorted, start, mid); //send start, end index / recursive with new parameters
 		mergeSort(unsorted, mid+1, end); //send (middle point + 1) index, end index
 		
