@@ -7,7 +7,7 @@
  * Course: CST8130 - Data Structures
  * @author/Professor: James Mwangi PhD. 
  * 
-  */
+ */
 package Lab3;
 
 import java.security.SecureRandom;
@@ -18,16 +18,16 @@ import java.util.Scanner;
  */
 public class BinaryLinearSearch {
 	protected int searchKey;
-	protected int[] randomArr; //array for random numbers
+	protected static int[] randomArr; //array for random numbers
 	protected int low, mid, high;
 	protected int total;
 	protected long startTimeNano; //for checking time
 	protected long endTimeNano; //for checking time
 	protected long startTimeMil;
 	protected long endTimeMil;
-	
-//-------------recursive : stack frame's push, pop / call another method--------------------------// 	
-	
+
+	//-------------recursive : stack frame's push, pop / call another method--------------------------// 	
+
 	/**
 	 * recursiveBinarySearch : recursive binary search, calling the method
 	 * @param sc
@@ -37,8 +37,14 @@ public class BinaryLinearSearch {
 		System.out.print(">");
 		searchKey = sc.nextInt();
 
+		System.out.print("[ ");
+		for(int i=0;i<20;i++) {
+			System.out.print(randomArr[i] + " ");
+		}
+		System.out.println("...]");
+
 		remainingElements(searchKey);
-		
+
 		recursiveLinearSearch(sc, searchKey);
 	} //recursiveBinarySearch end
 	/**
@@ -48,15 +54,10 @@ public class BinaryLinearSearch {
 	void remainingElements(int searchKey){ //for recursive search
 		startTimeNano = System.nanoTime();
 		startTimeMil = System.currentTimeMillis();
-		
-		for(int j=0;j<30;j++) {
-			System.out.print(randomArr[j] + " "); //print sorted array
-		} //for end
-		System.out.println("");
-				
+
 		low = 0; //initial low value
 		high = 29; //initial high value
-		System.out.print("       ");
+
 		for(int i=0;i<30;i++) {
 			total = low + high;
 			if(total%2 == 0) { //if it is even number
@@ -64,30 +65,29 @@ public class BinaryLinearSearch {
 			} else if(total%2 != 0) { //if it is odd number
 				mid = (total+1)/2;
 			} //if-else end
-			System.out.print(mid + " "); //print mid
-			
 			if(randomArr[mid]==searchKey) { //middle point is input, found!
 				endTimeNano = System.nanoTime();
 				endTimeMil = System.currentTimeMillis();
-				
-				System.out.println("");
+
 				System.out.println(searchKey + " found at index at " + mid + ": Recursive Binary Search");
-				
+				System.out.println("");
+
 				nanoTime(startTimeNano, endTimeNano);
 				currentTimeMills(startTimeMil, endTimeMil);
-				
+
 				break;
 			}else if(randomArr[mid]>searchKey) { //if search key is smaller than middle point
 				high = mid -1;
 			}else if(randomArr[mid]<searchKey) { //if search key is bigger than middle point
 				low = mid + 1 ;
 			} //if-else end
-			
+
 			if(randomArr[high]<searchKey){
 				endTimeNano = System.nanoTime();
 				endTimeMil = System.currentTimeMillis();
 				System.out.println("");
 				System.out.println(searchKey + " was not found : Recursive Binary Search");
+				System.out.println("");
 
 				nanoTime(startTimeNano, endTimeNano);
 				currentTimeMills(startTimeMil, endTimeMil);
@@ -110,31 +110,33 @@ public class BinaryLinearSearch {
 				break;
 			} //if end
 		} //for end
-		
+
 		if (no == 0) { //if no is initial value
 			endTimeNano = System.nanoTime();
 			endTimeMil = System.currentTimeMillis();
-			
+
 			System.out.println(searchKey + " was not found : Recursive Linear Search");
-			
+			System.out.println("");
+
 			nanoTime(startTimeNano, endTimeNano);
 			currentTimeMills(startTimeMil, endTimeMil);
 			return -1;
 		} else {
 			endTimeNano = System.nanoTime();
 			endTimeMil = System.currentTimeMillis();
-			
+
 			System.out.println(searchKey + " found at index at " + no + ": Recursive Linear Search");
-			
+			System.out.println("");
+
 			nanoTime(startTimeNano, endTimeNano);
 			currentTimeMills(startTimeMil, endTimeMil);
 
 			return no;
 		} //if-else end
 	} //recursiveLinearSearch end
-	
-//------------iterative: for,while,do-while loop--------------------------------------------------//
-		
+
+	//------------iterative: for,while,do-while loop--------------------------------------------------//
+
 	/**
 	 * 	iterativeBinarySearch : main iterative binary search
 	 * @param sc
@@ -143,23 +145,24 @@ public class BinaryLinearSearch {
 		System.out.println("Please enter an integer value to search: ");
 		System.out.print(">");
 		searchKey = sc.nextInt();
-		
-		for(int j=0;j<30;j++) {
-			System.out.print(randomArr[j] + " "); //print sorted array
-		} //for end
+
+		System.out.print("[ ");
+		for(int i=0;i<20;i++) {
+			System.out.print(randomArr[i] + " ");
+		}
+		System.out.println("...]");
 		System.out.println("");
-		
+
 		low = 0; //initial low value
 		high = 29; //initial high value
 
-		for(int i=0;i<30;i++) {
+		for(int i=0;i<randomArr.length;i++) {
 			total = low + high;
 			if(total%2 == 0) { //if it is even number
 				mid = total/2;
 			} else if(total%2 != 0) { //if it is odd number
 				mid = (total+1)/2;
 			} //if-else end
-			System.out.print(mid + " "); //print mid
 			if(randomArr[mid]==searchKey) { //middle point is input, found!
 				return mid;
 			}else if(randomArr[mid]>searchKey) { //if search key is smaller than middle point
@@ -172,13 +175,12 @@ public class BinaryLinearSearch {
 				endTimeMil = System.currentTimeMillis();
 
 				System.out.println(searchKey + " was not found : Iterative Binary Search");
-
+				System.out.println("");
 				nanoTime(startTimeNano, endTimeNano);
 				currentTimeMills(startTimeMil, endTimeMil);
 				break;
 			}//if end
 		} //for end
-		System.out.println("");
 		return -1; //if not found, return -1
 	} //iterativeBinarySearch end
 	/**
@@ -192,21 +194,20 @@ public class BinaryLinearSearch {
 		if (mid != -1) {
 			endTimeNano = System.nanoTime();
 			endTimeMil = System.currentTimeMillis();
-			System.out.println("");
 			System.out.println(searchKey + " found at index " + mid + " : Iterative Binary Search");
-
+			System.out.println("");
 			nanoTime(startTimeNano, endTimeNano);
 			currentTimeMills(startTimeMil, endTimeMil);
 		} else {
 			endTimeNano = System.nanoTime();
 			endTimeMil = System.currentTimeMillis();
-			
+
 			System.out.println(searchKey + " was not found");
-			
+			System.out.println("");
 			nanoTime(startTimeNano, endTimeNano);
 			currentTimeMills(startTimeMil, endTimeMil);
 		} //if-else end
-		
+
 		iterativeLinearSearch(searchKey);		
 	} //iterativeBinarySearch end
 	/**
@@ -226,59 +227,69 @@ public class BinaryLinearSearch {
 		if (no == 0) { //if no is initial value
 			endTimeNano = System.nanoTime();
 			endTimeMil = System.currentTimeMillis();
-			
+
 			System.out.println(searchKey + " was not found : Iterative Linear Search");
-			
+			System.out.println("");
 			nanoTime(startTimeNano, endTimeNano);
 			currentTimeMills(startTimeMil, endTimeMil);
-			
+
 			return -1;
 		} else {
 			endTimeNano = System.nanoTime();
 			endTimeMil = System.currentTimeMillis();
-			
+
 			System.out.println(searchKey + " found at index at " + no + ": Iterative Linear Search");
-						
+			System.out.println("");
 			nanoTime(startTimeNano, endTimeNano);
 			currentTimeMills(startTimeMil, endTimeMil);
 
 			return no;
 		} //if-else end
 	} //iterativeLinearSearch end
-	
-//----------------------------generate random numbers and printing time---------------------------//	
-	
+
+	//----------------------------generate random numbers and printing time---------------------------//	
+
 	/**
-	 * generateRandomInts : generating 30 random integers and storing in array
+	 * generateRandomInts : generating 1000 random integers for sorting (unsorted)
 	 * @param sc Scanner
 	 */
 	void generateRandomInts(Scanner sc) {
 		SecureRandom random = new SecureRandom(); //for random numbers
-		randomArr = new int[30];
-		
+		randomArr = new int[1000];
+
 		System.out.println("Array of randomly generated integers: ");
-		System.out.print("Unsorted array: [ ");
 		int a=0; //array index start number
-		for(int i=0;i<100000;i++) { //print only 20
-			int number = random.nextInt(100); //generate random number
-			if(randomArr[29] > 0 ) { //if last element is not null(zero) = if it is full
-				break;
-			} //if end
-			if(number>10) {
+		for(int i=0;i<10000000;i++) {
+			int number = random.nextInt(1000); //generate random number = maximum 1000
+
+			if(number>20) { //random range minimum 20
 				randomArr[a] = number;
-				System.out.print(randomArr[a] + " ");
+				//				System.out.print(randomArr[a] + " ");
 				a++; //increase index number
 			} //if end
+			if(a == 1000) { //if last element
+				break;
+			} //if end			
 		} //for end
+		System.out.print("[ ");
+		for(int d=0;d<20;d++) {
+			System.out.print(randomArr[d] + " ");
+		}
 		System.out.println("...]");
-		
-//		Arrays.sort(randomArr); //sorted array
-//		System.out.print("Sorted array:   [ ");
-//		for(int j=0;j<30;j++) {
-//			System.out.print(randomArr[j] + " "); //print sorted array
-//		} //for end
-//		System.out.println("]");
+		System.out.println("");
 	} //generateRandomInts end
+	/**
+	 * sorted array
+	 */
+	//	void sortedArr() {
+	//		Arrays.sort(randomArr); //sorted array
+	//		System.out.print("[ ");
+	//		for(int j=0;j<20;j++) {
+	//			System.out.print(randomArr[j] + " "); //print sorted array
+	//		} //for end
+	//		System.out.println("...]");
+	//		System.out.println("");
+	//	}
 	/**
 	 * nanoTime : calculate taken time in nano seconds
 	 */
@@ -292,5 +303,5 @@ public class BinaryLinearSearch {
 		System.out.println("Time taken in milliseconds: " + (endTimeMil-startTimeMil));
 		System.out.println("");
 	} //currentTimeMills end
-	
+
 } //BinaryLinearSearch class end

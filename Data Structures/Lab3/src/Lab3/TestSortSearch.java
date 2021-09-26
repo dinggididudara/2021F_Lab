@@ -49,7 +49,7 @@ public class TestSortSearch {
 				b.iterativeBinarySearchResult(sc);
 				break;
 			case 4:
-				s.menuDisplay(b.randomArr);
+				s.menuDisplay(sc, b.randomArr);
 				break;
 			case 5:
 				sc.close();
