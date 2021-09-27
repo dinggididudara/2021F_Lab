@@ -257,6 +257,7 @@ public class SortingAlgorithms {
 	 */
 	void printArr(int[] unsorted) {
 		BinaryLinearSearch.printUnsortedArr();
+		System.out.println("");
 	}
 	/**
 	 * nanoTime : calculate taken time in nano seconds
