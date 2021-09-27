@@ -14,6 +14,8 @@ public class Assign1 {
 	static void displayMenu() {
 		Scanner sc = new Scanner(System.in);
 		int option;
+		FoodItem f = new FoodItem();
+		Inventory i = new Inventory();
 		while(true) {
 			System.out.println("Please select one of the following:");
 			System.out.println("1: Add Item to Inventory");
@@ -35,7 +37,7 @@ public class Assign1 {
 				break;
 			case 5:
 				sc.close();
-				System.out.println("Exiting now");
+				System.out.println("Exiting...");
 				System.exit(0);
 			default:
 				break;
