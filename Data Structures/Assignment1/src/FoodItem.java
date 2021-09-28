@@ -1,11 +1,10 @@
 /**
- * CST - CS
+ * CST - CS CST8130 301 Data Structures
  * Soomin Lee
  * 040899389
  * Assignment 1
+ * September-30-2021
  */
-package Assignment1;
-
 import java.util.Scanner;
 
 public class FoodItem{
@@ -49,36 +48,36 @@ public class FoodItem{
 		return null;
 	} //toString end
 	/**
-	 * read from Scanner object passed in and fills data member
+	 * read from Scanner passed in and fills data member
 	 */
 	//	@Override
 	boolean addItem(Scanner sc) {
-		String option;
 		while(true) {
 			System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)?");
-			option = sc.next();
-
-			switch(option) {
+			type = sc.next();
+			
+			System.out.print("Enter the code for the item: ");
+			itemCode = sc.nextInt();
+			System.out.print("Enter the name for the item: ");
+			name = sc.nextLine();
+			System.out.print("Enter the quantity for the item: ");
+			quantity = sc.nextInt();
+			System.out.print("Enter the cost of the item: ");
+			cost = sc.nextDouble();
+			
+			switch(type) {
 			case "f":
-				System.out.print("Enter the code for the item: ");
-				System.out.print("Enter the name for the item: ");
-				System.out.print("Enter the quantity for the item: ");
-				System.out.print("Enter the cost of the item: ");
+				type = "fruit";
 				System.out.print("Enter the name of the orchard supplier: ");
+				fruitOrchard = sc.nextLine();
 				break;
 			case "v":
-				System.out.print("Enter the code for the item: ");
-				System.out.print("Enter the name for the item: ");
-				System.out.print("Enter the quantity for the item: ");
-				System.out.print("Enter the cost of the item: ");
+				type = "vegetable";
 				System.out.print("Enter the sales price of the item: ");
 				System.out.print("Enter the name of the farm supplier: ");
 				break;
 			case "p":
-				System.out.print("Enter the code for the item: ");
-				System.out.print("Enter the name for the item: ");
-				System.out.print("Enter the quantity for the item: ");
-				System.out.print("Enter the cost of the item: ");
+				type = "preserve";
 				System.out.print("Enter the sales price of the item: ");
 				System.out.print("Enter the size of the jar in millilitres: ");
 				break;
@@ -89,44 +88,51 @@ public class FoodItem{
 		} //while end
 	} //addItem end
 	/**
-	 * update the quantity field 
+	 * update the quantity field - buying / selling
 	 */
-	boolean updateItem() {
+	boolean updateItem(Scanner sc, int i, int checkCode, int buy_sell) {
+		int index = i;
+		if(buy_sell == 1) { //if buy
+			Inventory.updateQuantity(sc);
+		} else if(buy_sell == 2) { //if sell
+			
+
+		}
 		return false;
 	} //updateItem
 	/**
 	 * if item code is equal = return true
 	 * @return
 	 */
-	public boolean isEqual() {
-
-		return false;
-	} //isEqual end
-	/**
-	 * read a valid item code from scanner - buying & selling
-	 */
-	boolean inputCode(Scanner sc) {
+	public boolean isEqual(Scanner sc) {
 		int checkCode = 0;
-		int buyQuantity = 0;
 		int index = 0;
 		for(int i=0; i < inventory.length; i++) {
 			System.out.print("Enter valid item code: ");
 			checkCode = sc.nextInt();
 			if (inventory[i].itemCode == checkCode) { //if value is exists
-				index = i;
-				System.out.print("Enter valid quantity to buy: ");
-				buyQuantity = sc.nextInt();
-				if(buyQuantity > 0 && inventory[i].quantity >= buyQuantity) {
-					inventory[i].quantity = inventory[i].quantity - buyQuantity;
-					return true;
-				} else { //if number is not valid
-					System.out.println("Invalid quantity...");
-					System.out.println("Error...could not buy item.");
-					return false;
-				} //if-else end
+				alreadyExists(sc, i, checkCode, buy_sell);
+				return true;
 			} else {
 				System.out.println("Code not found in inventory...");
-				return false;
+			} //if-else end
+		} //for end
+		return false;
+	} //isEqual end
+	/**
+	 * read a valid item code from scanner - buying & selling
+	 */
+	boolean inputCode(Scanner sc, int buy_sell) {
+		int checkCode = 0;
+		int index = 0;
+		for(int i=0; i < inventory.length; i++) {
+			System.out.print("Enter valid item code: ");
+			checkCode = sc.nextInt();
+			if (inventory[i].itemCode == checkCode) { //if value is exists
+				alreadyExists(sc, i, checkCode, buy_sell);
+				return true;
+			} else {
+				System.out.println("Code not found in inventory...");
 			} //if-else end
 		} //for end
 		return false;
