@@ -6,31 +6,32 @@ package Assignment1;
 import java.util.Scanner;
 
 public class Inventory {
-	String option;
-	private FoodItem[] inventory; //array for storing food item inventory
-	/**
-	 * 
-	 */
-	Inventory(){ //printing inventory
-		System.out.println("Inventory:");
-		//for fruit
-		System.out.println("Item: %5d %20s %3d   |   price: $%3f   |  cost: $%3f  |  orchard supplier: %s", code, name, quantity, price, cost, orchard);
-		//vegetable
-		System.out.println("Item: %5d %20s %3d   |   price: $%3f   |  cost: $%3f  |  farm supplier: %s", code, name, quantity, price, cost, farm);
-		//preserve
-		System.out.println("Item: %5d %20s %3d   |   price: $%3f   |  cost: $%3f  |  size: %f ml", code, name, quantity, price, cost, size);
-	} //Inventory end
+	private String option;
+	protected FoodItem[] inventory; //array for storing food item inventory
+	private int itemCode;
+	private String name;
+	private int quantity;
+	private double cost;
+	
+	private String fruitOrchard; //fruit
+	
+	private double vegSale; //vegetable
+	private String vegFarm; //vegetable
+	
+	private double preSale; //preserve
+	private double preJar;  //preserve
+	
 	/**
 	 * adding item to inventory array
 	 */
 	@Override
 	boolean addItem(Scanner sc) {
-		String option;
+		String type; //type of the product
 		while(true) {
 			System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)?");
-			option = sc.next();
+			type = sc.next();
 
-			switch(option) {
+			switch(type) {
 			case "f":
 				System.out.print("Enter the code for the item: ");
 				System.out.print("Enter the name for the item: ");
@@ -61,7 +62,7 @@ public class Inventory {
 		} //while end
 	} //addItem end
 	/**
-	 * if the item code exists returns -1 / if exists index
+	 * if the item code exists returns -1 / if exists return index
 	 */
 	int alreadyExists() {
 		int index = 0;
@@ -76,9 +77,12 @@ public class Inventory {
 		} //for end
 	} //alreadyExists end
 	/**
-	 * 
+	 * read item code to update quantity in inventory array.
+	 * true = buying
+	 * false = selling
 	 */
 	boolean updateQuantity() {
+		
 		return true;
 	} //updateQuantity
 } //Inventory class end

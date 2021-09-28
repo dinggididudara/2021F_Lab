@@ -10,7 +10,9 @@ public class Assign1 {
 	public static void main(String[] args) {
 		displayMenu();
 	} //main end
-	
+	/**
+	 * display the main menu
+	 */
 	static void displayMenu() {
 		Scanner sc = new Scanner(System.in);
 		int option;
@@ -28,8 +30,11 @@ public class Assign1 {
 			
 			switch(option) {
 			case 1:
+				i.addItem(sc);
 				break;
-			case 2:
+			case 2: //display inventory
+				System.out.println("Inventory :");
+				f.toString();
 				break;
 			case 3:
 				break;
