@@ -18,7 +18,7 @@ public class Assign1 {
 		int option;
 		FoodItem f = new FoodItem();
 		Inventory i = new Inventory();
-		while(true) {
+		while(true) { //main menu
 			System.out.println("Please select one of the following:");
 			System.out.println("1: Add Item to Inventory");
 			System.out.println("2: Display Current Inventory");
@@ -36,9 +36,13 @@ public class Assign1 {
 				System.out.println("Inventory :");
 				f.toString();
 				break;
-			case 3:
+			case 3: //buy item
+				f.inputCode(sc); //checking valid item code
+				
 				break;
-			case 4:
+			case 4: //sell item
+				f.inputCode(sc); //checking valid item code
+				
 				break;
 			case 5:
 				sc.close();
