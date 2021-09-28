@@ -4,13 +4,15 @@
  * 040899389
  * Assignment 1
  * September-30-2021
+ * scanning food items from user and send information to inventory
+ * inputCode -> isEqual -> updateItem -> updateQuantity
+ * addItem -><- alreadyExists
  */
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class FoodItem{
 	protected Inventory[] inventory = new Inventory[20]; //array for storing food item inventory
-	protected Inventory in = new Inventory();;
 
 	protected String type;
 
@@ -33,6 +35,10 @@ public class FoodItem{
 	@Override
 	public String toString() {
 		for(int i=0; i < inventory.length; i++) { //code name quantity price cost
+			if (inventory[0] == null) {
+				System.out.println("");
+				break;
+			}
 			System.out.printf("Item: %5d %20s %3d   |   price: $%3f   |  cost: $%3f  |  ", itemCode, price, cost);
 			switch(inventory[i].type) {
 			case "fruit":
@@ -102,16 +108,14 @@ public class FoodItem{
 				System.out.println("Invalid entry");
 			} catch (Exception e) {
 				System.out.println("Invalid entry");
-			} finally{
-				return true; //???
-			}//try-catch end
+			} //try-catch end
 		} //while end
 
 	} //addItem end
 	/**
 	 * update the quantity field - buying / selling
 	 */
-	boolean updateItem(Scanner sc, int index, int checkCode, int buy_sell) {
+	boolean updateItem(Scanner sc, int index, int buy_sell) {
 		//		int index = i;
 		//		if(buy_sell == 1) { //if buy
 		//			Inventory.updateQuantity(sc);
@@ -119,7 +123,8 @@ public class FoodItem{
 		//
 		//		}
 		//		return false;
-		boolean a = inputCode(sc);
+		Inventory in = new Inventory();
+		boolean a = inputCode(sc, buy_sell);
 		int buyQuantity;
 		int sellQuantity;
 		boolean b = false;
@@ -162,12 +167,12 @@ public class FoodItem{
 	 * 2.check input code is in the array
 	 * @return true
 	 */
-	boolean isEqual(Scanner sc, int checkCode) {
+	boolean isEqual(Scanner sc, int checkCode, int num) {
 		int index = 0;
 		boolean tf = false;
 		for(int i=0; i < inventory.length; i++) {
 			if (inventory[i].itemCode == checkCode) { //if value is exists
-
+				updateItem(sc, i, num);
 				tf = true;
 			} else {
 				System.out.println("Code not found in inventory...");
@@ -182,13 +187,13 @@ public class FoodItem{
 	 * true = buying 
 	 * false = selling
 	 */
-	boolean inputCode(Scanner sc, int buyOrSell) {
+	boolean inputCode(Scanner sc, int num) {
 		int checkCode;
 		boolean b = false;
 		
-		if(buyOrSell == 1) {
+		if(num == 1) {
 			b = true;
-		} else if(buyOrSell == 2) {
+		} else if(num == 2) {
 			b = false;
 		} //if-else end
 		
@@ -196,12 +201,13 @@ public class FoodItem{
 			try {
 				System.out.print("Enter valid item code: ");
 				checkCode = sc.nextInt();
-				isEqual(sc, checkCode); //send input value to another method
+				isEqual(sc, checkCode, num); //send input value to another method
 				break;
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid code");
 			} //try-catch		
 		} //while end
+		
 		return b;
 	} //inputCode end
 } //FoodItem class end

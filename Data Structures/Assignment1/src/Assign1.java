@@ -19,7 +19,7 @@ public class Assign1 {
 	static void displayMenu() {
 		Scanner sc = new Scanner(System.in);
 		int option;
-		int buy_sell; //buy or sell
+		
 		FoodItem f = new FoodItem();
 		Inventory i = new Inventory();
 		while(true) { //main menu
@@ -42,12 +42,10 @@ public class Assign1 {
 					f.toString();
 					break;
 				case 3: //buy item
-					buy_sell = 1; //buy code=1
-					f.inputCode(sc, buy_sell);
+					f.inputCode(sc, 1);
 					break;
 				case 4: //sell item
-					buy_sell = 2; //sell sell=2
-					f.inputCode(sc, buy_sell);
+					f.inputCode(sc, 2);
 					break;
 				case 5:
 					sc.close();

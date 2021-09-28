@@ -14,9 +14,18 @@ public class Inventory extends FoodItem{
 	 */
 	@Override
 	boolean addItem(Scanner sc) {
-		super.addItem(sc);
-
-		return true;
+		boolean b = false;
+//		super.addItem(sc);
+		for(int i=0;i < inventory.length;i++) {
+			if(inventory[i] == null) {
+				inventory[i].addItem(sc);
+				b = true; //success
+				break;
+			} else {
+				b = false; //fail
+			}//if end
+		} //for end
+		return b;
 	} //addItem end
 	/**
 	 * return index of food item array (inventory)
@@ -41,11 +50,11 @@ public class Inventory extends FoodItem{
 	 * false = selling
 	 */
 	boolean updateQuantity(Scanner sc, int updatingQuantity, int index) {
-		inputCode(sc);
+		//		inputCode(sc);
 		boolean b = false;
-		
+
 		inventory[index].quantity = (inventory[index].quantity - updatingQuantity);
-		
+
 		return b;
 	} //updateQuantity
 } //Inventory class end
