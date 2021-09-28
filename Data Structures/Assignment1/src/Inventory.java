@@ -15,47 +15,37 @@ public class Inventory extends FoodItem{
 	@Override
 	boolean addItem(Scanner sc) {
 		super.addItem(sc);
-		
+
 		return true;
 	} //addItem end
 	/**
 	 * return index of food item array (inventory)
+	 * check if item code already exists or not - during add item
 	 */
-	int alreadyExists(Scanner sc, int i, int checkCode, int buy_sell) {
-//		int index = i;
-//		if(buy_sell == 1) { //if buy
-//			updateQuantity(sc);
-//			return index;
-//		} else if(buy_sell == 2) { //if sell
-//			
-//			return index;
-//		}
-//			
-		return -1; //if not exists
+	int alreadyExists(Scanner sc, int code) {
+		int index = -1;
+		for(int i=0;i < inventory.length;i++) {
+			if(inventory[i].itemCode == code) {
+				index = i;
+				break;
+			} //if end
+			if(inventory[i].itemCode != code) {
+				index = -1;
+			} //if end
+		} //for end
+		return index;
 	} //alreadyExists end
 	/**
 	 * read item code to update quantity in inventory array.
 	 * true = buying
 	 * false = selling
 	 */
-	public boolean updateQuantity(Scanner sc, int buy_sell) {
-		inputCode(sc, buy_sell);
-		if(inputCode(sc, buy_sell) == true) { //buying
-			System.out.print("Enter valid quantity to buy: ");
-			int buyQuantity = sc.nextInt();
-			if(buyQuantity > 0 && inventory[i].quantity >= buyQuantity) {
-				inventory[i].quantity = inventory[i].quantity - buyQuantity;
-				return true;
-			} else if (inventory[i].quantity < buyQuantity){
-				System.out.println("Insufficient stock in inventory...");				
-			}else{ //if number is not valid
-				System.out.println("Invalid quantity...");
-				System.out.println("Error...could not buy item.");
-				return false;
-			} //if-else end
-		}else if(inputCode(sc, buy_sell) == false){ //selling
-			
-		}
-		return true;
+	boolean updateQuantity(Scanner sc, int updatingQuantity, int index) {
+		inputCode(sc);
+		boolean b = false;
+		
+		inventory[index].quantity = (inventory[index].quantity - updatingQuantity);
+		
+		return b;
 	} //updateQuantity
 } //Inventory class end

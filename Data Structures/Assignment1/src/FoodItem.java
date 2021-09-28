@@ -5,10 +5,12 @@
  * Assignment 1
  * September-30-2021
  */
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class FoodItem{
-	protected Inventory[] inventory; //array for storing food item inventory
+	protected Inventory[] inventory = new Inventory[20]; //array for storing food item inventory
+	protected Inventory in = new Inventory();;
 
 	protected String type;
 
@@ -25,14 +27,13 @@ public class FoodItem{
 
 	protected double preSale; //preserve
 	protected double preJar;  //preserve
-
 	/**
 	 * display the all data members in the class
 	 */
 	@Override
 	public String toString() {
-		for(int i=0; i < inventory.length; i++) {
-			System.out.printf("Item: %5d %20s %3d   |   price: $%3f   |  cost: $%3f  |  ", itemCode, cost, cost);
+		for(int i=0; i < inventory.length; i++) { //code name quantity price cost
+			System.out.printf("Item: %5d %20s %3d   |   price: $%3f   |  cost: $%3f  |  ", itemCode, price, cost);
 			switch(inventory[i].type) {
 			case "fruit":
 				System.out.printf("orchard supplier: %s\n", fruitOrchard);
@@ -50,91 +51,157 @@ public class FoodItem{
 	/**
 	 * read from Scanner passed in and fills data member
 	 */
-	//	@Override
 	boolean addItem(Scanner sc) {
+		Inventory i = new Inventory();
 		while(true) {
-			System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)?");
-			type = sc.next();
-			
-			System.out.print("Enter the code for the item: ");
-			itemCode = sc.nextInt();
-			System.out.print("Enter the name for the item: ");
-			name = sc.nextLine();
-			System.out.print("Enter the quantity for the item: ");
-			quantity = sc.nextInt();
-			System.out.print("Enter the cost of the item: ");
-			cost = sc.nextDouble();
-			
-			switch(type) {
-			case "f":
-				type = "fruit";
-				System.out.print("Enter the name of the orchard supplier: ");
-				fruitOrchard = sc.nextLine();
-				break;
-			case "v":
-				type = "vegetable";
+			try {
+				System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)?");
+				type = sc.next();
+
+				//check the item code
+				while(true) { //checking item code if it exists or not
+					System.out.print("Enter the code for the item: ");
+					itemCode = sc.nextInt();
+					int a = i.alreadyExists(sc, itemCode); 
+					if (a == -1) { //return value if -1 = if already exists
+						System.out.println("Invalid code");
+					} else {
+						break; //escape while loop
+					} //if-else end
+				} //while end
+				System.out.print("Enter the name for the item: ");
+				name = sc.nextLine();
+				System.out.print("Enter the quantity for the item: ");
+				quantity = sc.nextInt();
+				System.out.print("Enter the cost of the item: ");
+				cost = sc.nextDouble();
 				System.out.print("Enter the sales price of the item: ");
-				System.out.print("Enter the name of the farm supplier: ");
-				break;
-			case "p":
-				type = "preserve";
-				System.out.print("Enter the sales price of the item: ");
-				System.out.print("Enter the size of the jar in millilitres: ");
-				break;
-			default:
+				price = sc.nextInt();
+
+				switch(type) { //type of the product
+				case "f": //if fruit
+					type = "fruit";
+					System.out.print("Enter the name of the orchard supplier: ");
+					fruitOrchard = sc.nextLine();
+					break;
+				case "v": //if vegetable
+					type = "vegetable";
+					System.out.print("Enter the name of the farm supplier: ");
+					vegFarm = sc.nextLine();
+					break;
+				case "p": //if preserve
+					type = "preserve";
+					System.out.print("Enter the size of the jar in millilitres: ");
+					preJar = sc.nextDouble();
+					break;
+				default:
+					System.out.println("Invalid entry");
+					break;
+				} //switch end
+			} catch(InputMismatchException m) {
 				System.out.println("Invalid entry");
-				break;
-			} //switch end
+			} catch (Exception e) {
+				System.out.println("Invalid entry");
+			} finally{
+				return true; //???
+			}//try-catch end
 		} //while end
+
 	} //addItem end
 	/**
 	 * update the quantity field - buying / selling
 	 */
-	boolean updateItem(Scanner sc, int i, int checkCode, int buy_sell) {
-		int index = i;
-		if(buy_sell == 1) { //if buy
-			Inventory.updateQuantity(sc);
-		} else if(buy_sell == 2) { //if sell
-			
-
-		}
-		return false;
-	} //updateItem
-	/**
-	 * if item code is equal = return true
-	 * @return
-	 */
-	public boolean isEqual(Scanner sc) {
-		int checkCode = 0;
-		int index = 0;
+	boolean updateItem(Scanner sc, int index, int checkCode, int buy_sell) {
+		//		int index = i;
+		//		if(buy_sell == 1) { //if buy
+		//			Inventory.updateQuantity(sc);
+		//		} else if(buy_sell == 2) { //if sell
+		//
+		//		}
+		//		return false;
+		boolean a = inputCode(sc);
+		int buyQuantity;
+		int sellQuantity;
+		boolean b = false;
+		
 		for(int i=0; i < inventory.length; i++) {
-			System.out.print("Enter valid item code: ");
-			checkCode = sc.nextInt();
-			if (inventory[i].itemCode == checkCode) { //if value is exists
-				alreadyExists(sc, i, checkCode, buy_sell);
-				return true;
-			} else {
-				System.out.println("Code not found in inventory...");
+		if(a == true) { //buying
+				System.out.print("Enter valid quantity to buy: ");
+				buyQuantity = sc.nextInt();
+				if(buyQuantity > 0 && buyQuantity <= inventory[i].quantity) {
+					inventory[i].quantity = inventory[i].quantity - buyQuantity;
+					in.updateQuantity(sc, buyQuantity, i);
+					b = true;
+				} else if (inventory[i].quantity < buyQuantity){
+					System.out.println("Insufficient stock in inventory...");				
+				}else{ //if number is not valid
+					System.out.println("Invalid quantity...");
+					System.out.println("Error...could not buy item.");
+					b = false;
+				} //if-else end
+
+			}else if(a == false){ //selling
+				System.out.print("Enter valid quantity to sell: ");
+				sellQuantity = sc.nextInt();
+				if(sellQuantity > 0 && sellQuantity <= inventory[i].quantity) {
+					inventory[i].quantity = inventory[i].quantity - sellQuantity;
+					in.updateQuantity(sc, sellQuantity, i);
+				} else if (sellQuantity > inventory[i].quantity) {
+					System.out.println("Insufficient stock in inventory...");	
+				} //else-if end
+			} else{ //if number is not valid
+				System.out.println("Invalid quantity...");
+				System.out.println("Error...could not buy item.");
+				b = false;			
 			} //if-else end
 		} //for end
-		return false;
+		return b;
+	} //updateItem
+	/**
+	 * if item code exists = return true
+	 * 2.check input code is in the array
+	 * @return true
+	 */
+	boolean isEqual(Scanner sc, int checkCode) {
+		int index = 0;
+		boolean tf = false;
+		for(int i=0; i < inventory.length; i++) {
+			if (inventory[i].itemCode == checkCode) { //if value is exists
+
+				tf = true;
+			} else {
+				System.out.println("Code not found in inventory...");
+				tf = false;
+			} //if-else end
+		} //for end
+		return tf;
 	} //isEqual end
 	/**
 	 * read a valid item code from scanner - buying & selling
+	 * 1.checking if it is valid code or not -> if valid go to isEqual method
+	 * true = buying 
+	 * false = selling
 	 */
-	boolean inputCode(Scanner sc, int buy_sell) {
-		int checkCode = 0;
-		int index = 0;
-		for(int i=0; i < inventory.length; i++) {
-			System.out.print("Enter valid item code: ");
-			checkCode = sc.nextInt();
-			if (inventory[i].itemCode == checkCode) { //if value is exists
-				alreadyExists(sc, i, checkCode, buy_sell);
-				return true;
-			} else {
-				System.out.println("Code not found in inventory...");
-			} //if-else end
-		} //for end
-		return false;
+	boolean inputCode(Scanner sc, int buyOrSell) {
+		int checkCode;
+		boolean b = false;
+		
+		if(buyOrSell == 1) {
+			b = true;
+		} else if(buyOrSell == 2) {
+			b = false;
+		} //if-else end
+		
+		while(true) {
+			try {
+				System.out.print("Enter valid item code: ");
+				checkCode = sc.nextInt();
+				isEqual(sc, checkCode); //send input value to another method
+				break;
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid code");
+			} //try-catch		
+		} //while end
+		return b;
 	} //inputCode end
 } //FoodItem class end

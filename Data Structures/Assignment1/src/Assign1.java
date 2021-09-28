@@ -24,8 +24,6 @@ public class Assign1 {
 		Inventory i = new Inventory();
 		while(true) { //main menu
 			try {
-
-
 				System.out.println("Please select one of the following:");
 				System.out.println("1: Add Item to Inventory");
 				System.out.println("2: Display Current Inventory");
@@ -36,7 +34,7 @@ public class Assign1 {
 				option = sc.nextInt();
 
 				switch(option) {
-				case 1:
+				case 1: //add item
 					i.addItem(sc);
 					break;
 				case 2: //display inventory
@@ -44,11 +42,11 @@ public class Assign1 {
 					f.toString();
 					break;
 				case 3: //buy item
-					buy_sell = 1; //buy=2
+					buy_sell = 1; //buy code=1
 					f.inputCode(sc, buy_sell);
 					break;
 				case 4: //sell item
-					buy_sell = 2; //sell=2
+					buy_sell = 2; //sell sell=2
 					f.inputCode(sc, buy_sell);
 					break;
 				case 5:
