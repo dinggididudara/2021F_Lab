@@ -11,7 +11,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class FoodItem{
+public class FoodItem {
 	protected FoodItem[] inventory; //array for storing food item inventory
 
 	protected String type;
@@ -41,24 +41,23 @@ public class FoodItem{
 	@Override
 	public String toString() {
 		for(int i=0; i < inventory.length; i++) { //code name quantity price cost
-			if (inventory[0] == null) {
-				System.out.println("");
-				break;
-			} //if end
-
-			System.out.printf("Item: %5d %20s %3d   |   price: $%3f   |  cost: $%3f  |  ", itemCode, price, cost);
-
-			switch(inventory[i].type) {
-			case "fruit":
-				System.out.printf("orchard supplier: %s\n", fruitOrchard);
-				break;
-			case "vegetable":
-				System.out.printf("farm supplier: %s\n", vegFarm);
-				break;
-			case "preserve":
-				System.out.printf("size: %f ml\n", preJar);
-				break;
-			} //switch end
+//			if (inventory[0] == null) {
+//				System.out.println("yes it is null");
+//				break;
+//			} else { //if end
+				System.out.printf("Item: %5d %20s %3d   |   price: $%3f   |  cost: $%3f  |  ", inventory[i].itemCode, inventory[i].price, inventory[i].cost);
+				switch(inventory[i].type) {
+				case "fruit":
+					System.out.printf("orchard supplier: %s\n", inventory[i].fruitOrchard);
+					break;
+				case "vegetable":
+					System.out.printf("farm supplier: %s\n", inventory[i].vegFarm);
+					break;
+				case "preserve":
+					System.out.printf("size: %f ml\n", inventory[i].preJar);
+					break;
+				} //switch end
+//			} //if-else end
 		} //for end
 		return null;
 	} //toString end

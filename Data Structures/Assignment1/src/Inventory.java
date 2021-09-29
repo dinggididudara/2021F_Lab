@@ -24,7 +24,8 @@ public class Inventory extends FoodItem{
 		for(int i=0;i < inventory.length;i++) {
 			if(inventory[i] == null) {
 				inventory[i] = new FoodItem();
-				inventory[i].addItem(sc); //not storing anything
+				inventory[i].addItem(sc); 
+				System.out.println(inventory[i].cost);
 				b = true; //success
 				break;
 			} else {
