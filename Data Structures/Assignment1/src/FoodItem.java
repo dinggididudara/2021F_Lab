@@ -12,14 +12,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class FoodItem{
-	protected Inventory[] inventory = new Inventory[20]; //array for storing food item inventory
+	protected FoodItem[] inventory; //array for storing food item inventory
 
 	protected String type;
 
 	protected int itemCode;
 	protected String name;
 	protected int quantity;
-	protected int price;
+	protected double price;
 	protected double cost;
 
 	protected String fruitOrchard; //fruit
@@ -30,6 +30,12 @@ public class FoodItem{
 	protected double preSale; //preserve
 	protected double preJar;  //preserve
 	/**
+	 * set the size of inventory array
+	 */
+	FoodItem(){
+		inventory = new FoodItem[20];
+	}
+	/**
 	 * display the all data members in the class
 	 */
 	@Override
@@ -38,8 +44,10 @@ public class FoodItem{
 			if (inventory[0] == null) {
 				System.out.println("");
 				break;
-			}
+			} //if end
+
 			System.out.printf("Item: %5d %20s %3d   |   price: $%3f   |  cost: $%3f  |  ", itemCode, price, cost);
+
 			switch(inventory[i].type) {
 			case "fruit":
 				System.out.printf("orchard supplier: %s\n", fruitOrchard);
@@ -59,82 +67,63 @@ public class FoodItem{
 	 */
 	boolean addItem(Scanner sc) {
 		Inventory i = new Inventory();
-		while(true) {
-			try {
-				System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)?");
-				type = sc.next();
 
-				//check the item code
-				while(true) { //checking item code if it exists or not
-					System.out.print("Enter the code for the item: ");
-					itemCode = sc.nextInt();
-					int a = i.alreadyExists(sc, itemCode); 
-					if (a == -1) { //return value if -1 = if already exists
-						System.out.println("Invalid code");
-					} else {
-						break; //escape while loop
-					} //if-else end
-				} //while end
-				System.out.print("Enter the name for the item: ");
-				name = sc.nextLine();
-				System.out.print("Enter the quantity for the item: ");
-				quantity = sc.nextInt();
-				System.out.print("Enter the cost of the item: ");
-				cost = sc.nextDouble();
-				System.out.print("Enter the sales price of the item: ");
-				price = sc.nextInt();
+		System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)? ");
+		type = sc.next();
 
-				switch(type) { //type of the product
-				case "f": //if fruit
-					type = "fruit";
-					System.out.print("Enter the name of the orchard supplier: ");
-					fruitOrchard = sc.nextLine();
-					break;
-				case "v": //if vegetable
-					type = "vegetable";
-					System.out.print("Enter the name of the farm supplier: ");
-					vegFarm = sc.nextLine();
-					break;
-				case "p": //if preserve
-					type = "preserve";
-					System.out.print("Enter the size of the jar in millilitres: ");
-					preJar = sc.nextDouble();
-					break;
-				default:
-					System.out.println("Invalid entry");
-					break;
-				} //switch end
-			} catch(InputMismatchException m) {
-				System.out.println("Invalid entry");
-			} catch (Exception e) {
-				System.out.println("Invalid entry");
-			} //try-catch end
-		} //while end
+		//check the item code
+		//checking item code if it exists or not
 
+		i.alreadyExists(sc); //check the code if it already exists
+		//while end
+		System.out.print("Enter the name for the item: ");
+		name = sc.nextLine();
+		System.out.print("Enter the quantity for the item: ");
+		quantity = sc.nextInt();
+		sc.nextLine();
+		System.out.print("Enter the cost of the item: ");
+		cost = sc.nextDouble();
+		System.out.print("Enter the sales price of the item: ");
+		price = sc.nextDouble();
+		sc.nextLine();
+
+		switch(type) { //type of the product
+		case "f": //if fruit
+			type = "fruit";
+			System.out.print("Enter the name of the orchard supplier: ");
+			fruitOrchard = sc.nextLine();
+			break;
+		case "v": //if vegetable
+			type = "vegetable";
+			System.out.print("Enter the name of the farm supplier: ");
+			vegFarm = sc.nextLine();
+			break;
+		case "p": //if preserve
+			type = "preserve";
+			System.out.print("Enter the size of the jar in millilitres: ");
+			preJar = sc.nextDouble();
+			break;
+		default:
+			System.out.println("Invalid entry");
+			break;
+		} //switch end
+		return true;
 	} //addItem end
 	/**
 	 * update the quantity field - buying / selling
 	 */
 	boolean updateItem(Scanner sc, int index, int buy_sell) {
-		//		int index = i;
-		//		if(buy_sell == 1) { //if buy
-		//			Inventory.updateQuantity(sc);
-		//		} else if(buy_sell == 2) { //if sell
-		//
-		//		}
-		//		return false;
 		Inventory in = new Inventory();
 		boolean a = inputCode(sc, buy_sell);
 		int buyQuantity;
 		int sellQuantity;
 		boolean b = false;
-		
+
 		for(int i=0; i < inventory.length; i++) {
-		if(a == true) { //buying
+			if(a == true) { //buying
 				System.out.print("Enter valid quantity to buy: ");
 				buyQuantity = sc.nextInt();
 				if(buyQuantity > 0 && buyQuantity <= inventory[i].quantity) {
-					inventory[i].quantity = inventory[i].quantity - buyQuantity;
 					in.updateQuantity(sc, buyQuantity, i);
 					b = true;
 				} else if (inventory[i].quantity < buyQuantity){
@@ -149,7 +138,6 @@ public class FoodItem{
 				System.out.print("Enter valid quantity to sell: ");
 				sellQuantity = sc.nextInt();
 				if(sellQuantity > 0 && sellQuantity <= inventory[i].quantity) {
-					inventory[i].quantity = inventory[i].quantity - sellQuantity;
 					in.updateQuantity(sc, sellQuantity, i);
 				} else if (sellQuantity > inventory[i].quantity) {
 					System.out.println("Insufficient stock in inventory...");	
@@ -190,13 +178,13 @@ public class FoodItem{
 	boolean inputCode(Scanner sc, int num) {
 		int checkCode;
 		boolean b = false;
-		
+
 		if(num == 1) {
 			b = true;
 		} else if(num == 2) {
 			b = false;
 		} //if-else end
-		
+
 		while(true) {
 			try {
 				System.out.print("Enter valid item code: ");
@@ -207,7 +195,7 @@ public class FoodItem{
 				System.out.println("Invalid code");
 			} //try-catch		
 		} //while end
-		
+
 		return b;
 	} //inputCode end
 } //FoodItem class end

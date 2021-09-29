@@ -20,8 +20,6 @@ public class Assign1 {
 		Scanner sc = new Scanner(System.in);
 		int option;
 		
-		FoodItem f = new FoodItem();
-		Inventory i = new Inventory();
 		while(true) { //main menu
 			try {
 				System.out.println("Please select one of the following:");
@@ -30,11 +28,14 @@ public class Assign1 {
 				System.out.println("3: Buy Item(s)");
 				System.out.println("4: Sell Item(s)");
 				System.out.println("5: To Exit");
-				System.out.println("> ");
+				System.out.print("> ");
 				option = sc.nextInt();
-
+				
+				FoodItem f = new FoodItem();
+				
 				switch(option) {
 				case 1: //add item
+					Inventory i = new Inventory();
 					i.addItem(sc);
 					break;
 				case 2: //display inventory
@@ -42,6 +43,7 @@ public class Assign1 {
 					f.toString();
 					break;
 				case 3: //buy item
+					
 					f.inputCode(sc, 1);
 					break;
 				case 4: //sell item

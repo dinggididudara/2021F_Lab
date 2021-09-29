@@ -10,15 +10,21 @@ import java.util.Scanner;
 
 public class Inventory extends FoodItem{	
 	/**
+	 * define array length
+	 */
+	Inventory(){
+		inventory = new FoodItem[20];
+	}
+	/**
 	 * adding item to inventory array
 	 */
 	@Override
 	boolean addItem(Scanner sc) {
 		boolean b = false;
-//		super.addItem(sc);
 		for(int i=0;i < inventory.length;i++) {
 			if(inventory[i] == null) {
-				inventory[i].addItem(sc);
+				inventory[i] = new FoodItem();
+				inventory[i].addItem(sc); //not storing anything
 				b = true; //success
 				break;
 			} else {
@@ -31,17 +37,20 @@ public class Inventory extends FoodItem{
 	 * return index of food item array (inventory)
 	 * check if item code already exists or not - during add item
 	 */
-	int alreadyExists(Scanner sc, int code) {
+	int alreadyExists(Scanner sc) {
 		int index = -1;
-		for(int i=0;i < inventory.length;i++) {
-			if(inventory[i].itemCode == code) {
-				index = i;
-				break;
-			} //if end
-			if(inventory[i].itemCode != code) {
-				index = -1;
-			} //if end
-		} //for end
+//		for(int i=0;i < inventory.length;i++) {
+			System.out.print("Enter the code for the item: ");
+			itemCode = sc.nextInt();
+			sc.nextLine();
+//			if(inventory[i].itemCode == itemCode) { //if code already exists //error here
+//				System.out.println("Invalid code");
+//				index = i;
+//				break;
+//			} else if(inventory[i].itemCode != itemCode) { //error
+//				index = -1;
+//			} //if-else end
+//		} //for end
 		return index;
 	} //alreadyExists end
 	/**
