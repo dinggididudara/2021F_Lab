@@ -1,59 +1,77 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Home page of Assignment 1</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        function convertLength() {
-            var inchORcm = prompt("Select the length unit to be converted", "");
-            var number = prompt("Type the number", "");
-            var converted;
-            number = Number(number);
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            margin: 5px;
+        }
 
-            if(inchORcm == "cm" || inchORcm == "Cm" || inchORcm == "CM"){ //if entered cm
-                converted = number * 0.393; //cm to inch
-                alert("Number : " + converted + " inch"); /*print answer*/
-            }else if(inchORcm == "inch" || inchORcm == "Inch" || inchORcm == "INCH"){ //if entered inch
-                converted = number * 2.54; //inch to cm
-                alert("Number : " + converted + " cm"); /*print answer*/
-            } //if-else end            
-        } //convertLength end
-    </script>
+        #header {
+            background-color: rgb(239, 245, 191);
+            font-size: 20pt;
+            
+            position: relative;
+            top: 20px;
+            text-align: center;
+            height: 140px;
+        }
+        
+        /* #menu {
+            border-style: solid;
+            border-color: black;
+            font-size: 16pt;
+            text-align: center;
+            background-color: azure;
+            width: 370px;
+            height: 40px;
+            position:relative;
+            bottom: 25px;
+            left: 75%;
+        } */
+    </style>
 </head>
-<header id="header">
-    Computer Technology Engineering - Computing Science<br><br>
-    CST8238 350 Web Programming<br><br>
+<header id="header" style="font-size: 28px;"><strong>
+  <br>CST - Computing Science - CST8238 350 Web Programming</strong><br>
 </header>
-<nav id="menu">
+
+<!-- <nav id="menu">
     <a href="http://www.soominl.sgedu.site/Assignment1/index.html">Home</a>
-    <a href="http://www.soominl.sgedu.site/Lab4/index.html">Lab4_Home</a>
-    <a href="http://www.soominl.sgedu.site/Lab3/index.html">Lab3_Home</a>
-    <a href="http://www.soominl.sgedu.site/Lab2/index.html">Lab2_Home</a>
-</nav>
+    <a href="http://www.soominl.sgedu.site/Assignment1/Palindrome.html">Palindrome</a>
+    <a href="http://www.soominl.sgedu.site/Assignment1/Prime.html">Prime</a>
+    <a href="http://www.soominl.sgedu.site/Assignment1/Pattern.html">Pattern</a>
+</nav> -->
 
 <body>
-    <h2>This is the homepage of Assignment 1 --- Javascript Problems and Solutions</h2>
-    <h3>Length Converter Using Bootstrap Template</h3>
-    <h3> ------------------------------------------------------</h3>
-    <h4>This program converts from inch to centimeter and vice versa</h4>
-    <h4> -------------------------------------------------------------</h4>
-    <h5>Please click Convert button to perform length conversion</h5>
-    <h5> -------------------------------------------------------------</h5>
-
-    <table>
-        <tr>
-            <td><input onclick="convertLength()" name="btnConvert" id="btnConvert" value="Convert!" type="button"></td>
-        </tr>
-    </table>
-    </div>
+    <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">
+            <a class="nav-link" href="http://www.soominl.sgedu.site/Assignment1/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://www.soominl.sgedu.site/Assignment1/Palindrome.html">Palindrome</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://www.soominl.sgedu.site/Assignment1/Prime.html">Prime</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="http://www.soominl.sgedu.site/Assignment1/Pattern.html">Pattern</a>
+        </li>
+    </ul>
+        <h3><br>This is the homepage of Assignment 1 --- JavaScript Problems and Solutions</h3>
 </body>
 <footer id="footer">
-    040899389<br>
-    Soomin Lee<br>
-    lee00665@algonquinlive.com
+    <div style="background-color: rgb(107, 107, 107); text-align: center; color: white;">
+        040899389<br>
+        Soomin Lee<br>
+        lee00665@algonquinlive.com
+        </div>
 </footer>
 
 </html>
