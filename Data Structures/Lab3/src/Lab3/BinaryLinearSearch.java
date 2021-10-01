@@ -277,7 +277,7 @@ public class BinaryLinearSearch {
 			} //if end			
 		} //for end
 		System.out.print("[ ");
-		for(int d=0;d<30;d++) {
+		for(int d=0;d<randomArr.length;d++) {
 			System.out.print(randomArr[d] + " ");
 		}
 		System.out.println("...]");
@@ -291,7 +291,7 @@ public class BinaryLinearSearch {
 	static void printUnsortedArr() {
 		System.out.println("");
 		System.out.print("[ ");
-		for(int i=0; i < 20; i++) {
+		for(int i=0; i < unsorted.length; i++) {
 			System.out.print(unsorted[i] + " ");
 		} //for end
 		System.out.println("...]");
@@ -302,7 +302,7 @@ public class BinaryLinearSearch {
 	void printSortedArr() {
 		Arrays.sort(randomArr);
 		System.out.print("[ ");
-		for(int j=0;j<20;j++) {
+		for(int j=0;j<randomArr.length;j++) {
 			System.out.print(randomArr[j] + " "); //print sorted array
 		} //for end
 		System.out.println("...]");

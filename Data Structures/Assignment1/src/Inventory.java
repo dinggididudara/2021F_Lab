@@ -12,13 +12,14 @@ class Inventory extends FoodItem{
 	/**
 	 * adding item to inventory array
 	 */
+	@Override
 	boolean addItem(Scanner sc) {
+		//		super.addItem(sc);
 		boolean b = false;
 		for(int i=0;i < inventory.length;i++) {
 			if(inventory[i] == null) { //if null
-				super.addItem(sc); //erroreeroreroerero
 				inventory[i] = new FoodItem();
-				inventory[i].
+				super.inventory[i].addItem(sc);
 				b = true; //success
 				break;
 			} else {
@@ -32,27 +33,16 @@ class Inventory extends FoodItem{
 	 * return index of food item array (inventory)
 	 * check if item code already exists or not - during add item
 	 */
-	int alreadyExists(Scanner sc) {
-		int itemCode;
+	int alreadyExists(Scanner sc, int itemCode) {
 		int index = -1;
 
-		System.out.print("Enter the code for the item: ");
-		itemCode = sc.nextInt();
-		sc.nextLine();
-		
 		for(int i=0;i < inventory.length;i++) {
-			if(inventory[i].getItemCode() == 0) {
-				System.out.println("where is error?");
-				index = -1;
-				break;
-			}else if(inventory[i].getItemCode() == itemCode) { //if code already exists //error here///////////////////
+			if(itemCode == inventory[i].getItemCode()) { //if code already exists //******error here///////////////////
 				System.out.println("Invalid code");
 				index = i;
 				break;
-			} else if(inventory[i].getItemCode() != itemCode) { //error
-				index = -1;
-				System.out.println(index);
-			} //if-else end
+			} //if else
+			index = -1;
 		} //for end
 		return index;
 	} //alreadyExists end
@@ -66,10 +56,10 @@ class Inventory extends FoodItem{
 
 		if(updatingQuantity > 0 && updatingQuantity <= inventory[index].getQuantity()) {
 			if(bs.equals("buy")) {
-				inventory[index].getQuantity() -= updatingQuantity;
+				inventory[index].setQuantity(inventory[index].getQuantity() - updatingQuantity);
 			} else if(bs.equals("sell")) {
-				inventory[index].getQuantity() += updatingQuantity;
-			}
+				inventory[index].setQuantity(inventory[index].getQuantity() + updatingQuantity);
+			} //if-else end
 			b = true;
 		} else if (inventory[index].getQuantity() < updatingQuantity){
 			System.out.println("Insufficient stock in inventory...");				
@@ -77,8 +67,6 @@ class Inventory extends FoodItem{
 			System.out.println("Invalid quantity...");
 			b = false;
 		} //if-else end
-
-
 		return b;
 	} //updateQuantity
 } //Inventory class end

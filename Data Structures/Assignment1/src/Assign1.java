@@ -9,7 +9,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Assign1 {
-	protected static FoodItem[] inventory = new FoodItem[20]; //array for storing food item inventory
+	protected FoodItem[] inventory = new FoodItem[20]; //array for storing food item inventory
 	protected static FoodItem[] invencpy = new FoodItem[20];
 	public static void main(String[] args) {
 		displayMenu();
@@ -18,9 +18,10 @@ class Assign1 {
 	 * display the main menu
 	 */
 	static void displayMenu() {
+		Scanner sc = new Scanner(System.in);
 		Inventory i =  new Inventory();		
 		FoodItem f;
-		Scanner sc = new Scanner(System.in);
+		
 		int option;
 		
 		while(true) { //main menu
@@ -58,7 +59,7 @@ class Assign1 {
 				default:
 					System.out.println("Invalid entry");
 					break;
-				}
+				} //switch end
 			} catch(InputMismatchException m) {
 				System.out.println("Invalid entry");
 			} catch (Exception e) {
