@@ -8,8 +8,9 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Assign1 {
-
+class Assign1 {
+	protected static FoodItem[] inventory = new FoodItem[20]; //array for storing food item inventory
+	protected static FoodItem[] invencpy = new FoodItem[20];
 	public static void main(String[] args) {
 		displayMenu();
 	} //main end
@@ -17,11 +18,15 @@ public class Assign1 {
 	 * display the main menu
 	 */
 	static void displayMenu() {
+		Inventory i =  new Inventory();		
+		FoodItem f;
 		Scanner sc = new Scanner(System.in);
 		int option;
 		
 		while(true) { //main menu
 			try {
+				f = new FoodItem();
+				
 				System.out.println("Please select one of the following:");
 				System.out.println("1: Add Item to Inventory");
 				System.out.println("2: Display Current Inventory");
@@ -31,19 +36,16 @@ public class Assign1 {
 				System.out.print("> ");
 				option = sc.nextInt();
 				
-				FoodItem f = new FoodItem();
-				
 				switch(option) {
 				case 1: //add item
-					Inventory i = new Inventory();
-					i.addItem(sc);
+					f.addItem(sc);
 					break;
 				case 2: //display inventory
 					System.out.println("Inventory :");
 					f.toString();
 					break;
 				case 3: //buy item
-					
+
 					f.inputCode(sc, 1);
 					break;
 				case 4: //sell item

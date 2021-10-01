@@ -8,27 +8,21 @@
  */
 import java.util.Scanner;
 
-public class Inventory extends FoodItem{	
-	/**
-	 * define array length
-	 */
-	Inventory(){
-		inventory = new FoodItem[20];
-	}
+class Inventory extends FoodItem{	
 	/**
 	 * adding item to inventory array
 	 */
-	@Override
 	boolean addItem(Scanner sc) {
 		boolean b = false;
 		for(int i=0;i < inventory.length;i++) {
-			if(inventory[i] == null) {
+			if(inventory[i] == null) { //if null
+				super.addItem(sc); //erroreeroreroerero
 				inventory[i] = new FoodItem();
-				inventory[i].addItem(sc); 
-				System.out.println(inventory[i].cost);
+				inventory[i].
 				b = true; //success
 				break;
 			} else {
+				System.out.println("it is not null");
 				b = false; //fail
 			}//if end
 		} //for end
@@ -39,19 +33,27 @@ public class Inventory extends FoodItem{
 	 * check if item code already exists or not - during add item
 	 */
 	int alreadyExists(Scanner sc) {
+		int itemCode;
 		int index = -1;
-//		for(int i=0;i < inventory.length;i++) {
-			System.out.print("Enter the code for the item: ");
-			itemCode = sc.nextInt();
-			sc.nextLine();
-//			if(inventory[i].itemCode == itemCode) { //if code already exists //error here
-//				System.out.println("Invalid code");
-//				index = i;
-//				break;
-//			} else if(inventory[i].itemCode != itemCode) { //error
-//				index = -1;
-//			} //if-else end
-//		} //for end
+
+		System.out.print("Enter the code for the item: ");
+		itemCode = sc.nextInt();
+		sc.nextLine();
+		
+		for(int i=0;i < inventory.length;i++) {
+			if(inventory[i].getItemCode() == 0) {
+				System.out.println("where is error?");
+				index = -1;
+				break;
+			}else if(inventory[i].getItemCode() == itemCode) { //if code already exists //error here///////////////////
+				System.out.println("Invalid code");
+				index = i;
+				break;
+			} else if(inventory[i].getItemCode() != itemCode) { //error
+				index = -1;
+				System.out.println(index);
+			} //if-else end
+		} //for end
 		return index;
 	} //alreadyExists end
 	/**
@@ -59,11 +61,23 @@ public class Inventory extends FoodItem{
 	 * true = buying
 	 * false = selling
 	 */
-	boolean updateQuantity(Scanner sc, int updatingQuantity, int index) {
-		//		inputCode(sc);
+	boolean updateQuantity(int updatingQuantity, int index, String bs) {
 		boolean b = false;
 
-		inventory[index].quantity = (inventory[index].quantity - updatingQuantity);
+		if(updatingQuantity > 0 && updatingQuantity <= inventory[index].getQuantity()) {
+			if(bs.equals("buy")) {
+				inventory[index].getQuantity() -= updatingQuantity;
+			} else if(bs.equals("sell")) {
+				inventory[index].getQuantity() += updatingQuantity;
+			}
+			b = true;
+		} else if (inventory[index].getQuantity() < updatingQuantity){
+			System.out.println("Insufficient stock in inventory...");				
+		}else if (updatingQuantity <= 0){ //if number is not valid
+			System.out.println("Invalid quantity...");
+			b = false;
+		} //if-else end
+
 
 		return b;
 	} //updateQuantity
