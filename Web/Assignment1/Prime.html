@@ -72,33 +72,52 @@
     </ul>
     <h3>Prime<br></h3>
     <button type="button" class="btn btn-secondary" onclick="Prime()">Let's Make Prime!</button>
-    <div id="printhere"></div>
+    <div id="printhere" contentEditable="true"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript">
         function Prime() { //implement logical and conditional statements
+            document.getElementById('printhere').innerHTML = "";
             var lower = prompt("Please enter the lower range of the Prime Generator");
             var upper = prompt("Please enter the upper range of the Prime Generator");
-
-            document.getElementById('printhere').innerHTML += "Generating Prime Number between " + lower + " and " + upper + "<br>";
             var lower = Number(lower);
             var upper = Number(upper);
-            if (lower < 2) {
-                document.getElementById('printhere').innerHTML += "Prime Number: 1" + "<br>";
-            }
-            else{
-                for (var i = 2; i <= upper; i++) {
-                    for (var j = 2; j < i; j++) {
-                        if (i % j === 0 && i !== j) {
-                            document.getElementById('printhere').innerHTML += "Prime Number: " + i + "<br>";
-                        } //if end
-                    } //for end
+
+            var arr = [upper - lower + 1];
+            var isPrime = [2,3,5,7,11,13,17];
+            var start;
+
+            if (lower < 2) { //2 is not prime
+                start = 3;
+            } else {
+                start = lower;
+            } //if-else end
+
+            for (var n = 0; n <= arr.length; n++) {
+                for (var m = start; m <= upper; m++) {
+                    arr[n] = m;
                 } //for end
-            } //else-if end
+            } //for end
 
-            // for(){
-            //     document.getElementById('printhere').innerHTML = "Prime Number: " + j + " ";
-            // }
+            for (var i = 0; i < isPrime.length; i++) { //passing all isPrime array's index
+                var yesPrime = true;
+                for (var j = 1; j < i; j++) { //divided by every numbers
+                    var p = isPrime[j];
+                    if (arr[i] % p === 0) { //it is not prime
+                        yesPrime = false;
+                        break;
+                    } //if end
+                    if(p*p > arr[i]){ //don't need to check bigger than square root
+                        break;
+                    }
+                } //for end
+                if(yesPrime){
+                     isPrime.push(arr[i]);
+                } //if end
+            } //for end
 
+            for (var d = 0; d < isPrime.length; d++) {
+                document.getElementById('printhere').innerHTML += "Prime Number: " + isPrime[d] + "<br>";
+            } //for end
         } //prime end
     </script>
     </div>
