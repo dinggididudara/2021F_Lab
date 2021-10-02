@@ -11,9 +11,8 @@
 import java.util.*;
 import java.util.InputMismatchException;
 //implements Comparable<FoodItem>
-class FoodItem extends Assign1{
-	protected FoodItem[] inventory = new FoodItem[20]; //array for storing food item inventory
-
+class FoodItem extends Inventory{
+	FoodItem f;
 	private String type;
 
 	private int itemCode;
@@ -21,20 +20,11 @@ class FoodItem extends Assign1{
 	private int quantity;
 	private double price;
 	private double cost;
-	private String extra; //extra information
-
-	private String a;
+	
 	/**
 	 * initialize FoodItem class
 	 */
 	FoodItem(){}
-	/**
-	 * set total size of array
-	 * @param num total size of array
-	 */
-	FoodItem(int num){
-		inventory = new FoodItem[num];
-	}
 	/**
 	 * 
 	 * @param type
@@ -44,15 +34,13 @@ class FoodItem extends Assign1{
 	 * @param price
 	 * @param cost
 	 */
-	FoodItem(String type, int itemCode, String name, int quantity, double price, double cost, String extra, String a){
+	FoodItem(String type, int itemCode, String name, int quantity, double price, double cost){
 		this.type = type;
 		this.itemCode = itemCode;
 		this.name = name;
 		this.quantity = quantity;
 		this.price = price;
 		this.cost = cost;
-		this.extra = extra;
-		this.a = a;
 	} //FoodItem
 	/**
 	 * displaying inventory
@@ -73,32 +61,32 @@ class FoodItem extends Assign1{
 	 */	
 	//	@Override
 	public String toString() {
-		return "Item: " + this.itemCode + " " + this.name + " " + this.quantity + "  | price: $" + this.price +  "  |  cost: $" + this.cost + this.a ;
+		return "Item: " + this.itemCode + " " + this.name + " " + this.quantity + "  | price: $" + this.price +  "  |  cost: $" + this.cost;
 	} //toString end
 	/**
 	 * getter and setter for external class, method
 	 */
-	/**
-	 * save type
-	 * @param type
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-	/**
-	 * save type
-	 * @param type
-	 */
-	public void setItemCode(int itemCode) {
-		this.itemCode = itemCode;
-	}
-	/**
-	 * save type
-	 * @param type
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+//	/**
+//	 * save type
+//	 * @param type
+//	 */
+//	public void setType(String type) {
+//		this.type = type;
+//	}
+//	/**
+//	 * save type
+//	 * @param type
+//	 */
+//	public void setItemCode(int itemCode) {
+//		this.itemCode = itemCode;
+//	}
+//	/**
+//	 * save type
+//	 * @param type
+//	 */
+//	public void setName(String name) {
+//		this.name = name;
+//	}
 	/**
 	 * save quantity
 	 * @param quantity
@@ -106,34 +94,20 @@ class FoodItem extends Assign1{
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	/**
-	 * save price
-	 * @param price
-	 */
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	/**
-	 * save cost
-	 * @param cost
-	 */
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
-	/**
-	 * save extra information of product
-	 * @param type
-	 */
-	public void setExtra(String extra) {
-		this.extra = extra;
-	}
-	/**
-	 * save string sentence for display
-	 * @param a
-	 */
-	public void setA(String a) {
-		this.a = a;
-	}
+//	/**
+//	 * save price
+//	 * @param price
+//	 */
+//	public void setPrice(double price) {
+//		this.price = price;
+//	}
+//	/**
+//	 * save cost
+//	 * @param cost
+//	 */
+//	public void setCost(double cost) {
+//		this.cost = cost;
+//	}
 	/**
 	 * storing type of the product
 	 * @return type
@@ -176,26 +150,11 @@ class FoodItem extends Assign1{
 		return cost;
 	} //cost end
 	/**
-	 * storing extra information
-	 * @return extra
-	 */
-	String getExtra() {
-		return extra;
-	}
-	/**
-	 * storing result
-	 * @return a
-	 */
-	String getA() {
-		return a;
-	}
-
-	/**
 	 * read from Scanner passed in and fills data member
 	 */
+	@Override
 	boolean addItem(Scanner sc) {
 		Inventory i = new Inventory();
-
 		while(true) {
 			System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)? ");
 			type = sc.next();
@@ -206,13 +165,14 @@ class FoodItem extends Assign1{
 				break;
 			} //if-else end
 		} //while end
-		FoodItem f = new FoodItem();
+		
 		System.out.print("Enter the code for the item: ");
 		itemCode = sc.nextInt();
 		sc.nextLine();
 
 		int e = i.alreadyExists(sc, itemCode); //check the code if it already exists
-		if(e == -1) {
+		if(e == -1) { //if code does not exist in array
+			f = new FoodItem();
 			int error = 0;
 			while(error == 0) {
 				try {
@@ -229,36 +189,28 @@ class FoodItem extends Assign1{
 
 					switch(type) { //type of the product
 					case "f": //if fruit
-						type = "fruit";
-						System.out.print("Enter the name of the orchard supplier: ");
-						extra = sc.nextLine();
-						a = "  |  orchard supplier: " + extra + "\n";
+						f = new Fruit();						
 						error = 2;
 						break;
 					case "v": //if vegetable
-						type = "vegetable";
-						System.out.print("Enter the name of the farm supplier: ");
-						extra = sc.nextLine();
-						a = "  |  farm supplier: " + extra + "\n";
+						f = new Vegetable();						
 						error = 2;
 						break;
 					case "p": //if preserve
-						type = "preserve";
-						System.out.print("Enter the size of the jar in millilitres: ");
-						extra = sc.nextLine();
-						a = "  |  size : " + extra + "ml\n";
+						f = new Preserve();						 
 						error = 2;
 						break;
 					default:
 						System.out.println("Invalid entry");
 						break;
-					} //switch end		
-					f = new FoodItem(type, itemCode, name, quantity, price, cost, extra, a);
-					System.out.println(f.itemCode);//test///////////
+					} //switch end	
+					
+					f.addItem(sc);
+				
 				} catch(InputMismatchException m) {
 					System.out.println("Invalid entry");
 				}catch (Exception ex) {
-					System.out.println("errorrrr");
+					System.out.println("error");
 				} //try-catch end
 			} //while end
 		} //if end
@@ -306,7 +258,7 @@ class FoodItem extends Assign1{
 			int checkCode = sc.nextInt();
 			if (inventory[i] != null) { //if value is exists //error//how to check the code?????
 				System.out.println("in if loop");
-				if(inventory[i].itemCode == checkCode) {
+				if(inventory[i].getItemCode() == checkCode) {
 					updateItem(sc, i, num);
 					tf = true; //if success
 					break;

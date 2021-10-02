@@ -17,13 +17,14 @@ class Assign1 {
 	 */
 	static void displayMenu() {
 		Scanner sc = new Scanner(System.in);
-		Inventory i =  new Inventory();		
 		int num = 20; //size of array
-		FoodItem f = new FoodItem(num);
 		int option;
 		
 		while(true) { //main menu
 			try {		
+				Inventory i =  new Inventory(num);		
+				FoodItem f = new FoodItem();
+				
 				System.out.println("Please select one of the following:");
 				System.out.println("1: Add Item to Inventory");
 				System.out.println("2: Display Current Inventory");
