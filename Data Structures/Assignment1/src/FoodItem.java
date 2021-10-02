@@ -56,7 +56,7 @@ class FoodItem extends Assign1{
 	/**
 	 * displaying inventory
 	 */
-	void displayInventory() {
+	void displayInventory() { //not saving anything 
 		for(int i=0;i <inventory.length;i++) {
 			if(inventory[i] != null) {
 				System.out.println(itemCode);
@@ -72,24 +72,11 @@ class FoodItem extends Assign1{
 	 */	
 	//	@Override
 	public String toString() {
-		//		for(int i=0;i<inventory.length;i++) {
-		//			if (inventory[0] == null) {
-		//				System.out.println("");
-		//				Assign1.main(null);
-		//				break;
-		//			}else { //if end
-		//				if(type.equals("fruit")) {
-		//					setA("  |  orchard supplier: " + getExtra() + "\n");
-		//				} else if(type.equals("vegetable")) {
-		//					setA("  |  farm supplier: " + getExtra() + "\n");
-		//				} else if(getType().equals("preserve")) {
-		//					setA("  |  size : " + getExtra() + "ml\n") ;
-		//				} //if-else end
-		//			} //if-else end
-		//		} //for end
-
 		return "Item: " + this.itemCode + " " + this.name + " " + this.quantity + "  | price: $" + this.price +  "  |  cost: $" + this.cost + this.a ;
 	} //toString end
+	/**
+	 * getter and setter for external class, method
+	 */
 	/**
 	 * save type
 	 * @param type
@@ -220,7 +207,7 @@ class FoodItem extends Assign1{
 		System.out.print("Enter the code for the item: ");
 		itemCode = sc.nextInt();
 		sc.nextLine();
-
+		
 		int e = i.alreadyExists(sc, itemCode); //check the code if it already exists
 		if(e == -1) {
 			int error = 0;
@@ -263,11 +250,19 @@ class FoodItem extends Assign1{
 						System.out.println("Invalid entry");
 						break;
 					} //switch end
+					
 				} catch(InputMismatchException m) {
 					System.out.println("Invalid entry");
 				}catch (Exception ex) {
 					System.out.println("errorrrr");
 				} //try-catch end
+				i.setItemCode(itemCode);
+				i.setName(name);
+				i.setType(type);
+				i.setQuantity(quantity);
+				i.setPrice(price);
+				i.setCost(cost);
+				i.setA(a);
 			} //while end
 		} //if end
 		return true;

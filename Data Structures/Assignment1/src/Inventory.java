@@ -12,13 +12,19 @@ class Inventory extends FoodItem{
 	/**
 	 * adding item to inventory array
 	 */
-	@Override
+	
 	boolean addItem(Scanner sc) {
+		FoodItem fi = new FoodItem();
 		boolean b = false;
 		for(int i=0; i < inventory.length; i++) {
 			if(inventory[i] == null) { //if null
-				super.addItem(sc);
+				System.out.println("here is the error???");
+				fi.addItem(sc);
+				
+				System.out.println("before new fooditem");
 				inventory[i] = new FoodItem(getType(), getItemCode(), getName(), getQuantity(), getPrice(), getCost(), getExtra());
+				System.out.println(inventory[i].getType());
+				System.out.println(inventory[i].getName());
 				System.out.println(inventory[i].getType() + "*******0000**");
 				b = true; //success
 				break;
