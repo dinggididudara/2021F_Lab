@@ -188,6 +188,7 @@ class FoodItem extends Assign1{
 	String getA() {
 		return a;
 	}
+	
 	/**
 	 * read from Scanner passed in and fills data member
 	 */
@@ -251,18 +252,20 @@ class FoodItem extends Assign1{
 						break;
 					} //switch end
 					
+					i.setItemCode(itemCode);
+					i.setName(name);
+					i.setType(type);
+					i.setQuantity(quantity);
+					i.setPrice(price);
+					i.setCost(cost);
+					i.setA(a);
+					
 				} catch(InputMismatchException m) {
 					System.out.println("Invalid entry");
 				}catch (Exception ex) {
 					System.out.println("errorrrr");
 				} //try-catch end
-				i.setItemCode(itemCode);
-				i.setName(name);
-				i.setType(type);
-				i.setQuantity(quantity);
-				i.setPrice(price);
-				i.setCost(cost);
-				i.setA(a);
+			
 			} //while end
 		} //if end
 		return true;
