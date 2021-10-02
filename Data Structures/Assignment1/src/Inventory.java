@@ -12,7 +12,7 @@ class Inventory extends FoodItem{
 	/**
 	 * adding item to inventory array
 	 */
-	
+	@Override
 	boolean addItem(Scanner sc) {
 		FoodItem fi = new FoodItem();
 		boolean b = false;
@@ -22,10 +22,10 @@ class Inventory extends FoodItem{
 				fi.addItem(sc);
 				
 				System.out.println("before new fooditem");
-				inventory[i] = new FoodItem(getType(), getItemCode(), getName(), getQuantity(), getPrice(), getCost(), getExtra());
-				System.out.println(inventory[i].getType());
-				System.out.println(inventory[i].getName());
-				System.out.println(inventory[i].getType() + "*******0000**");
+				inventory[i] = new FoodItem(getType(), getItemCode(), getName(), getQuantity(), getPrice(), getCost(), getExtra(), getA());
+				System.out.println(inventory[i].getType() + "*******1111****");//test///////////////////////
+				System.out.println(inventory[i].getName() + "&&&&&&&22222&&&");//test////////////
+				System.out.println(inventory[i].getType() + "*******3333**");//test////////////////
 				b = true; //success
 				break;
 			} else {

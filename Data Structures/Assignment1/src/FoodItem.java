@@ -44,7 +44,7 @@ class FoodItem extends Assign1{
 	 * @param price
 	 * @param cost
 	 */
-	FoodItem(String type, int itemCode, String name, int quantity, double price, double cost, String extra){
+	FoodItem(String type, int itemCode, String name, int quantity, double price, double cost, String extra, String a){
 		this.type = type;
 		this.itemCode = itemCode;
 		this.name = name;
@@ -52,6 +52,7 @@ class FoodItem extends Assign1{
 		this.price = price;
 		this.cost = cost;
 		this.extra = extra;
+		this.a = a;
 	} //FoodItem
 	/**
 	 * displaying inventory
@@ -188,12 +189,13 @@ class FoodItem extends Assign1{
 	String getA() {
 		return a;
 	}
-	
+
 	/**
 	 * read from Scanner passed in and fills data member
 	 */
 	boolean addItem(Scanner sc) {
 		Inventory i = new Inventory();
+
 		while(true) {
 			System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)? ");
 			type = sc.next();
@@ -204,11 +206,11 @@ class FoodItem extends Assign1{
 				break;
 			} //if-else end
 		} //while end
-
+		FoodItem f = new FoodItem();
 		System.out.print("Enter the code for the item: ");
 		itemCode = sc.nextInt();
 		sc.nextLine();
-		
+
 		int e = i.alreadyExists(sc, itemCode); //check the code if it already exists
 		if(e == -1) {
 			int error = 0;
@@ -250,22 +252,14 @@ class FoodItem extends Assign1{
 					default:
 						System.out.println("Invalid entry");
 						break;
-					} //switch end
-					
-					i.setItemCode(itemCode);
-					i.setName(name);
-					i.setType(type);
-					i.setQuantity(quantity);
-					i.setPrice(price);
-					i.setCost(cost);
-					i.setA(a);
-					
+					} //switch end		
+					f = new FoodItem(type, itemCode, name, quantity, price, cost, extra, a);
+					System.out.println(f.itemCode);//test///////////
 				} catch(InputMismatchException m) {
 					System.out.println("Invalid entry");
 				}catch (Exception ex) {
 					System.out.println("errorrrr");
 				} //try-catch end
-			
 			} //while end
 		} //if end
 		return true;
