@@ -14,16 +14,15 @@ class Inventory extends FoodItem{
 	 */
 	@Override
 	boolean addItem(Scanner sc) {
-		//		super.addItem(sc);
 		boolean b = false;
-		for(int i=0;i < inventory.length;i++) {
+		for(int i=0; i < inventory.length; i++) {
 			if(inventory[i] == null) { //if null
-				inventory[i] = new FoodItem();
-				super.inventory[i].addItem(sc);
+				super.addItem(sc);
+				inventory[i] = new FoodItem(getType(), getItemCode(), getName(), getQuantity(), getPrice(), getCost(), getExtra());
+				System.out.println(inventory[i].getType() + "*******0000**");
 				b = true; //success
 				break;
 			} else {
-				System.out.println("it is not null");
 				b = false; //fail
 			}//if end
 		} //for end
@@ -33,11 +32,11 @@ class Inventory extends FoodItem{
 	 * return index of food item array (inventory)
 	 * check if item code already exists or not - during add item
 	 */
-	int alreadyExists(Scanner sc, int itemCode) {
+	int alreadyExists(Scanner sc, int itemCodeCheck) {
 		int index = -1;
 
 		for(int i=0;i < inventory.length;i++) {
-			if(itemCode == inventory[i].getItemCode()) { //if code already exists //******error here///////////////////
+			if(inventory[i] != null && itemCodeCheck == inventory[i].getItemCode()) { //if code already exists //******error here///////////////////
 				System.out.println("Invalid code");
 				index = i;
 				break;
