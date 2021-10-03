@@ -10,20 +10,20 @@ import java.util.Scanner;
 
 public class Preserve extends FoodItem{
 	String type;
-	int size;
+	double size;
 	
 	@Override
 	boolean addItem(Scanner sc) {
 		super.addItem(sc);
 		type = "preserve";
 		System.out.print("Enter the size of the jar in millilitres: ");
-		size = sc.nextInt();
+		size = sc.nextDouble();
 		
 		return true;
 	}
 	
 	@Override
 	public String toString() {
-		return "  |  size : " + size + "ml\n";
+		return super.toString() + "  |  size : " + size + "ml\n";
 	}
 } //Preserve class end

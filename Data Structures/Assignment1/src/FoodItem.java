@@ -30,7 +30,39 @@ class FoodItem{
 		price = 0;
 		cost = 0;
 	} //FoodItem
-
+	/**
+	 * saving members
+	 * @param itemCode itecm code
+	 * @param name item name
+	 * @param quantity item in stock
+	 * @param price item price
+	 * @param cost item cost
+	 */
+	FoodItem(int itemCode, String name, int quantity, double price, double cost){
+		this.itemCode = itemCode;
+		this.name = name;
+		this.quantity = quantity;
+		this.price = price;
+		this.cost = cost;
+	}
+	public FoodItem getF() {
+		return f;
+	}
+	public int getItemCode() {
+		return itemCode;
+	}
+	public String getName() {
+		return name;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public double getCost() {
+		return cost;
+	}
 	/**
 	 * display the all data members in the class
 	 */	
@@ -42,23 +74,13 @@ class FoodItem{
 	 * read from Scanner passed in and fill data member
 	 */
 	boolean addItem(Scanner sc) {
-		while (true) {
-			System.out.print("Enter the code for the item: ");
-			if (!sc.hasNextInt()) {
-				System.out.println("Invalid Entry");
-				sc.nextLine();
-			} else{
-				break;
-			}//if end
-		} //while end
-		sc.nextLine(); //remove newline
 		while (name.replaceAll(" ", "").equals("")) { //reset the name if not valid
 			System.out.print("Enter the name for the item: ");
 			if (sc.hasNextLine()) {
 				name = sc.nextLine();
 			} //if end
 		} //while end
-		sc.nextLine();
+		
 		while (true) { //quantity
 			System.out.print("Enter the quantity for the item: ");
 
@@ -108,6 +130,9 @@ class FoodItem{
 			} //if-else end
 		} //while end
 		sc.nextLine();
+		
+//		f = new FoodItem(itemCode, name, quantity, price, cost);
+		
 		return true;
 	} //addItem end
 	/**
@@ -117,7 +142,7 @@ class FoodItem{
 	 */
 	boolean updateItem(int amount) {
 		if(amount <= quantity) {
-			quantity -= amount;
+			quantity += amount;
 			return true;
 		} else {
 			return false;
@@ -129,9 +154,9 @@ class FoodItem{
 	 * @return true for success , false for fail
 	 */
 	boolean isEuqal(FoodItem item) {
-		if(item.itemCode == itemCode) {
+		if(item.itemCode == itemCode) { //if itemCode is same
 			return true;
-		}
+		} 
 		return false;
 	} //isEqual end
 	/**
@@ -140,7 +165,7 @@ class FoodItem{
 	 * true = buying 
 	 * false = selling
 	 */
-	boolean inputCode(Scanner sc) { //just scanning the value
+	boolean inputCode(Scanner sc) { 
 		boolean b = false;
 		int checkCode;
 
@@ -154,6 +179,26 @@ class FoodItem{
 				System.out.println("Invalid code");
 				b = false;
 			} //try-catch		
+		} //while end
+		return b; //true=success, false=fail
+	} //inputCode end
+	/**
+	 * read a valid item code from scanner - during addItem
+	 */
+	boolean inputCode(Scanner sc, FoodItem item) { 
+		boolean b = false;
+		while (true) { //continue until get valid code
+			System.out.print("Enter the code for the item: ");
+			
+			if (!sc.hasNextInt()) {
+				System.out.println("Invalid Entry");
+				sc.nextLine();
+			} else{
+				this.itemCode = sc.nextInt();
+				sc.nextLine(); //remove newline
+				b=true;
+				break;
+			}//if end
 		} //while end
 		return b; //true=success, false=fail
 	} //inputCode end

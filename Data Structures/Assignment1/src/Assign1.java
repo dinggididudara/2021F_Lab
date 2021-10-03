@@ -11,40 +11,40 @@ import java.util.Scanner;
 class Assign1 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-
-
+		int option;
+		boolean bs; //buy = true, sell = false	
+		Inventory i =  new Inventory();	
 		while(true) {
-			displayMenu();
+			try {
+				displayMenu();
+				option = sc.nextInt();
 
-			int option;
-			boolean bs; //buy = true, sell = false	
-			Inventory i =  new Inventory();	
-
-			option = sc.nextInt();
-
-			switch(option) {
-			case 1: //add item
-				i.addItem(sc);
-				break;
-			case 2: //display inventory
-				System.out.println("Inventory :" + i);
-				break;
-			case 3: //buy item
-				bs = true;
-				i.updateQuantity(sc, bs);
-				break;
-			case 4: //sell item
-				bs = false;
-				i.updateQuantity(sc, bs);
-				break;
-			case 5:
-				sc.close();
-				System.out.println("Exiting...");
-				System.exit(0);
-			default:
-				System.out.println("Invalid entry");
-				break;
-			} //switch end
+				switch(option) {
+				case 1: //add item
+					i.addItem(sc);
+					break;
+				case 2: //display inventory
+					System.out.println("Inventory :\n" + i);
+					break;
+				case 3: //buy item
+					bs = true;
+					i.updateQuantity(sc, bs);
+					break;
+				case 4: //sell item
+					bs = false;
+					i.updateQuantity(sc, bs);
+					break;
+				case 5:
+					sc.close();
+					System.out.println("Exiting...");
+					System.exit(0);
+				default:
+					System.out.println("Invalid entry");
+					break;
+				} //switch end
+			} catch (InputMismatchException e) {
+				System.out.println("Invliad entry");
+			} //try-catch end
 		} //while end		
 	} //main end
 	/**

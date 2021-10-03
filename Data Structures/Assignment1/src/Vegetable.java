@@ -24,6 +24,6 @@ public class Vegetable extends FoodItem{
 	
 	@Override
 	public String toString() {
-		return "  |  farm supplier: " + farm + "\n";
+		return super.toString() + "  |  farm supplier: " + farm + "\n";
 	} //toString
 } //vegetable class end

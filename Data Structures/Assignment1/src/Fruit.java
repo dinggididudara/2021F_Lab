@@ -18,12 +18,11 @@ public class Fruit extends FoodItem{
 		type = "fruit";
 		System.out.print("Enter the name of the orchard supplier: ");
 		orchard = sc.nextLine();
-		
 		return true;
 	}
 	
 	@Override
 	public String toString() {
-		return "  |  orchard supplier: " + orchard + "\n";
+		return super.toString() + "  |  orchard supplier: " + orchard + "\n";
 	}
 } //Fruit end
