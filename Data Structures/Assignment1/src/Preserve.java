@@ -24,6 +24,6 @@ public class Preserve extends FoodItem{
 	
 	@Override
 	public String toString() {
-		return super.toString() + "  |  size : " + size + "ml\n";
+		return super.toString() + "  |  size : " + size + "mL\n";
 	}
 } //Preserve class end

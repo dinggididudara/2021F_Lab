@@ -154,7 +154,7 @@ class FoodItem{
 	 * @return true for success , false for fail
 	 */
 	boolean isEuqal(FoodItem item) {
-		if(item.itemCode == itemCode) { //if itemCode is same
+		if(item.itemCode == this.itemCode) { //if itemCode is same
 			return true;
 		} 
 		return false;
@@ -167,12 +167,12 @@ class FoodItem{
 	 */
 	boolean inputCode(Scanner sc) { 
 		boolean b = false;
-		int checkCode;
+		int itemCode;
 
 		while(true) {
 			try {
 				System.out.print("Enter valid item code: ");
-				checkCode = sc.nextInt();
+				this.itemCode = sc.nextInt();
 				b = true;
 				break;
 			} catch (InputMismatchException e) {
@@ -192,13 +192,13 @@ class FoodItem{
 			
 			if (!sc.hasNextInt()) {
 				System.out.println("Invalid Entry");
-				sc.nextLine();
 			} else{
 				this.itemCode = sc.nextInt();
 				sc.nextLine(); //remove newline
 				b=true;
 				break;
 			}//if end
+			sc.nextLine();
 		} //while end
 		return b; //true=success, false=fail
 	} //inputCode end

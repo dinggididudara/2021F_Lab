@@ -62,13 +62,11 @@ class Inventory {
 					break;
 				default:
 					System.out.println("Invalid entry");
-					item = new FoodItem();  
 					break;
 				} //switch end		
 				b = true; //break while loop
 			} else {
 				System.out.println("Invalid entry");
-				sc.next();
 				b = false;
 			} //if-else end
 		} //while end
@@ -94,7 +92,7 @@ class Inventory {
 	 */
 	int alreadyExists(FoodItem item) {
 		for(int i=0;i < numItems;i++) {
-			if (inventory[i].isEuqal(item)) { //if same true //null pointer error******************************
+			if (inventory[i].isEuqal(item)) { 
 				return i;
 			} //if-else end
 		} //for end
@@ -113,20 +111,21 @@ class Inventory {
 		fi.inputCode(sc);
 		int index = alreadyExists(fi); //check the code is already exists or not
 		if(index != -1) {
-			String buysell = bs?"buy":"sell"; //if bs is true buy, false sell
-			System.out.print("Enter valid quantity to " + buysell + ": ");
-			if(sc.hasNextInt()) { //if valid quantity
-				int amount = sc.nextInt();
-				if(amount > 0) { //if right amount
-					return inventory[index].updateItem(bs?amount:amount*-1); //if buy send amount, sell send //return the amount is valid or not
-				} else {
-					System.out.println("Invalid quantity...");
+			while(true) {
+				String buysell = bs?"buy":"sell"; //if bs is true buy, false sell
+				System.out.print("Enter valid quantity to " + buysell + ": ");
+				if(sc.hasNextInt()) { //if valid quantity
+					int amount = sc.nextInt();
+					if(amount > 0) { //if right amount
+						return inventory[index].updateItem(bs?amount:amount*-1); //if buy send amount, sell send //return the amount is valid or not
+					} else {
+						System.out.println("Invalid quantity...");
+					} //if-else end
+				} else { //if has index = code already exists
+					System.out.printf("Error...could not %s item\n", buysell);
 				} //if-else end
-
-			} else { //if has index = code already exists
-				System.out.printf("Error...could not %s item\n", buysell);
-			} //if-else end
-		} else {
+			} //while end
+		} else if(index == -1) {
 			System.out.println("Code not found in inventory...");
 		} //if-else end
 		return false;
