@@ -14,6 +14,7 @@ public class Preserve extends FoodItem{
 	
 	@Override
 	boolean addItem(Scanner sc) {
+		super.addItem(sc);
 		type = "preserve";
 		System.out.print("Enter the size of the jar in millilitres: ");
 		size = sc.nextInt();

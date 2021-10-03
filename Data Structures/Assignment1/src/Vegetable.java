@@ -14,6 +14,7 @@ public class Vegetable extends FoodItem{
 	
 	@Override
 	boolean addItem(Scanner sc) {
+		super.addItem(sc);
 		type = "vegetable";
 		System.out.print("Enter the name of the farm supplier: ");
 		farm = sc.nextLine();

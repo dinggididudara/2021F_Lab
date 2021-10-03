@@ -6,53 +6,74 @@
  * September-30-2021
  * Inventory class : extends FoodItem class, inventory for food items
  */
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 class Inventory extends Assign1{	
-	private FoodItem[] inventory; //array for storing food item inventory
+	private ArrayList<FoodItem> inventory; //array for storing food item inventory
 	private final int NUM = 20; 
 
 	/**
 	 * 
 	 */
 	Inventory(){
-		inventory = new FoodItem[NUM];
+		inventory = new ArrayList<>(NUM);
 	} //Inventory end
 	/**
-	 * displaying inventory
+	 * display of inventory
 	 */
-	void displayInventory() { //not saving anything 
-		for(int i=0;i <inventory.length;i++) {
-			if(inventory[i] != null) {
-				toString();
-			} else {
-				Assign1.main(null);
-				break;
-			}//if-else end
-		} //for end
-	} //displayInventory end
-	/**
-	 * 
-	 */
-	//	@Override
 	public String toString() {
-		return "inventory: \n";
+		StringBuilder a = new StringBuilder();
+		for(int i=0; i < inventory.size(); i++) {
+			a.append(inventory.get(i) + "\n");
+		} //for end
+		return a.toString();
 	} //toString end
 	/**
 	 * adding item to inventory array
 	 */
 	boolean addItem(Scanner sc) {
 		boolean b = false;
-		for(int i=0; i < inventory.length; i++) {
-			if(inventory[i] == null) { //if null
-				inventory[i].addItem(sc); //FoodItem class - addItem				
-				b = true; //success
-				break;
+		FoodItem item = null;
+		while(!b) {
+			System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)? ");
+			if(sc.hasNext(Pattern.compile("[fvp]"))) {
+				String type = sc.next();
+				switch(type) { //type of the product
+				case "f": //if fruit
+					item = new Fruit();		
+					break;
+				case "v": //if vegetable
+					item = new Vegetable();	
+					break;
+				case "p": //if preserve
+					item = new Preserve();						 
+					break;
+				default:
+					System.out.println("Invalid entry");
+					break;
+				} //switch end	
+				b = true;
 			} else {
-				b = false; //fail
-			}//if end
-		} //for end
-		return b;
+				System.out.println("Invalid entry");
+				sc.next();
+				b = false;
+			} //if-else end
+		} //while end
+
+		if(item.inputCode(sc)) { //if input code is true
+			if(alreadyExists(item)==-1) { //if code already exists (return -1) = already exists
+				if(item.addItem(sc)) { //go to add item in inventory class. if add item is true
+					return true;
+				} //if end
+				return false;
+			} else {
+				System.out.println("Item code already exists");
+				return false;
+			} //if-else end
+		} //if end
+		return true;
 	} //addItem end
 	/**
 	 * return index of food item array (inventory)
@@ -60,18 +81,12 @@ class Inventory extends Assign1{
 	 * @param item FoodItem from updateQuantity method
 	 */
 	int alreadyExists(FoodItem item) {
-		int index = -1;
-		
-
-		for(int i=0;i < inventory.length;i++) {
-			if(inventory[i] != null && item.getItemCode() == inventory[i].getItemCode()) { //if code already exists
-				System.out.println("Invalid code"); //already exists
-				index = i; //return index
-				break;
+		for(int i=0;i < inventory.size();i++) {
+			if(inventory.get(i).isEuqal(item)){ //if code same
+				return i;					
 			} //if else
-			index = -1;
 		} //for end
-		return index;
+		return -1;
 	} //alreadyExists end
 	/**
 	 * read item code to update quantity in inventory array.
@@ -79,42 +94,19 @@ class Inventory extends Assign1{
 	 * false = selling
 	 */
 	boolean updateQuantity(Scanner sc, boolean bs) {
-		boolean b = false;
-		int checkCode;
-		int newQuantity;
-
-		System.out.print("Enter the code for the item: ");
-		checkCode = sc.nextInt();
-		
-		for(int i=0;i < inventory.length;i++) { //check if it exists
-			int index = alreadyExists(inventory[i]);
-			
-			if(index != -1) { //if index is not
-				if(bs == true) { //if buying
-					System.out.print("Enter valid quantity to buy: ");
-					b = true;
-				} else if (bs == false) { //if selling
-					System.out.print("Enter valid quantity to sell: ");
-					b = false;
-				} //if-else end
-
-				newQuantity = sc.nextInt(); //read next value as new quantity for calculating
-
-				if(newQuantity <= inventory[index].getQuantity()) {
-					if(bs == true) { //if buy
-						inventory[index].setQuantity(inventory[index].getQuantity() - newQuantity);
-					} else if(bs == false) {
-						inventory[index].setQuantity(inventory[index].getQuantity() + newQuantity);
-					} //if-else end
-					b = true;
-				} else if (inventory[index].getQuantity() < newQuantity){ //if sell
-					System.out.println("Insufficient stock in inventory...");				
-				} //if-else end
-			} else {
-				System.out.println("Error...Could not buy/sell item(s)");
-			} //if-else end	
-		} //for end
-
-		return b;
+		FoodItem fi = new FoodItem();
+		fi.inputCode(sc);
+		int index = alreadyExists(fi); //check the code is already exists or not
+		if(index != -1) {
+			String buysell = bs?"buy":"sell"; //if bs is true buy, false sell
+			System.out.println("Enter valid quantity to " + buysell + ": ");
+			if(sc.hasNextInt()) {
+				int amount = sc.nextInt();
+				return inventory.get(index).updateItem(bs?amount:amount*-1); //if buy send amount, sell send 
+			}
+		} else {
+			System.out.println("Invalid quantity...");
+		}
+		return false;
 	} //updateQuantity
 } //Inventory class end

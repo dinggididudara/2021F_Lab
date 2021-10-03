@@ -14,6 +14,7 @@ public class Fruit extends FoodItem{
 	
 	@Override
 	boolean addItem(Scanner sc) {
+		super.addItem(sc);
 		type = "fruit";
 		System.out.print("Enter the name of the orchard supplier: ");
 		orchard = sc.nextLine();

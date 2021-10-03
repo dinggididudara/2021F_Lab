@@ -10,44 +10,33 @@ import java.util.Scanner;
 
 class Assign1 {
 	public static void main(String[] args) {
-		displayMenu();
-	} //main end
-	/**
-	 * display the main menu
-	 */
-	static void displayMenu() {
 		Scanner sc = new Scanner(System.in);
-		int option;
-		boolean bs; //buy = true, sell = false
-		while(true) { //main menu
+
+
+		while(true) {
+			displayMenu();
+
+			int option;
+			boolean bs; //buy = true, sell = false
 			try {		
 				Inventory i =  new Inventory();	
-				FoodItem f = new FoodItem();
-				
-				System.out.println("Please select one of the following:");
-				System.out.println("1: Add Item to Inventory");
-				System.out.println("2: Display Current Inventory");
-				System.out.println("3: Buy Item(s)");
-				System.out.println("4: Sell Item(s)");
-				System.out.println("5: To Exit");
-				System.out.print("> ");
+
 				option = sc.nextInt();
-				
+
 				switch(option) {
 				case 1: //add item
 					i.addItem(sc);
 					break;
 				case 2: //display inventory
-					
-					f.displayInventory();
+					System.out.println("Inventory :" + i);
 					break;
 				case 3: //buy item
 					bs = true;
-					f.updateQuantity(sc, bs);
+					i.updateQuantity(sc, bs);
 					break;
 				case 4: //sell item
 					bs = false;
-					f.updateQuantity(sc, bs);
+					i.updateQuantity(sc, bs);
 					break;
 				case 5:
 					sc.close();
@@ -58,10 +47,22 @@ class Assign1 {
 					break;
 				} //switch end
 			} catch(InputMismatchException m) {
-				System.out.println("Invalid entry");
+				System.err.println("Incorrect value entered.");
 			} catch (Exception e) {
 				System.out.println("Error");
-			}
-		} //while end
+			} //try-catch end
+		} //while end		
+	} //main end
+	/**
+	 * display the main menu
+	 */
+	static void displayMenu() {
+		System.out.println("Please select one of the following:");
+		System.out.println("1: Add Item to Inventory");
+		System.out.println("2: Display Current Inventory");
+		System.out.println("3: Buy Item(s)");
+		System.out.println("4: Sell Item(s)");
+		System.out.println("5: To Exit");
+		System.out.print("> ");
 	} //displayMenu end
 } //Assign1 class end

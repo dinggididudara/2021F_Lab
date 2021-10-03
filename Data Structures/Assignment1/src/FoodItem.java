@@ -11,9 +11,8 @@
 import java.util.*;
 import java.util.InputMismatchException;
 
-class FoodItem extends Inventory{
+class FoodItem{
 	FoodItem f;
-	private String type;
 
 	private int itemCode;
 	private String name;
@@ -21,42 +20,37 @@ class FoodItem extends Inventory{
 	private double price;
 	private double cost;
 
-//	/**
-//	 * 
-//	 * @param type
-//	 * @param itemCode
-//	 * @param name
-//	 * @param quantity
-//	 * @param price
-//	 * @param cost
-//	 */
-//	FoodItem(String type, int itemCode, String name, int quantity, double price, double cost){
-//		this.type = type;
-//		this.itemCode = itemCode;
-//		this.name = name;
-//		this.quantity = quantity;
-//		this.price = price;
-//		this.cost = cost;
-//	} //FoodItem
-	
+
+	FoodItem(){}
+	/**
+	 * 
+	 * @param type
+	 * @param itemCode
+	 * @param name
+	 * @param quantity
+	 * @param price
+	 * @param cost
+	 */
+	FoodItem(int itemCode, String name, int quantity, double price, double cost){
+		this.itemCode = itemCode;
+		this.name = name;
+		this.quantity = quantity;
+		this.price = price;
+		this.cost = cost;
+	} //FoodItem
+
 	/**
 	 * display the all data members in the class
 	 */	
 	@Override
 	public String toString() {
 		super.toString();
-		return "Item: " + this.itemCode + " " + this.name + " " + this.quantity + "  | price: $" + this.price +  "  |  cost: $" + this.cost;
+		return "Item: " + itemCode + " " + name + " " + quantity + "  | price: $" + price +  "  |  cost: $" + cost;
 	} //toString end
 	/**
 	 * getter and setter for external class, method
 	 */
-	/**
-	 * save type
-	 * @param type
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
+
 	/**
 	 * save type
 	 * @param type
@@ -93,13 +87,6 @@ class FoodItem extends Inventory{
 		this.cost = cost;
 	}
 	/**
-	 * storing type of the product
-	 * @return type
-	 */
-	String getType() {
-		return type;
-	}
-	/**
 	 * storing item code and return
 	 * @return itemCode
 	 */
@@ -134,98 +121,46 @@ class FoodItem extends Inventory{
 		return cost;
 	} //cost end
 	/**
-	 * read from Scanner passed in and fills data member
+	 * read from Scanner passed in and fill data member
 	 */
-//	@Override
 	boolean addItem(Scanner sc) {
-		Inventory i = new Inventory();
-		while(true) {
-			System.out.print("Do you wish to add a fruit(f), vegetable(v) or a preserve(p)? ");
-			type = sc.next();
-			if(!(type.equals("f")) && !(type.equals("v")) && !(type.equals("p"))) { //if not the type
-				System.out.println("Invalid type");
-				return false; //if fail
-			} else {
-				break;
-			} //if-else end
-		} //while end
-		
-		System.out.print("Enter the code for the item: ");
-		itemCode = sc.nextInt();
-		sc.nextLine();
-
-		int e = i.alreadyExists(sc, itemCode); //check the code if it already exists
-		if(e == -1) { //if code does not exist in array
-			f = new FoodItem();
-			int error = 0;
-			while(error == 0) {
-				try {
-					System.out.print("Enter the name for the item: ");
-					name = sc.nextLine();
-					System.out.print("Enter the quantity for the item: ");
-					quantity = sc.nextInt();
-					sc.nextLine();
-					System.out.print("Enter the cost of the item: ");
-					cost = sc.nextDouble();
-					System.out.print("Enter the sales price of the item: ");
-					price = sc.nextDouble();
-					sc.nextLine();
-
-					switch(type) { //type of the product
-					case "f": //if fruit
-						f = new Fruit();						
-						error = 2;
-						break;
-					case "v": //if vegetable
-						f = new Vegetable();						
-						error = 2;
-						break;
-					case "p": //if preserve
-						f = new Preserve();						 
-						error = 2;
-						break;
-					default:
-						System.out.println("Invalid entry");
-						break;
-					} //switch end	
-					
-					f.addItem(sc);
+		int error = 0;
+		while(error == 0) {
+			try {
+				System.out.println("Enter the code for the item: ");
+				itemCode = sc.nextInt();
 				
-				} catch(InputMismatchException m) {
-					System.out.println("Invalid entry");
-				}catch (Exception ex) {
-					System.out.println("error");
-				} //try-catch end
-			} //while end
-		} //if end
-		return true;
+				System.out.print("Enter the name for the item: ");
+				name = sc.nextLine();
+				System.out.print("Enter the quantity for the item: ");
+				quantity = sc.nextInt();
+				sc.nextLine();
+				System.out.print("Enter the cost of the item: ");
+				cost = sc.nextDouble();
+				System.out.print("Enter the sales price of the item: ");
+				price = sc.nextDouble();
+				sc.nextLine();
+				return true;
+			} catch(InputMismatchException m) {
+				System.out.println("Invalid entry");
+			}catch (Exception ex) {
+				System.out.println("error");
+			} //try-catch end
+		} //while end
+		return false;
 	} //addItem end
 	/**
 	 * update the quantity field - buying / selling
-	 * @param sc Scanner
-	 * @param index number for the array
-	 * @param buy_sell option for buy or sell
+	 * @param amount for change quantity
+	 * 
 	 */
 	boolean updateItem(int amount) {
-		
-		boolean b = false;
-		String bs = null;
-
-		if(buy_sell == 1) {
-			bs = "buy";
-		}else if(buy_sell ==2) {
-			bs = "sell";
-		} //if-else end
-
-		try {
-			
-			
-			b = true;
-		} catch (InputMismatchException e) {
-			System.out.printf("Error...could not %s item.\n", bs);
-			b = false;		
-		} //try-catch end
-		return b; //succeed = true, fail = false
+		if(amount <= quantity) {
+			quantity += amount;
+			return true;
+		} else {
+			return false;
+		}
 	} //updateItem
 	/**
 	 * if item code exists = return true
@@ -233,21 +168,10 @@ class FoodItem extends Inventory{
 	 * @return true for success , false for fail
 	 */
 	boolean isEuqal(FoodItem item) {
-		boolean tf = false; //true or false //success or failure
-		int amount;
-//		item.quantity 
-			if (inventory[i] != null) { //if value is exists //error//how to check the code?????
-				if(inventory[i].getItemCode() == checkCode) {
-					updateItem(amount);
-					tf = true; //if success
-					break;
-				} //if end
-			} else {
-				System.out.println("Code not found in inventory...");
-				tf = false; //if not success
-			} //if-else end
-	
-		return tf;
+		if(item.itemCode == this.itemCode) {
+			return true;
+		}
+		return false;
 	} //isEqual end
 	/**
 	 * read a valid item code from scanner - buying & selling
@@ -255,21 +179,21 @@ class FoodItem extends Inventory{
 	 * true = buying 
 	 * false = selling
 	 */
-	boolean inputCode(Scanner sc) {
+	boolean inputCode(Scanner sc) { //just scanning the value
 		boolean b = false;
 		int checkCode;
-		
+
 		while(true) {
 			try {
-				System.out.print("Enter valid code: ");
+				System.out.print("Enter valid item code: ");
 				checkCode = sc.nextInt();
-				System.out.println("Enter valid quantity to : ");
+				b = true;
 				break;
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid code");
+				b = false;
 			} //try-catch		
 		} //while end
-
-		return b;
+		return b; //true=success, false=fail
 	} //inputCode end
 } //FoodItem class end
