@@ -10,7 +10,7 @@
  */
 import java.util.*;
 import java.util.InputMismatchException;
-//implements Comparable<FoodItem>
+
 class FoodItem extends Inventory{
 	FoodItem f;
 	private String type;
@@ -20,73 +20,57 @@ class FoodItem extends Inventory{
 	private int quantity;
 	private double price;
 	private double cost;
+
+//	/**
+//	 * 
+//	 * @param type
+//	 * @param itemCode
+//	 * @param name
+//	 * @param quantity
+//	 * @param price
+//	 * @param cost
+//	 */
+//	FoodItem(String type, int itemCode, String name, int quantity, double price, double cost){
+//		this.type = type;
+//		this.itemCode = itemCode;
+//		this.name = name;
+//		this.quantity = quantity;
+//		this.price = price;
+//		this.cost = cost;
+//	} //FoodItem
 	
-	/**
-	 * initialize FoodItem class
-	 */
-	FoodItem(){}
-	/**
-	 * 
-	 * @param type
-	 * @param itemCode
-	 * @param name
-	 * @param quantity
-	 * @param price
-	 * @param cost
-	 */
-	FoodItem(String type, int itemCode, String name, int quantity, double price, double cost){
-		this.type = type;
-		this.itemCode = itemCode;
-		this.name = name;
-		this.quantity = quantity;
-		this.price = price;
-		this.cost = cost;
-	} //FoodItem
-	/**
-	 * displaying inventory
-	 */
-	void displayInventory() { //not saving anything 
-		for(int i=0;i <inventory.length;i++) {
-			if(inventory[i] != null) {
-				System.out.println(itemCode);
-				toString();
-			} else {
-				Assign1.main(null);
-				break;
-			}//if-else end
-		} //for end
-	} //displayInventory end
 	/**
 	 * display the all data members in the class
 	 */	
-	//	@Override
+	@Override
 	public String toString() {
+		super.toString();
 		return "Item: " + this.itemCode + " " + this.name + " " + this.quantity + "  | price: $" + this.price +  "  |  cost: $" + this.cost;
 	} //toString end
 	/**
 	 * getter and setter for external class, method
 	 */
-//	/**
-//	 * save type
-//	 * @param type
-//	 */
-//	public void setType(String type) {
-//		this.type = type;
-//	}
-//	/**
-//	 * save type
-//	 * @param type
-//	 */
-//	public void setItemCode(int itemCode) {
-//		this.itemCode = itemCode;
-//	}
-//	/**
-//	 * save type
-//	 * @param type
-//	 */
-//	public void setName(String name) {
-//		this.name = name;
-//	}
+	/**
+	 * save type
+	 * @param type
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+	/**
+	 * save type
+	 * @param type
+	 */
+	public void setItemCode(int itemCode) {
+		this.itemCode = itemCode;
+	}
+	/**
+	 * save type
+	 * @param type
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 	/**
 	 * save quantity
 	 * @param quantity
@@ -94,20 +78,20 @@ class FoodItem extends Inventory{
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-//	/**
-//	 * save price
-//	 * @param price
-//	 */
-//	public void setPrice(double price) {
-//		this.price = price;
-//	}
-//	/**
-//	 * save cost
-//	 * @param cost
-//	 */
-//	public void setCost(double cost) {
-//		this.cost = cost;
-//	}
+	/**
+	 * save price
+	 * @param price
+	 */
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	/**
+	 * save cost
+	 * @param cost
+	 */
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
 	/**
 	 * storing type of the product
 	 * @return type
@@ -152,7 +136,7 @@ class FoodItem extends Inventory{
 	/**
 	 * read from Scanner passed in and fills data member
 	 */
-	@Override
+//	@Override
 	boolean addItem(Scanner sc) {
 		Inventory i = new Inventory();
 		while(true) {
@@ -222,10 +206,8 @@ class FoodItem extends Inventory{
 	 * @param index number for the array
 	 * @param buy_sell option for buy or sell
 	 */
-	boolean updateItem(Scanner sc, int index, int buy_sell) {
-		Inventory in = new Inventory();
-
-		int updatingQuantity;
+	boolean updateItem(int amount) {
+		
 		boolean b = false;
 		String bs = null;
 
@@ -236,9 +218,8 @@ class FoodItem extends Inventory{
 		} //if-else end
 
 		try {
-			System.out.printf("Enter valid quantity to %s: \n", bs);
-			updatingQuantity = sc.nextInt();
-			in.updateQuantity(updatingQuantity, index, bs);
+			
+			
 			b = true;
 		} catch (InputMismatchException e) {
 			System.out.printf("Error...could not %s item.\n", bs);
@@ -251,15 +232,13 @@ class FoodItem extends Inventory{
 	 * 2.check input code is in the array
 	 * @return true for success , false for fail
 	 */
-	boolean isEqual(Scanner sc, int num) {
+	boolean isEuqal(FoodItem item) {
 		boolean tf = false; //true or false //success or failure
-		for(int i=0; i < inventory.length; i++) {
-			System.out.print("Enter valid item code: ");
-			int checkCode = sc.nextInt();
+		int amount;
+//		item.quantity 
 			if (inventory[i] != null) { //if value is exists //error//how to check the code?????
-				System.out.println("in if loop");
 				if(inventory[i].getItemCode() == checkCode) {
-					updateItem(sc, i, num);
+					updateItem(amount);
 					tf = true; //if success
 					break;
 				} //if end
@@ -267,7 +246,7 @@ class FoodItem extends Inventory{
 				System.out.println("Code not found in inventory...");
 				tf = false; //if not success
 			} //if-else end
-		} //for end
+	
 		return tf;
 	} //isEqual end
 	/**
@@ -276,18 +255,15 @@ class FoodItem extends Inventory{
 	 * true = buying 
 	 * false = selling
 	 */
-	boolean inputCode(Scanner sc, int num) {
+	boolean inputCode(Scanner sc) {
 		boolean b = false;
-
-		if(num == 1) {
-			b = true;
-		} else if(num == 2) {
-			b = false;
-		} //if-else end
-
+		int checkCode;
+		
 		while(true) {
 			try {
-				isEqual(sc, num); //send input value to another method //error
+				System.out.print("Enter valid code: ");
+				checkCode = sc.nextInt();
+				System.out.println("Enter valid quantity to : ");
 				break;
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid code");

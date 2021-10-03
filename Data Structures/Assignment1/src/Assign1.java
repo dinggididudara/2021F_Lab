@@ -17,12 +17,11 @@ class Assign1 {
 	 */
 	static void displayMenu() {
 		Scanner sc = new Scanner(System.in);
-		int num = 20; //size of array
 		int option;
-		
+		boolean bs; //buy = true, sell = false
 		while(true) { //main menu
 			try {		
-				Inventory i =  new Inventory(num);		
+				Inventory i =  new Inventory();	
 				FoodItem f = new FoodItem();
 				
 				System.out.println("Please select one of the following:");
@@ -39,15 +38,16 @@ class Assign1 {
 					i.addItem(sc);
 					break;
 				case 2: //display inventory
-					System.out.println("Inventory :");
-					System.out.println("");
+					
 					f.displayInventory();
 					break;
 				case 3: //buy item
-					f.inputCode(sc, 1);
+					bs = true;
+					f.updateQuantity(sc, bs);
 					break;
 				case 4: //sell item
-					f.inputCode(sc, 2);
+					bs = false;
+					f.updateQuantity(sc, bs);
 					break;
 				case 5:
 					sc.close();
