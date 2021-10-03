@@ -17,40 +17,34 @@ class Assign1 {
 			displayMenu();
 
 			int option;
-			boolean bs; //buy = true, sell = false
-			try {		
-				Inventory i =  new Inventory();	
+			boolean bs; //buy = true, sell = false	
+			Inventory i =  new Inventory();	
 
-				option = sc.nextInt();
+			option = sc.nextInt();
 
-				switch(option) {
-				case 1: //add item
-					i.addItem(sc);
-					break;
-				case 2: //display inventory
-					System.out.println("Inventory :" + i);
-					break;
-				case 3: //buy item
-					bs = true;
-					i.updateQuantity(sc, bs);
-					break;
-				case 4: //sell item
-					bs = false;
-					i.updateQuantity(sc, bs);
-					break;
-				case 5:
-					sc.close();
-					System.out.println("Exiting...");
-					System.exit(0);
-				default:
-					System.out.println("Invalid entry");
-					break;
-				} //switch end
-			} catch(InputMismatchException m) {
-				System.err.println("Incorrect value entered.");
-			} catch (Exception e) {
-				System.out.println("Error");
-			} //try-catch end
+			switch(option) {
+			case 1: //add item
+				i.addItem(sc);
+				break;
+			case 2: //display inventory
+				System.out.println("Inventory :" + i);
+				break;
+			case 3: //buy item
+				bs = true;
+				i.updateQuantity(sc, bs);
+				break;
+			case 4: //sell item
+				bs = false;
+				i.updateQuantity(sc, bs);
+				break;
+			case 5:
+				sc.close();
+				System.out.println("Exiting...");
+				System.exit(0);
+			default:
+				System.out.println("Invalid entry");
+				break;
+			} //switch end
 		} //while end		
 	} //main end
 	/**
