@@ -4,10 +4,15 @@
  * 040899389
  * Assignment 1
  * September-30-2021
+ * Assign1 class display main menu with validate entry checking.
  */
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+/**
+ * 
+ * Assign1 class display main menu with validate entry checking
+ *
+ */
 class Assign1 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -26,7 +31,7 @@ class Assign1 {
 				case 2: //display inventory
 					System.out.println("Inventory :\n" + i);
 					break;
-				case 3: //buy item
+				case 3: //buy itembs: bo
 					bs = true;
 					i.updateQuantity(sc, bs);
 					break;

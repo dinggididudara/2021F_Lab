@@ -10,7 +10,10 @@
  */
 import java.util.*;
 import java.util.InputMismatchException;
-
+/**
+ * FoodItem class scanning user input, and  update item when user buy/sell products
+ *
+ */
 class FoodItem{
 	FoodItem f;
 
@@ -21,7 +24,7 @@ class FoodItem{
 	private double cost;
 
 	/**
-	 * 
+	 * initialize to zero to everything first
 	 */
 	FoodItem(){
 		itemCode = 0;
@@ -80,7 +83,7 @@ class FoodItem{
 				name = sc.nextLine();
 			} //if end
 		} //while end
-		
+
 		while (true) { //quantity
 			System.out.print("Enter the quantity for the item: ");
 
@@ -130,9 +133,7 @@ class FoodItem{
 			} //if-else end
 		} //while end
 		sc.nextLine();
-		
-//		f = new FoodItem(itemCode, name, quantity, price, cost);
-		
+
 		return true;
 	} //addItem end
 	/**
@@ -141,12 +142,15 @@ class FoodItem{
 	 * 
 	 */
 	boolean updateItem(int amount) {
-		if(amount <= quantity) {
-			quantity += amount;
-			return true;
+		if(amount <= this.quantity) { // errororororroro*******
+			this.quantity += amount;
+			if(this.quantity > 0) {
+				return true;
+			} //if end
+			return false;
 		} else {
 			return false;
-		}
+		} //updateItem end
 	} //updateItem
 	/**
 	 * if item code exists = return true
@@ -189,7 +193,7 @@ class FoodItem{
 		boolean b = false;
 		while (true) { //continue until get valid code
 			System.out.print("Enter the code for the item: ");
-			
+
 			if (!sc.hasNextInt()) {
 				System.out.println("Invalid Entry");
 			} else{

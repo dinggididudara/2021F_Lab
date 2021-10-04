@@ -4,11 +4,14 @@
  * 040899389
  * Assignment 1
  * September-30-2021
- * Inventory class : extends FoodItem class, inventory for food items
+ * Inventory class  inventory for food items
  */
 
 import java.util.Scanner;
-
+/**
+ * Inventory class storing food item in inventory
+ *
+ */
 class Inventory {	
 	private FoodItem[] inventory; //array for storing food item inventory
 	private final int NUM = 20; //array size
@@ -116,10 +119,11 @@ class Inventory {
 				System.out.print("Enter valid quantity to " + buysell + ": ");
 				if(sc.hasNextInt()) { //if valid quantity
 					int amount = sc.nextInt();
-					if(amount > 0) { //if right amount
+					if(amount > 0 && amount <= inventory[index].getQuantity()) { //if right amount
 						return inventory[index].updateItem(bs?amount:amount*-1); //if buy send amount, sell send //return the amount is valid or not
 					} else {
 						System.out.println("Invalid quantity...");
+						return false;
 					} //if-else end
 				} else { //if has index = code already exists
 					System.out.printf("Error...could not %s item\n", buysell);

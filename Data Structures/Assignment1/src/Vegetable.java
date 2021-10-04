@@ -7,21 +7,29 @@
  * vegetable product
  */
 import java.util.Scanner;
-
+/**
+ * Vegetable class extends FoodItem
+ * scan information about vegetable, print
+ *
+ */
 public class Vegetable extends FoodItem{
-	String type;
 	String farm;
-	
+	/**
+	 * addItem farm supplier
+	 * @param sc scanner
+	 * @return true if succeed
+	 */
 	@Override
 	boolean addItem(Scanner sc) {
 		super.addItem(sc);
-		type = "vegetable";
 		System.out.print("Enter the name of the farm supplier: ");
 		farm = sc.nextLine();
-		
 		return true;
 	} //addItem
-	
+	/**
+	 * toString print farm supplier
+	 * @return print farm supplier
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + "  |  farm supplier: " + farm + "\n";
