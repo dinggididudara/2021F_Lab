@@ -76,7 +76,7 @@ class FoodItem{
 	/**
 	 * read from Scanner passed in and fill data member
 	 */
-	boolean addItem(Scanner sc) {
+	public boolean addItem(Scanner sc, boolean fromFile) {
 		while (name.replaceAll(" ", "").equals("")) { //reset the name if not valid
 			System.out.print("Enter the name for the item: ");
 			if (sc.hasNextLine()) {
@@ -137,6 +137,13 @@ class FoodItem{
 		return true;
 	} //addItem end
 	/**
+	 * 
+	 * @param writer
+	 */
+	public void outputItem(Formatter writer) {
+		
+	}
+	/**
 	 * update the quantity field - buying / selling
 	 * @param amount for change quantity
 	 * 
@@ -187,9 +194,9 @@ class FoodItem{
 		return b; //true=success, false=fail
 	} //inputCode end
 	/**
-	 * read a valid item code from scanner - during addItem
+	 * read a valid item code from file - during addItem
 	 */
-	boolean inputCode(Scanner sc, FoodItem item) { 
+	boolean inputCode(Scanner sc, boolean fromFile) { 
 		boolean b = false;
 		while (true) { //continue until get valid code
 			System.out.print("Enter the code for the item: ");

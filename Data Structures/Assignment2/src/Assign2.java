@@ -2,8 +2,8 @@
  * CST - CS CST8130 301 Data Structures
  * Soomin Lee
  * 040899389
- * Assignment 1
- * September-30-2021
+ * Assignment 2
+ * October-10-2021
  * Assign2 class display main menu with validate entry checking.
  */
 import java.util.InputMismatchException;
@@ -43,8 +43,10 @@ class Assign2 {
 					
 					break;
 				case 6:
+					
 					break;
 				case 7:
+					
 					break;
 				case 8:
 					sc.close();

@@ -2,10 +2,11 @@
  * CST - CS CST8130 301 Data Structures
  * Soomin Lee
  * 040899389
- * Assignment 1
- * September-30-2021
+ * Assignment 2
+ * October-10-2021
  * fruit product
  */
+import java.util.Formatter;
 import java.util.Scanner;
 /**
  * Fruit class extends FoodItem 
@@ -20,12 +21,12 @@ public class Fruit extends FoodItem{
 	 * @return true if succeed
 	 */
 	@Override
-	boolean addItem(Scanner sc) {
-		super.addItem(sc);
+	public boolean addItem(Scanner sc, boolean fromFile) {
+		super.addItem(sc, fromFile);
 		System.out.print("Enter the name of the orchard supplier: ");
 		orchard = sc.nextLine();
 		return true;
-	}
+	} //addItem end
 	/**
 	 * toString print orchard supplier
 	 * @return print orchard supplier
@@ -33,5 +34,12 @@ public class Fruit extends FoodItem{
 	@Override
 	public String toString() {
 		return super.toString() + "  |  orchard supplier: " + orchard + "\n";
+	} //toString end
+	/**
+	 * @param writer formatter for file
+	 */
+	@Override
+	public void outputItem(Formatter writer) {
+		
 	}
 } //Fruit end

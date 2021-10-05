@@ -2,10 +2,11 @@
  * CST - CS CST8130 301 Data Structures
  * Soomin Lee
  * 040899389
- * Assignment 1
- * September-30-2021
+ * Assignment 2
+ * October-10-2021
  * preserve product
  */
+import java.util.Formatter;
 import java.util.Scanner;
 /**
  * Preserve class extends FoodItem
@@ -20,8 +21,8 @@ public class Preserve extends FoodItem{
 	 * @return true if succeed
 	 */
 	@Override
-	boolean addItem(Scanner sc) {
-		super.addItem(sc);
+	public boolean addItem(Scanner sc, boolean fromFile) {
+		super.addItem(sc, fromFile);
 		System.out.print("Enter the size of the jar in millilitres: ");
 		size = sc.nextDouble();
 		return true;
@@ -33,5 +34,12 @@ public class Preserve extends FoodItem{
 	@Override
 	public String toString() {
 		return super.toString() + "  |  size : " + size + "mL\n";
+	}
+	/**
+	 * @param writer formatter for file
+	 */
+	@Override
+	public void outputItem(Formatter writer) {
+		
 	}
 } //Preserve class end

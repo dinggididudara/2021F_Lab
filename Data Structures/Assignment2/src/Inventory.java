@@ -2,25 +2,29 @@
  * CST - CS CST8130 301 Data Structures
  * Soomin Lee
  * 040899389
- * Assignment 1
- * September-30-2021
+ * Assignment 2
+ * October-10-2021
  * Inventory class  inventory for food items
  */
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * Inventory class storing food item in inventory
  *
  */
 class Inventory {	
-	private FoodItem[] inventory; //array for storing food item inventory
+	private ArrayList<FoodItem> inventory; //array for storing food item inventory
 	private final int NUM = 20; //array size
 	private int numItems=0; //user entered items' number
 	/**
 	 * initialize the array
 	 */
 	Inventory(){
-		inventory = new FoodItem[NUM];
+		inventory = new ArrayList<FoodItem>(NUM);
 	} //Inventory end
 	/**
 	 * display of inventory
@@ -32,8 +36,8 @@ class Inventory {
 			result = "";
 		} else {
 			for(int i=0; i < numItems; i++) {
-				if(inventory[i] != null) {
-					result += inventory[i].toString();
+				if(inventory.get(i) != null) {
+					result += inventory.get(i).toString();
 				} //if end
 			} //for end
 		} //if-else end
@@ -42,7 +46,7 @@ class Inventory {
 	/**
 	 * adding item to inventory array
 	 */
-	boolean addItem(Scanner sc) {
+	public boolean addItem(Scanner sc, boolean fromFile) {
 		if(numItems == 20) {
 			System.out.println("Inventory is full now");
 			return false;
@@ -76,7 +80,7 @@ class Inventory {
 		if(item.inputCode(sc, item)) { //if input code valid = true
 			if(alreadyExists(item)==-1) { //send the object to another method
 				if(item.addItem(sc)) { //if adding item succeed
-					inventory[numItems] = item; //put object to array
+					inventory.add(numItems, item); //put object to array
 					numItems++;
 					return true;
 				} //if end
@@ -89,13 +93,47 @@ class Inventory {
 		return true;
 	} //addItem end
 	/**
+	 * scan user input item for search, and search in inventory
+	 * @param sc
+	 */
+	public void searchForItem(Scanner sc) {
+		System.out.print("Enter the code for the item: ");
+		int searchItem = sc.nextInt();
+	}
+	/**
+	 * 
+	 * @param sc
+	 */
+	public void saveToFile(Scanner sc) {
+		System.out.print("Enter the filename to save to: ");
+		String filename = sc.nextLine();
+	}
+	/**
+	 * read from file
+	 * @param sc
+	 */
+	public void readFromFile(Scanner sc) {
+		System.out.print("Enter the filename to read from: ");
+		String filenameRead = sc.nextLine();
+		
+		File file = new File(filenameRead);
+		try {
+			if(file.exists()) { //if file exists = true
+				System.out.println("File name already exist. ");
+			}
+		} catch (IOException e) {
+			System.out.println("could not open file...");
+		}
+		
+	}
+	/**
 	 * return index of food item array (inventory)
 	 * check if item code already exists or not - during add item
 	 * @param item FoodItem from updateQuantity method
 	 */
 	int alreadyExists(FoodItem item) {
 		for(int i=0;i < numItems;i++) {
-			if (inventory[i].isEuqal(item)) { 
+			if (inventory.get(i).isEuqal(item)) { 
 				return i;
 			} //if-else end
 		} //for end
@@ -119,8 +157,8 @@ class Inventory {
 				System.out.print("Enter valid quantity to " + buysell + ": ");
 				if(sc.hasNextInt()) { //if valid quantity
 					int amount = sc.nextInt();
-					if(amount > 0 && amount <= inventory[index].getQuantity()) { //if right amount
-						return inventory[index].updateItem(bs?amount:amount*-1); //if buy send amount, sell send //return the amount is valid or not
+					if(amount > 0 && amount <= inventory.get(index).getQuantity()) { //if right amount
+						return inventory.get(index).updateItem(bs?amount:amount*-1); //if buy send amount, sell send //return the amount is valid or not
 					} else {
 						System.out.println("Invalid quantity...");
 						return false;
