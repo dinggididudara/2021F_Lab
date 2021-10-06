@@ -48,21 +48,45 @@ class FoodItem{
 		this.price = price;
 		this.cost = cost;
 	}
-	public FoodItem getF() {
+	/**
+	 * getF FoodItem object
+	 * @return f
+	 */
+	public FoodItem getF() { 
 		return f;
 	}
+	/**
+	 * getItemCode item code store
+	 * @return itemCode
+	 */
 	public int getItemCode() {
 		return itemCode;
 	}
+	/**
+	 * getName store name of product
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * getQuantity store quantity of product
+	 * @return quantity
+	 */
 	public int getQuantity() {
 		return quantity;
 	}
+	/**
+	 * getPrice store price of product
+	 * @return price
+	 */
 	public double getPrice() {
 		return price;
 	}
+	/**
+	 * getCost store cost of product
+	 * @return cost
+	 */
 	public double getCost() {
 		return cost;
 	}
@@ -103,11 +127,11 @@ class FoodItem{
 		while (true) {
 			System.out.print("Enter the cost for the item: ");
 
-			if (!sc.hasNextDouble())	{
+			if (!sc.hasNextDouble())	{ //if it is not double type
 				System.out.println("Invalid Entry");
 				sc.nextLine();
 			} else {
-				cost = sc.nextDouble();
+				cost = sc.nextDouble(); //if it is double type then save cost
 				if (cost > 0) {break;}
 				else {
 					System.out.println("Invalid Entry");
@@ -115,15 +139,15 @@ class FoodItem{
 				} //if-else end
 			} //if-else end
 		}//while end
-		sc.nextLine();
+		sc.nextLine(); //remove newline
 		while (true) {
 			System.out.print("Enter the price for the item: ");
 
 			if (!sc.hasNextDouble())	{
 				System.out.println("Invalid Entry");
 
-				sc.nextLine();
-			} else {
+				sc.nextLine(); //remove newline
+			} else { //if it is double type
 				price = sc.nextDouble();
 				if (price > 0) {break;}
 				else {
@@ -141,10 +165,10 @@ class FoodItem{
 	 * @param amount for change quantity
 	 * 
 	 */
-	boolean updateItem(int amount) {
-		if(amount <= this.quantity) { // errororororroro*******
+	boolean updateItem(int amount) { //get amount from another method
+		if(amount <= this.quantity) { //if it is smaller than this quantity (already stored)
 			this.quantity += amount;
-			if(this.quantity > 0) {
+			if(this.quantity > 0) { 
 				return true;
 			} //if end
 			return false;
@@ -171,10 +195,9 @@ class FoodItem{
 	 */
 	boolean inputCode(Scanner sc) { 
 		boolean b = false;
-		int itemCode;
 
 		while(true) {
-			try {
+			try { //scan the item code
 				System.out.print("Enter valid item code: ");
 				this.itemCode = sc.nextInt();
 				b = true;
@@ -202,7 +225,7 @@ class FoodItem{
 				b=true;
 				break;
 			}//if end
-			sc.nextLine();
+			sc.nextLine(); //remove new line
 		} //while end
 		return b; //true=success, false=fail
 	} //inputCode end

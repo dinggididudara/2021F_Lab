@@ -8,6 +8,7 @@
  * inputCode -> isEqual -> updateItem -> updateQuantity
  * addItem -><- alreadyExists
  */
+import java.io.File;
 import java.util.*;
 import java.util.InputMismatchException;
 /**
@@ -137,7 +138,7 @@ class FoodItem{
 		return true;
 	} //addItem end
 	/**
-	 * 
+	 * save inventory to file
 	 * @param writer
 	 */
 	public void outputItem(Formatter writer) {
@@ -171,10 +172,21 @@ class FoodItem{
 		return false;
 	} //isEqual end
 	/**
+	 * Comparator, comparing item code in array list
+	 */
+	public static Comparator<FoodItem> codeComparator = new Comparator<FoodItem>() {
+		@Override
+		public int compare(FoodItem f1, FoodItem f2) {
+			return (f1.getItemCode()-f2.getItemCode());
+		} //compare end
+	}; //comparator end
+	
+	/**
 	 * read a valid item code from scanner - buying & selling
 	 * 1.checking if it is valid code or not -> if valid go to isEqual method
 	 * true = buying 
 	 * false = selling
+	 * using comparator
 	 */
 	boolean inputCode(Scanner sc) { 
 		boolean b = false;

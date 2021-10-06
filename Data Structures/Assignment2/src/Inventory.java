@@ -112,20 +112,16 @@ class Inventory {
 	 * read from file
 	 * @param sc
 	 */
-	public void readFromFile(Scanner sc) {
+	public void readFromFile(Scanner sc) throws IOException {
 		System.out.print("Enter the filename to read from: ");
-		String filenameRead = sc.nextLine();
+		File file = new File(sc.nextLine());
 		
-		File file = new File(filenameRead);
-		try {
-			if(file.exists()) { //if file exists = true
-				System.out.println("File name already exist. ");
-			}
-		} catch (IOException e) {
-			System.out.println("could not open file...");
-		}
-		
-	}
+
+		if(file.exists()) { //if file exists = true
+			System.out.println("File name already exist. ");
+		} //if end
+
+	} //readFromFile
 	/**
 	 * return index of food item array (inventory)
 	 * check if item code already exists or not - during add item

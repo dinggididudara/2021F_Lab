@@ -107,7 +107,10 @@ class Inventory {
 	 * bs = false = selling
 	 */
 	boolean updateQuantity(Scanner sc, boolean bs) {
+		String buysell = bs?"buy":"sell"; //if bs is true buy, false sell
+		
 		if(numItems == 0) { //if user input anything yet
+			System.out.printf("Error...could not %s item\n", buysell);
 			return false;
 		} //if end
 		FoodItem fi = new FoodItem();
@@ -115,7 +118,6 @@ class Inventory {
 		int index = alreadyExists(fi); //check the code is already exists or not
 		if(index != -1) {
 			while(true) {
-				String buysell = bs?"buy":"sell"; //if bs is true buy, false sell
 				System.out.print("Enter valid quantity to " + buysell + ": ");
 				if(sc.hasNextInt()) { //if valid quantity
 					int amount = sc.nextInt();
