@@ -40,6 +40,6 @@ public class Fruit extends FoodItem{
 	 */
 	@Override
 	public void outputItem(Formatter writer) {
-		
+//		writer = ;
 	}
 } //Fruit end

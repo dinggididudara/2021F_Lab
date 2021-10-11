@@ -44,7 +44,7 @@ class Inventory {
 		return result;
 	} //toString end
 	/**
-	 * adding item to inventory array
+	 * adding item to inventory array list and to file
 	 */
 	public boolean addItem(Scanner sc, boolean fromFile) {
 		if(numItems == 20) {
@@ -99,6 +99,8 @@ class Inventory {
 	public void searchForItem(Scanner sc) {
 		System.out.print("Enter the code for the item: ");
 		int searchItem = sc.nextInt();
+		
+		
 	}
 	/**
 	 * 

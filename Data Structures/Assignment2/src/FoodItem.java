@@ -177,7 +177,7 @@ class FoodItem{
 	public static Comparator<FoodItem> codeComparator = new Comparator<FoodItem>() {
 		@Override
 		public int compare(FoodItem f1, FoodItem f2) {
-			return (f1.getItemCode()-f2.getItemCode());
+			return (f1.getItemCode()-f2.getItemCode()); //return zero if match
 		} //compare end
 	}; //comparator end
 	
