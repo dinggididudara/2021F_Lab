@@ -26,7 +26,7 @@ class Assign2 {
 
 				switch(option) {
 				case 1: //add item
-					i.addItem(sc);
+					i.addItem(sc, false);
 					break;
 				case 2: //display inventory
 					System.out.println("Inventory :\n" + i);
@@ -43,10 +43,10 @@ class Assign2 {
 					i.searchForItem(sc); //search for item
 					break;
 				case 6:
-					
+					i.saveToFile(sc);
 					break;
 				case 7:
-					
+					i.readFromFile(sc);
 					break;
 				case 8:
 					sc.close();

@@ -7,7 +7,6 @@
  * vegetable product
  */
 import java.io.Serializable;
-import java.util.Formatter;
 import java.util.Scanner;
 /**
  * Vegetable class extends FoodItem
@@ -15,6 +14,10 @@ import java.util.Scanner;
  *
  */
 public class Vegetable extends FoodItem implements Serializable{
+	/**
+	 * default serial version uid
+	 */
+	private static final long serialVersionUID = 1L;
 	String farm;
 	/**
 	 * addItem farm supplier
@@ -34,13 +37,13 @@ public class Vegetable extends FoodItem implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "  |  farm supplier: " + farm + "\n";
+		return super.toString() + "  farm supplier: " + farm + "\n";
 	} //toString
-	/**
-	 * @param writer formatter for file
-	 */
-	@Override
-	public void outputItem(Formatter writer) {
-		
-	}
+//	/**
+//	 * @param writer formatter for file
+//	 */
+//	@Override
+//	public void outputItem(Formatter writer) {
+//		
+//	}
 } //vegetable class end

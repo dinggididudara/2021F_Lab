@@ -7,7 +7,6 @@
  * preserve product
  */
 import java.io.Serializable;
-import java.util.Formatter;
 import java.util.Scanner;
 /**
  * Preserve class extends FoodItem
@@ -15,6 +14,10 @@ import java.util.Scanner;
  *
  */
 public class Preserve extends FoodItem implements Serializable{
+	/**
+	 * default serial version uid
+	 */
+	private static final long serialVersionUID = 1L;
 	double size;
 	/**
 	 * addItem size of the jar
@@ -34,13 +37,13 @@ public class Preserve extends FoodItem implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "  |  size : " + size + "mL\n";
+		return super.toString() + "  size : " + size + "mL\n";
 	}
-	/**
-	 * @param writer formatter for file
-	 */
-	@Override
-	public void outputItem(Formatter writer) {
-		
-	}
+//	/**
+//	 * @param writer formatter for file
+//	 */
+//	@Override
+//	public void outputItem(Formatter writer) {
+//		
+//	}
 } //Preserve class end

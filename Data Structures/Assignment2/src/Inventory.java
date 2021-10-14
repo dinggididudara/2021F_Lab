@@ -6,23 +6,22 @@
  * October-10-2021
  * Inventory class  inventory for food items
  */
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 /**
  * Inventory class storing food item in inventory
  *
  */
-class Inventory implements Serializable{	
+class Inventory implements Serializable, Comparator<FoodItem>{	
 	/**
 	 * default serial version uid
 	 */
@@ -57,6 +56,7 @@ class Inventory implements Serializable{
 	 * adding item to inventory array list and to file
 	 */
 	public boolean addItem(Scanner sc, boolean fromFile) {
+		fromFile = false; //it is not from file
 		if(numItems == 20) {
 			System.out.println("Inventory is full now");
 			return false;
@@ -87,9 +87,10 @@ class Inventory implements Serializable{
 				b = false;
 			} //if-else end
 		} //while end
-		if(item.inputCode(sc)) { //if input code valid = true
+				
+		if(item.inputCode(sc, fromFile)) { //if input code valid = true
 			if(alreadyExists(item)==-1) { //send the object to another method
-				if(item.addItem(sc)) { //if adding item succeed
+				if(item.addItem(sc, fromFile)) { //if adding item succeed
 					inventory.add(item); //put object to array
 					numItems++;
 					return true;
@@ -103,29 +104,22 @@ class Inventory implements Serializable{
 		return true;
 	} //addItem end
 	/**
-	 * scan user input item for search, and binary search in inventory
+	 * scan user input item for search, and binary search in inventory from file
 	 * @param sc
 	 */
 	public void searchForItem(Scanner sc) {
-		System.out.print("Enter the code for the item: ");
-		int searchItem = sc.nextInt();
-
-		readFromFile(sc);
-		boolean tf = true; //true if has code
-		int index = -1; //index for the matching item
-
-		for(int i=0;i<inventory.size();i++) {
-			if(inventory.get(i).getItemCode() == searchItem) { //if found
-				printFromFile(inventory, i);
-				break;
-			} else {
-				tf = false;
-			}
-		} //for end
-		if(!tf) {
+		FoodItem fi = new FoodItem();
+		boolean in = fi.inputCode(sc, true); //true for 'it is from file'
+		
+		if(in) { //if input code is success
+			if(alreadyExists(fi)!=-1) { //if code is in the file
+				int a = alreadyExists(fi);
+				inventory.get(a).toString(); //print that code
+			} //if end
+		} else {
 			System.out.println("Code not found in inventory...");
-		}
-	}
+		} //if-else end
+	} //searchForItem end
 	/**
 	 * write new object to file
 	 * @param sc
@@ -133,9 +127,14 @@ class Inventory implements Serializable{
 	 */
 	public void saveToFile(Scanner sc){		
 		System.out.print("Enter the filename to save to: ");
-		File file = new File(sc.nextLine());
+		String filename = sc.nextLine();
+		sc.nextLine();//remove new line
 		try {
-			if(!file.exists()) { //if file name is not exists
+			if(inventory.isEmpty()) { //if inventory is empty
+				System.out.println("inventory is empty now.");
+			} else { //if inventory is not empty
+				File file = new File(filename);
+//			if(!file.exists()) { //if file name is not exists
 				FileOutputStream output = new FileOutputStream(file);
 				ObjectOutputStream objectOutput = new ObjectOutputStream(output);
 
@@ -143,9 +142,12 @@ class Inventory implements Serializable{
 
 				output.close(); //close output
 				objectOutput.close(); //close object output
-			} else { //if file name already exists
-
-			} //if-else end
+//			} else { //if file name already exists
+//				
+//				
+//			} //if-else end
+			}
+			
 			} catch (IOException e) {
 				System.out.println("File Not Found, ignoring...");
 			} //try-catch end
@@ -186,13 +188,13 @@ class Inventory implements Serializable{
 			} //try-catch end
 		} //if-else end
 	} //readFromFile
-	/**
-	 * print from file with array list inventory
-	 * @param inventory
-	 */
-	public void printFromFile(ArrayList<FoodItem> inventory, int index) {
-		inventory.get(index).toString(); //print all objects(FoodItem) in array list
-	} //printFromFile end
+//	/**
+//	 * print from file with array list inventory
+//	 * @param inventory
+//	 */
+//	public void printFromFile(ArrayList<FoodItem> inventory, int index) {
+//		inventory.get(index).toString(); //print all objects(FoodItem) in array list
+//	} //printFromFile end
 
 	/**
 	 * return index of food item array (inventory)
@@ -200,13 +202,12 @@ class Inventory implements Serializable{
 	 * @param item FoodItem from updateQuantity method
 	 */
 	int alreadyExists(FoodItem item) {
-		
+		int c=-1;
 		
 		for(int i=0;i < numItems;i++) {
-			compare(item, inventory.get(i));
-			
-			if (inventory.get(i).isEuqal(item)) { 
-				return i;
+			c = compare(item, inventory.get(i)); //using comparator
+			if (c == 0) { //if matches 
+				return i; //return index
 			} //if-else end
 		} //for end
 		return -1; //not input that code yet
@@ -215,15 +216,15 @@ class Inventory implements Serializable{
 	 * read item code to update quantity in inventory array.
 	 * bs = true = buying
 	 * bs = false = selling
-	 * @parms sc Scanner
-	 * @bs boolean buy or sell
+	 * @param sc Scanner
+	 * @param bs boolean buy or sell
 	 */
 	boolean updateQuantity(Scanner sc, boolean bs) {
 		if(numItems == 0) { //if user input anything yet
 			return false;
 		} //if end
 		FoodItem fi = new FoodItem();
-		fi.inputCode(sc);
+		fi.inputCode(sc, false);
 		int index = alreadyExists(fi); //check the code is already exists or not
 		if(index != -1) {
 			while(true) {
@@ -246,4 +247,8 @@ class Inventory implements Serializable{
 		} //if-else end
 		return false;
 	} //updateQuantity
+	@Override
+	public int compare(FoodItem o1, FoodItem o2) {
+		return o1.getItemCode()-o2.getItemCode();
+	}
 } //Inventory class end
