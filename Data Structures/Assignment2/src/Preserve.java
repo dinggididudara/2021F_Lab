@@ -6,6 +6,7 @@
  * October-10-2021
  * preserve product
  */
+import java.io.Serializable;
 import java.util.Formatter;
 import java.util.Scanner;
 /**
@@ -13,7 +14,7 @@ import java.util.Scanner;
  * scan preserve product, print
  *
  */
-public class Preserve extends FoodItem{
+public class Preserve extends FoodItem implements Serializable{
 	double size;
 	/**
 	 * addItem size of the jar

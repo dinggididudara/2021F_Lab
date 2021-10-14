@@ -8,15 +8,25 @@
  */
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * Inventory class storing food item in inventory
  *
  */
-class Inventory {	
+class Inventory implements Serializable{	
+	/**
+	 * default serial version uid
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<FoodItem> inventory; //array for storing food item inventory
 	private final int NUM = 20; //array size
 	private int numItems=0; //user entered items' number
@@ -77,10 +87,10 @@ class Inventory {
 				b = false;
 			} //if-else end
 		} //while end
-		if(item.inputCode(sc, item)) { //if input code valid = true
+		if(item.inputCode(sc)) { //if input code valid = true
 			if(alreadyExists(item)==-1) { //send the object to another method
 				if(item.addItem(sc)) { //if adding item succeed
-					inventory.add(numItems, item); //put object to array
+					inventory.add(item); //put object to array
 					numItems++;
 					return true;
 				} //if end
@@ -93,44 +103,108 @@ class Inventory {
 		return true;
 	} //addItem end
 	/**
-	 * scan user input item for search, and search in inventory
+	 * scan user input item for search, and binary search in inventory
 	 * @param sc
 	 */
 	public void searchForItem(Scanner sc) {
 		System.out.print("Enter the code for the item: ");
 		int searchItem = sc.nextInt();
-		
-		
+
+		readFromFile(sc);
+		boolean tf = true; //true if has code
+		int index = -1; //index for the matching item
+
+		for(int i=0;i<inventory.size();i++) {
+			if(inventory.get(i).getItemCode() == searchItem) { //if found
+				printFromFile(inventory, i);
+				break;
+			} else {
+				tf = false;
+			}
+		} //for end
+		if(!tf) {
+			System.out.println("Code not found in inventory...");
+		}
 	}
 	/**
-	 * 
+	 * write new object to file
 	 * @param sc
+	 * @throws IOException 
 	 */
-	public void saveToFile(Scanner sc) {
+	public void saveToFile(Scanner sc){		
 		System.out.print("Enter the filename to save to: ");
-		String filename = sc.nextLine();
-	}
+		File file = new File(sc.nextLine());
+		try {
+			if(!file.exists()) { //if file name is not exists
+				FileOutputStream output = new FileOutputStream(file);
+				ObjectOutputStream objectOutput = new ObjectOutputStream(output);
+
+				objectOutput.writeObject(inventory);//write array list to the file
+
+				output.close(); //close output
+				objectOutput.close(); //close object output
+			} else { //if file name already exists
+
+			} //if-else end
+			} catch (IOException e) {
+				System.out.println("File Not Found, ignoring...");
+			} //try-catch end
+	} //saveToFile end
 	/**
 	 * read from file
-	 * @param sc
+	 * @param sc Scanner for reading file name from user
+	 * 
 	 */
-	public void readFromFile(Scanner sc) throws IOException {
+	@SuppressWarnings("unchecked")
+	public void readFromFile(Scanner sc) {
 		System.out.print("Enter the filename to read from: ");
-		File file = new File(sc.nextLine());
-		
+		File file = new File(sc.nextLine()); //new file 
 
-		if(file.exists()) { //if file exists = true
-			System.out.println("File name already exist. ");
-		} //if end
+		if(!file.exists()) { //if file not exists
+			System.out.println("File Not Found, ignoring...");
+		} else { //if file exist
+			ArrayList<FoodItem> inventory = new ArrayList<FoodItem>();
+			try {
+				FileInputStream input = new FileInputStream(file); //file input stream
+				ObjectInputStream objectInput = new ObjectInputStream(input);
+				inventory = (ArrayList<FoodItem>) objectInput.readObject();
 
+				if(!inventory.isEmpty()) { //if array list is not empty
+					
+				} else { //if array list is empty
+					System.out.println("Empty now");
+				} //if-else end
+					
+				input.close(); //close file input stream
+				objectInput.close(); //close object input stream
+			} catch (FileNotFoundException e) {
+				System.out.println("File not found");
+			} catch(ClassNotFoundException ce) {
+				System.out.println("File not accessible");
+			} catch(IOException ioe) {
+				System.out.println("Error File cannot open.");
+			} //try-catch end
+		} //if-else end
 	} //readFromFile
+	/**
+	 * print from file with array list inventory
+	 * @param inventory
+	 */
+	public void printFromFile(ArrayList<FoodItem> inventory, int index) {
+		inventory.get(index).toString(); //print all objects(FoodItem) in array list
+	} //printFromFile end
+
 	/**
 	 * return index of food item array (inventory)
 	 * check if item code already exists or not - during add item
 	 * @param item FoodItem from updateQuantity method
 	 */
 	int alreadyExists(FoodItem item) {
+		
+		
 		for(int i=0;i < numItems;i++) {
+			compare(item, inventory.get(i));
+			
 			if (inventory.get(i).isEuqal(item)) { 
 				return i;
 			} //if-else end
@@ -141,6 +215,8 @@ class Inventory {
 	 * read item code to update quantity in inventory array.
 	 * bs = true = buying
 	 * bs = false = selling
+	 * @parms sc Scanner
+	 * @bs boolean buy or sell
 	 */
 	boolean updateQuantity(Scanner sc, boolean bs) {
 		if(numItems == 0) { //if user input anything yet

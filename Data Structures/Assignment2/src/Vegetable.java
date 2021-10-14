@@ -6,6 +6,7 @@
  * October-10-2021
  * vegetable product
  */
+import java.io.Serializable;
 import java.util.Formatter;
 import java.util.Scanner;
 /**
@@ -13,7 +14,7 @@ import java.util.Scanner;
  * scan information about vegetable, print
  *
  */
-public class Vegetable extends FoodItem{
+public class Vegetable extends FoodItem implements Serializable{
 	String farm;
 	/**
 	 * addItem farm supplier

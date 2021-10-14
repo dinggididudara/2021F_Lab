@@ -40,7 +40,7 @@ class Assign2 {
 					i.updateQuantity(sc, bs);
 					break;
 				case 5:
-					
+					i.searchForItem(sc); //search for item
 					break;
 				case 6:
 					

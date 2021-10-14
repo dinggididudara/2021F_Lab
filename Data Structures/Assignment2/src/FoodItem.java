@@ -9,13 +9,20 @@
  * addItem -><- alreadyExists
  */
 import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 import java.util.InputMismatchException;
 /**
  * FoodItem class scanning user input, and  update item when user buy/sell products
  *
  */
-class FoodItem{
+class FoodItem implements Serializable{
+	/**
+	 * default serial version uid
+	 */
+	private static final long serialVersionUID = 1L;
+
 	FoodItem f;
 
 	private int itemCode;
@@ -77,80 +84,91 @@ class FoodItem{
 	/**
 	 * read from Scanner passed in and fill data member
 	 */
-	public boolean addItem(Scanner sc, boolean fromFile) {
-		while (name.replaceAll(" ", "").equals("")) { //reset the name if not valid
-			System.out.print("Enter the name for the item: ");
-			if (sc.hasNextLine()) {
-				name = sc.nextLine();
-			} //if end
-		} //while end
+	public boolean addItem(Scanner sc) {
+		
+//		if(fromFile) { //if it is from file
+//			
+//		} else {
+			while (name.replaceAll(" ", "").equals("")) { //reset the name if not valid
+				System.out.print("Enter the name for the item: ");
+				if (sc.hasNextLine()) {
+					name = sc.nextLine();
+				} //if end
+			} //while end
 
-		while (true) { //quantity
-			System.out.print("Enter the quantity for the item: ");
+			while (true) { //quantity
+				System.out.print("Enter the quantity for the item: ");
 
-			if (!sc.hasNextInt()) {
-				System.out.println("Invalid Entry");
-				sc.nextLine();
-			} else {
-				quantity = sc.nextInt();
-				if (quantity > 0) {	break;}
-				else {
+				if (!sc.hasNextInt()) {
 					System.out.println("Invalid Entry");
 					sc.nextLine();
+				} else {
+					quantity = sc.nextInt();
+					if (quantity > 0) {	break;}
+					else {
+						System.out.println("Invalid Entry");
+						sc.nextLine();
+					} //if-else end
 				} //if-else end
-			} //if-else end
-		} //while end
-		sc.nextLine(); //remove newline
-		while (true) {
-			System.out.print("Enter the cost for the item: ");
+			} //while end
+			sc.nextLine(); //remove newline
+			while (true) {
+				System.out.print("Enter the cost for the item: ");
 
-			if (!sc.hasNextDouble())	{
-				System.out.println("Invalid Entry");
-				sc.nextLine();
-			} else {
-				cost = sc.nextDouble();
-				if (cost > 0) {break;}
-				else {
+				if (!sc.hasNextDouble())	{
 					System.out.println("Invalid Entry");
-					sc.nextLine(); //remove newline
+					sc.nextLine();
+				} else {
+					cost = sc.nextDouble();
+					if (cost > 0) {break;}
+					else {
+						System.out.println("Invalid Entry");
+						sc.nextLine(); //remove newline
+					} //if-else end
 				} //if-else end
-			} //if-else end
-		}//while end
-		sc.nextLine();
-		while (true) {
-			System.out.print("Enter the price for the item: ");
+			}//while end
+			sc.nextLine();
+			while (true) {
+				System.out.print("Enter the price for the item: ");
 
-			if (!sc.hasNextDouble())	{
-				System.out.println("Invalid Entry");
-
-				sc.nextLine();
-			} else {
-				price = sc.nextDouble();
-				if (price > 0) {break;}
-				else {
+				if (!sc.hasNextDouble())	{
 					System.out.println("Invalid Entry");
-					sc.nextLine(); //remove newline
-				} //if-else end
-			} //if-else end
-		} //while end
-		sc.nextLine();
 
+					sc.nextLine();
+				} else {
+					price = sc.nextDouble();
+					if (price > 0) {break;}
+					else {
+						System.out.println("Invalid Entry");
+						sc.nextLine(); //remove newline
+					} //if-else end
+				} //if-else end
+			} //while end
+			sc.nextLine();
+//		} //if-else end
+		
 		return true;
 	} //addItem end
-	/**
-	 * save inventory to file
-	 * @param writer
-	 */
-	public void outputItem(Formatter writer) {
-		
-	}
+//	/**
+//	 * save inventory to file
+//	 * @param writer
+//	 */
+//	public void outputItem(Formatter writer) {
+//		try {
+//			for(int i=0;i < inventory.size();i++) {
+//				
+//			}
+//		} catch (IOException e) {
+//			
+//		}
+//	}
 	/**
 	 * update the quantity field - buying / selling
 	 * @param amount for change quantity
 	 * 
 	 */
 	boolean updateItem(int amount) {
-		if(amount <= this.quantity) { // errororororroro*******
+		if(amount <= this.quantity) {
 			this.quantity += amount;
 			if(this.quantity > 0) {
 				return true;
@@ -160,17 +178,17 @@ class FoodItem{
 			return false;
 		} //updateItem end
 	} //updateItem
-	/**
-	 * if item code exists = return true
-	 * 2.check input code is in the array
-	 * @return true for success , false for fail
-	 */
-	boolean isEuqal(FoodItem item) {
-		if(item.itemCode == this.itemCode) { //if itemCode is same
-			return true;
-		} 
-		return false;
-	} //isEqual end
+//	/**
+//	 * if item code exists = return true
+//	 * 2.check input code is in the array
+//	 * @return true for success , false for fail
+//	 */
+//	boolean isEuqal(FoodItem item) {
+//		if(item.itemCode == this.itemCode) { //if itemCode is same
+//			return true;
+//		} //if end
+//		return false;
+//	} //isEqual end
 	/**
 	 * Comparator, comparing item code in array list
 	 */
@@ -190,8 +208,7 @@ class FoodItem{
 	 */
 	boolean inputCode(Scanner sc) { 
 		boolean b = false;
-		int itemCode;
-
+		
 		while(true) {
 			try {
 				System.out.print("Enter valid item code: ");
@@ -206,7 +223,7 @@ class FoodItem{
 		return b; //true=success, false=fail
 	} //inputCode end
 	/**
-	 * read a valid item code from file - during addItem
+	 * read a valid item code from file
 	 */
 	boolean inputCode(Scanner sc, boolean fromFile) { 
 		boolean b = false;
@@ -214,7 +231,7 @@ class FoodItem{
 			System.out.print("Enter the code for the item: ");
 
 			if (!sc.hasNextInt()) {
-				System.out.println("Invalid Entry");
+				System.out.println("Invalid Code");
 			} else{
 				this.itemCode = sc.nextInt();
 				sc.nextLine(); //remove newline
