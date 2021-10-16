@@ -59,6 +59,7 @@ class Assign2 {
 				} //switch end
 			} catch (InputMismatchException e) {
 				System.out.println("Invliad entry");
+				sc.nextLine();
 			} //try-catch end
 		} //while end		
 	} //main end

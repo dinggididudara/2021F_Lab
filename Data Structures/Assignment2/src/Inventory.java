@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -87,7 +90,7 @@ class Inventory implements Serializable, Comparator<FoodItem>{
 				b = false;
 			} //if-else end
 		} //while end
-				
+
 		if(item.inputCode(sc, fromFile)) { //if input code valid = true
 			if(alreadyExists(item)==-1) { //send the object to another method
 				if(item.addItem(sc, fromFile)) { //if adding item succeed
@@ -110,7 +113,7 @@ class Inventory implements Serializable, Comparator<FoodItem>{
 	public void searchForItem(Scanner sc) {
 		FoodItem fi = new FoodItem();
 		boolean in = fi.inputCode(sc, true); //true for 'it is from file'
-		
+
 		if(in) { //if input code is success
 			if(alreadyExists(fi)!=-1) { //if code is in the file
 				int a = alreadyExists(fi);
@@ -129,28 +132,30 @@ class Inventory implements Serializable, Comparator<FoodItem>{
 		System.out.print("Enter the filename to save to: ");
 		String filename = sc.nextLine();
 		sc.nextLine();//remove new line
+		filename = File.separator + "src" + File.separator + filename; //file path
 		try {
 			if(inventory.isEmpty()) { //if inventory is empty
 				System.out.println("inventory is empty now.");
 			} else { //if inventory is not empty
 				File file = new File(filename);
-//			if(!file.exists()) { //if file name is not exists
-				FileOutputStream output = new FileOutputStream(file);
-				ObjectOutputStream objectOutput = new ObjectOutputStream(output);
+				if(!file.exists()) { //if file name is not exists
+					System.err.println("inside file not exist");
+					file.createNewFile(); //create new file
+					System.err.println("after create new file");
+					FileOutputStream output = new FileOutputStream(file, false);
+					ObjectOutputStream objectOutput = new ObjectOutputStream(output);
 
-				objectOutput.writeObject(inventory);//write array list to the file
+					objectOutput.writeObject(inventory);//write array list to the file
 
-				output.close(); //close output
-				objectOutput.close(); //close object output
-//			} else { //if file name already exists
-//				
-//				
-//			} //if-else end
-			}
-			
-			} catch (IOException e) {
-				System.out.println("File Not Found, ignoring...");
-			} //try-catch end
+					output.close(); //close output
+					objectOutput.close(); //close object output
+				} else { //if file name already exists
+					System.out.println("File already exists.");
+				} //if-else end
+			} //if-else end
+		} catch (IOException e) {
+			System.out.println("File Not Found, ignoring...");
+		} //try-catch end
 	} //saveToFile end
 	/**
 	 * read from file
@@ -160,27 +165,30 @@ class Inventory implements Serializable, Comparator<FoodItem>{
 	@SuppressWarnings("unchecked")
 	public void readFromFile(Scanner sc) {
 		System.out.print("Enter the filename to read from: ");
-		File file = new File(sc.nextLine()); //new file 
+		String filename = sc.nextLine(); //filename scan
+		sc.nextLine(); //skip newline
+		System.err.println("filename read");
+		filename = File.separator + "src" + File.separator + filename;
+		Path path = Paths.get(filename); //file path
+//		 
+		System.err.println("File file new File");
 
-		if(!file.exists()) { //if file not exists
+		if(!Files.exists(path)) { //if file exists
 			System.out.println("File Not Found, ignoring...");
-		} else { //if file exist
-			ArrayList<FoodItem> inventory = new ArrayList<FoodItem>();
+		} else if(Files.exists(path)){ //if file exist
 			try {
+				File file = new File(filename); //new file
+				System.err.println("file exists inside");
 				FileInputStream input = new FileInputStream(file); //file input stream
 				ObjectInputStream objectInput = new ObjectInputStream(input);
 				inventory = (ArrayList<FoodItem>) objectInput.readObject();
 
-				if(!inventory.isEmpty()) { //if array list is not empty
-					
-				} else { //if array list is empty
-					System.out.println("Empty now");
-				} //if-else end
-					
+				inventory.toString(); //print food item from file
+
 				input.close(); //close file input stream
 				objectInput.close(); //close object input stream
-			} catch (FileNotFoundException e) {
-				System.out.println("File not found");
+			} catch(FileNotFoundException fnf) {
+				System.out.println("File not found, ignoring...");
 			} catch(ClassNotFoundException ce) {
 				System.out.println("File not accessible");
 			} catch(IOException ioe) {
@@ -188,13 +196,13 @@ class Inventory implements Serializable, Comparator<FoodItem>{
 			} //try-catch end
 		} //if-else end
 	} //readFromFile
-//	/**
-//	 * print from file with array list inventory
-//	 * @param inventory
-//	 */
-//	public void printFromFile(ArrayList<FoodItem> inventory, int index) {
-//		inventory.get(index).toString(); //print all objects(FoodItem) in array list
-//	} //printFromFile end
+	//	/**
+	//	 * print from file with array list inventory
+	//	 * @param inventory
+	//	 */
+	//	public void printFromFile(ArrayList<FoodItem> inventory, int index) {
+	//		inventory.get(index).toString(); //print all objects(FoodItem) in array list
+	//	} //printFromFile end
 
 	/**
 	 * return index of food item array (inventory)
@@ -203,7 +211,7 @@ class Inventory implements Serializable, Comparator<FoodItem>{
 	 */
 	int alreadyExists(FoodItem item) {
 		int c=-1;
-		
+
 		for(int i=0;i < numItems;i++) {
 			c = compare(item, inventory.get(i)); //using comparator
 			if (c == 0) { //if matches 
