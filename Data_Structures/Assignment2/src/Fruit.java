@@ -37,13 +37,6 @@ public class Fruit extends FoodItem implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "  orchard supplier: " + orchard + "\n";
+		return super.toString() + "  orchard supplier: " + orchard;
 	} //toString end
-//	/**
-//	 * @param writer formatter for file
-//	 */
-//	@Override
-//	public void outputItem(Formatter writer) {
-////		writer = ;
-//	}
 } //Fruit end

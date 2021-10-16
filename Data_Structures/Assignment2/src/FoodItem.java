@@ -10,7 +10,6 @@
  */
 import java.io.Serializable;
 import java.util.*;
-import java.util.InputMismatchException;
 /**
  * FoodItem class scanning user input, and  update item when user buy/sell products
  *
@@ -30,7 +29,7 @@ class FoodItem implements Serializable{
 	private double cost;
 
 	/**
-	 * initialize to zero to everything first
+	 * initialize to zero to everything first (initialize)
 	 */
 	FoodItem(){
 		itemCode = 0;
@@ -54,24 +53,20 @@ class FoodItem implements Serializable{
 		this.price = price;
 		this.cost = cost;
 	}
-//	public FoodItem getF() {
-//		return f;
-//	}
+	/**
+	 * getItemCode : getter for item code
+	 * @return itemCode
+	 */
 	public int getItemCode() {
 		return itemCode;
-	}
-//	public String getName() {
-//		return name;
-//	}
+	} //getItemCode end
+	/**
+	 * getQuantity : getter for quantity
+	 * @return
+	 */
 	public int getQuantity() {
 		return quantity;
-	}
-//	public double getPrice() {
-//		return price;
-//	}
-//	public double getCost() {
-//		return cost;
-//	}
+	} //getQuantity end
 	/**
 	 * display the all data members in the class
 	 */	
@@ -81,11 +76,10 @@ class FoodItem implements Serializable{
 	} //toString end
 	/**
 	 * read from Scanner passed in and fill data member
+	 * @param sc Scanner
+	 * @param fromFile check if it is from file or not
 	 */
 	public boolean addItem(Scanner sc, boolean fromFile) {
-		if(fromFile) { //if it is from file
-			
-		} else {
 			while (name.replaceAll(" ", "").equals("")) { //reset the name if not valid
 				System.out.print("Enter the name for the item: ");
 				if (sc.hasNextLine()) {
@@ -142,23 +136,8 @@ class FoodItem implements Serializable{
 				} //if-else end
 			} //while end
 			sc.nextLine();
-		} //if-else end
-		
 		return true;
 	} //addItem end
-//	/**
-//	 * save inventory to file
-//	 * @param writer
-//	 */
-//	public void outputItem(Formatter writer) {
-//		try {
-//			for(int i=0;i < inventory.size();i++) {
-//				
-//			}
-//		} catch (IOException e) {
-//			
-//		}
-//	}
 	/**
 	 * update the quantity field - buying / selling
 	 * @param amount for change quantity
@@ -175,17 +154,7 @@ class FoodItem implements Serializable{
 			return false;
 		} //updateItem end
 	} //updateItem
-//	/**
-//	 * if item code exists = return true
-//	 * 2.check input code is in the array
-//	 * @return true for success , false for fail
-//	 */
-//	boolean isEuqal(FoodItem item) {
-//		if(item.itemCode == this.itemCode) { //if itemCode is same
-//			return true;
-//		} //if end
-//		return false;
-//	} //isEqual end
+
 	/**
 	 * Comparator, comparing item code in array list
 	 */
@@ -195,50 +164,18 @@ class FoodItem implements Serializable{
 			return (f1.getItemCode()-f2.getItemCode()); //return zero if match
 		} //compare end
 	}; //comparator end
-	
-//	Arrays.sort(inventory, new Comparator<FoodItem>() {
-//		@Override
-//		public int compare(FoodItem f1, FoodItem f2) {
-//			return (f1.getItemCode()-f2.getItemCode()); //return zero if match
-//		} //compare end
-//	});
-	
-//	/**
-//	 * read a valid item code from scanner - buying & selling
-//	 * 1.checking if it is valid code or not -> if valid go to isEqual method
-//	 * true = buying 
-//	 * false = selling
-//	 * using comparator
-//	 */
-//	boolean inputCode(Scanner sc) { 
-//		boolean b = false;
-//		
-//		while(true) {
-//			try {
-//				System.out.print("Enter valid item code: ");
-//				this.itemCode = sc.nextInt();
-//				b = true;
-//				break;
-//			} catch (InputMismatchException e) {
-//				System.out.println("Invalid code");
-//				b = false;
-//			} //try-catch		
-//		} //while end
-//		return b; //true=success, false=fail
-//	} //inputCode end
+
 	/**
 	 * read a valid item code from file
 	 */
 	boolean inputCode(Scanner sc, boolean fromFile) { 
 		boolean b = false;
-		if(fromFile) { //if it is from file
-			
-		}
 		while (true) { //continue until get valid code
 			System.out.print("Enter the code for the item: ");
-			
+
 			if (!sc.hasNextInt()) {
 				System.out.println("Invalid Code");
+				sc.nextLine(); //remove newline
 			} else{
 				this.itemCode = sc.nextInt();
 				sc.nextLine(); //remove newline

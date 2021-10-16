@@ -37,13 +37,6 @@ public class Preserve extends FoodItem implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "  size : " + size + "mL\n";
-	}
-//	/**
-//	 * @param writer formatter for file
-//	 */
-//	@Override
-//	public void outputItem(Formatter writer) {
-//		
-//	}
+		return super.toString() + "  size : " + size;
+	} //toString end
 } //Preserve class end

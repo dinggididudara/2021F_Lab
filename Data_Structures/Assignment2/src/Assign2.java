@@ -14,11 +14,16 @@ import java.util.Scanner;
  *
  */
 class Assign2 {
+	/**
+	 * main function
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int option;
 		boolean bs; //buy = true, sell = false	
 		Inventory i =  new Inventory();	
+		int a = -1;
 		while(true) {
 			try {
 				displayMenu();
@@ -29,9 +34,9 @@ class Assign2 {
 					i.addItem(sc, false);
 					break;
 				case 2: //display inventory
-					System.out.println("Inventory :\n" + i);
+					System.out.println("Inventory :\n" + i.toString());
 					break;
-				case 3: //buy itembs: bo
+				case 3: //buy items
 					bs = true;
 					i.updateQuantity(sc, bs);
 					break;
@@ -40,15 +45,17 @@ class Assign2 {
 					i.updateQuantity(sc, bs);
 					break;
 				case 5:
+					a = 1; //search for item
 					i.searchForItem(sc); //search for item
 					break;
-				case 6:
+				case 6: //save to file
 					i.saveToFile(sc);
 					break;
-				case 7:
+				case 7: //read from file
+					a = 0; //just reading
 					i.readFromFile(sc);
 					break;
-				case 8:
+				case 8: //quit
 					sc.close();
 					System.out.println("Exiting...");
 					System.exit(0);
@@ -58,7 +65,7 @@ class Assign2 {
 					break;
 				} //switch end
 			} catch (InputMismatchException e) {
-				System.out.println("Invliad entry");
+				System.out.println("Invalid entry");
 				sc.nextLine();
 			} //try-catch end
 		} //while end		
