@@ -212,8 +212,7 @@ class Inventory implements Serializable, Comparator<FoodItem>{
 			} catch(FileNotFoundException fnf) {
 				System.out.println("File not found, ignoring...");
 			} catch(ClassNotFoundException ce) {
-				System.out.println("Error Encountered while reading the file, aborting..."
-						+ "");
+				System.out.println("Error Encountered while reading the file, aborting...");
 			} catch(IOException ioe) {
 				System.out.println("Error File cannot open.");
 			} //try-catch end
