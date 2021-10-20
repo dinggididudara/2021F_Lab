@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <head>
-        <title>Lab 5</title>
+        <title>Lab 6 - Random</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -9,63 +9,82 @@
 <?php
 	include("Header.php");
 ?>
+</header>
 <body>
-<?php
-	var arr[5] = rand(1,50); //generate 5 random numbers, between 1 to 50
-	var a;
-	var b;
-	var c;
-	var d;
-	var e;
-	for(var i=0;i < length;i++){
-		if(i > 0 && i <=10){
-			echo ("$ numbers are randomly generated in the range between 01-10"."<br>");	
-			a++;
-		} else if (i > 10 && i <= 20){
-			echo ("$ numbers are randomly generated in the range between 11-20"."<br>");	
-			b++;
-		} else if (i > 20 && i <= 30){
-			echo ("$ numbers are randomly generated in the range between 22-30"."<br>");
-			c++;	
-		} else if (i > 30 && i <= 40){
-			echo ("$ numbers are randomly generated in the range between 33-40"."<br>");	
-			d++;
-		} else if (i > 40 && i <= 50){
-			echo ("$ numbers are randomly generated in the range between 44-50"."<br>");	
-			e++;
+  <h5>
+    <?php
+        include("Menu.php");
+    ?>
+    </h5>
+
+    <div class="container-xl p-3 my-3 bg-dark text-white" style="position:relative; left: -180px; top:-40px;text-size:12px;text-align:left;">
+	<?php
+	for($q=0;$q<500;$q++){
+		$arr[$q] = rand(1,50); //generate random numbers, between 1 to 50
+	} //for end
+
+	sort($arr); //sort for easier search
+
+	for($i=0;$i < 500;$i++){
+		if($arr[$i] > 0 && $arr[$i] <=10){
+			$a = $a+1;
+		} else if ($arr[$i] > 10 && $arr[$i] <= 20){
+			$b = $b+1;
+		} else if ($arr[$i] > 20 && $arr[$i] <= 30){
+			$c = $c+1;	
+		} else if ($arr[$i] > 30 && $arr[$i] <= 40){
+			$d = $d+1;
+		} else if ($arr[$i] > 40 && $arr[$i] <= 50){
+			$e = $e+1;
 		}
 	} //for end
+
+	echo ("$a numbers are randomly generated in the range between 01-10"."<br>");	
+	echo ("$b numbers are randomly generated in the range between 11-20"."<br>");	
+	echo ("$c numbers are randomly generated in the range between 22-30"."<br>");
+	echo ("$d numbers are randomly generated in the range between 33-40"."<br>");	
+	echo ("$e numbers are randomly generated in the range between 44-50"."<br>");		
+	
+	//percentage
+	$a=$a/5;
+	$b=$b/5;	
+	$c=$c/5;
+	$d=$d/5;
+	$e=$e/5;
+	
 	echo("<br><br><br>Histogram of starts as a percentage of the number of values are displayed below"."<br>");
-	echo("01-10"."<br>");
-	for(int i=0;i < a;i++){
+	
+	
+	echo("01-10: ");
+	for($x=0;$x < $a;$x++){
 		echo("*");
 	}
-	echo("11-20"."<br>");
-	for(int i=0;i < b;i++){
+	echo("<br>"."11-20: ");
+	for($y=0;$y < $b;$y++){
 		echo("*");
 	}
-	echo("<br>");
-	echo("21-30"."<br>");
-	for(int i=0;i < c;i++){
+
+	echo("<br>"."21-30: ");
+	for($z=0;$z < $c;$z++){
 		echo("*");
 	}
-	echo("<br>");
-	echo("31-40"."<br>");
-	for(int i=0;i < d;i++){
+
+	echo("<br>"."31-40: ");
+	for($u=0;$u < $d;$u++){
 		echo("*");
 	}
-	echo("<br>");
-	echo("41-50"."<br>");
-	for(int i=0;i < e;i++){
+
+	echo("<br>"."41-50: ");
+	for($k=0;$k < $e;$k++){
 		echo("*");
 	}
 	echo("<br>");
 
 ?>
+</div>
 </body>
-<footer class="footer" style=" bottom: 0px;background-color: rgb(107, 107, 107); text-align: center; color: white;display: inline-block; width: 74%; height: 100px;position: relative;left: 25px;">
+<footer class="footer" style=" bottom: 0px;background-color: rgb(107, 107, 107); text-align: center; color: white;display: inline-block; width: 74%; height: 100px;position: relative;left: 25px;top:-50px;">
 <?php
 	include("Footer.php");
 ?>
 </footer>
-</html>
