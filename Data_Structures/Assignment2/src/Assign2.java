@@ -61,11 +61,11 @@ class Assign2 {
 					System.exit(0);
 					break;
 				default:
-					System.out.println("Invalid entry");
+					System.out.println("Invalid entry...please try again");
 					break;
 				} //switch end
 			} catch (InputMismatchException e) {
-				System.out.println("Invalid entry");
+				System.out.println("Invalid selection...please try again");
 				sc.nextLine();
 			} //try-catch end
 		} //while end		
