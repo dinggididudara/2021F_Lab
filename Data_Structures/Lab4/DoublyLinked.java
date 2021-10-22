@@ -32,6 +32,9 @@ class Node {
 
 // -------------------------------------------------------------
 	// display this node data
+	/**
+	 * displayMode 
+	 */
 	public void displayNode() {
 		System.out.print(mData + " ");
 	}
@@ -39,23 +42,28 @@ class Node {
 } // end class Node
 
 //===================== class design starts here =============================
+/**
+ * DoublyLinkedList DLL
+ * 
+ *
+ */
 class DoublyLinkedList {
-	private Node first;
-	private Node last;
+	private Node first; //first node
+	private Node last; //last node
 
 // -------------------------------------------------------------
 	/**
-	 * DoublyLinkedList
+	 * DoublyLinkedList constructor : initialize
 	 */
 	public DoublyLinkedList() {
 		first = null;
 		last = null;
-	}
+	} //DoublyLinkedList end
 
 // -------------------------------------------------------------
 	/**
-	 * isEmpty
-	 * @return
+	 * isEmpty : set empty
+	 * @return first 
 	 */
 	public boolean isEmpty() {
 		return first == null;
@@ -124,21 +132,26 @@ class DoublyLinkedList {
 	} //insertAfter end
 	
 //------------------------------------------------// delete first node
-
+	/**
+	 * deleteFirstNode : deleting first node
+	 * @return
+	 */
 	public Node deleteFirstNode() {
-
-		// write your code here
-
+		first.mData = null; //first node data set null
+		first.next = null; //next node set null
+		
+		return first;
 	} //deleteFirstNode
 
 // -----------------------------------------------// delete last node
-/**
- * deleteLastNode 
- * @return
- */
+	/**
+	 * deleteLastNode 
+	 * @return
+	 */
 	public Node deleteLastNode() {
 
-		// write your code here
+		last.mData = null;
+		last.next = null;
 
 	} //deleteLastNode end
 
@@ -147,29 +160,43 @@ class DoublyLinkedList {
 // -----------------------------------------finds, deletes and returns the node that contains the given int value
 	/**
 	 * searchAndDelete
-	 * @param number
+	 * @param number index
 	 * @return
 	 */
 	public Node searchAndDelete(int number) {
-
+		
+		//search from last
+		if(number > size/2) {
+			Node x = tail;
+			for(int i=size-1;i > number; i==) {
+				x = x.previous; //move to previous node
+			} //for end
+			return x;
+		} else { //search from head
+			Node x = head;
+			for(int i=0; i<number; i++) {
+				x = x.next;
+			} //for end
+			return x;
+		}
 		
 	} //searchAndDelete end
 
 // -------------------------------------------display data from first node to last node
 	/**
-	 * printForwards
+	 * printForwards : print from first elements
 	 */
 	public void printForwards() {
-		System.out.println("Linked List: [From first_to_last] : ");
+		System.out.print("Linked List: [From first_to_last] : ");
 
 	}
 
 // -------------------------------------------display data from last node  to first node
 	/**
-	 * printBackwards
+	 * printBackwards : print from last elements
 	 */
 	public void printBackwards() {
-		System.out.println("Linked List: [From last_to_first] : ");
+		System.out.print("Linked List: [From last_to_first] : ");
 
 	}
 // -------------------------------------------------------------
