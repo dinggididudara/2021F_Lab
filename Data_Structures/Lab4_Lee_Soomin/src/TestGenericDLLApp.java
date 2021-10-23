@@ -4,17 +4,17 @@
  * 
  * Professor: James Mwangi PhD
  * 
- * 			Lab 4 : LinkedList Processing
+ * 			Lab 4 : LinkedList Processing, Generic Double Linked List
  *          Student Name:Soomin Lee
  * 			Student ID: 040899389
  * 
  */
 /**
- * TestDLLApp : testing doubly linked list with DoublyLinked class
+ * TestGenericDLLApp : testing doubly linked list with DoublyLinked class
  * @author Soomin Lee
  *
  */
-class TestDLLApp {
+class TestGenericDLLApp {
 	/**
 	 * main : insert first 20,42,63,93 -> insert last 9,34,51 -> print forwards and backwards
 	 * 		  delete first node (93), delete last node (51)
@@ -23,7 +23,7 @@ class TestDLLApp {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		DoublyLinkedList newLL = new DoublyLinkedList(); //new object of doubly linkedlist
+		GenericDLL<Integer> newLL = new GenericDLL<Integer>(); //new object of doubly linked list
 		
 		newLL.insertFirst(20); //insert 20 at first
 		newLL.insertFirst(42); //insert 42 at first
@@ -48,4 +48,4 @@ class TestDLLApp {
 		newLL.printForwards(); //print from first to last
 		
 	} // end of main() method
-} // end class TestDLLApp
+} // end class TestGenericDLLApp
