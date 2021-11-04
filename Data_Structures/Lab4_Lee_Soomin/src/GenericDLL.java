@@ -121,7 +121,7 @@ class GenericDLL<T>{
 	public boolean insertAfter(T numToFind, T newNumber) { // (assumes non-empty list)
 		GenericDLLNode<T> current = first;
 
-		while (current.mData != numToFind) { //until number to find is found
+		while (current.mData != numToFind) { //until number to find is found 
 			current = current.next; //set current to next
 			if (current == null) //if current is null then return false
 				return false;

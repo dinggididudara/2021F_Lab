@@ -4,7 +4,7 @@
  * Professor: James Mwangi PhD. 
  * @author Algonquin College
  * @author George Kriger
- *
+ * @author Soomin Lee
  */
 
 public class BinaryTreeNode {
@@ -52,17 +52,17 @@ public class BinaryTreeNode {
 	 * @param newData contents of node which will be inserted
 	 */
 	public void insert(int newData) {
-		if (newData < data) {
-			if (left == null)
-				left = new BinaryTreeNode(newData);
-			else
-				left.insert(newData);
+		if (newData < data) { //if new data is smaller than right
+			if (left == null) //if left is empty
+				left = new BinaryTreeNode(newData); //then create new node
+			else //if not empty
+				left.insert(newData); //insert in the left side of that node
 		} else if (newData > data) {
 			if (right == null)
 				right = new BinaryTreeNode(newData);
 			else
 				right.insert(newData);
-		} else
+		} else  //if key is duplicate - error message
 			System.out.println("Duplicate – not adding" + newData);
 	}// insert()
 
