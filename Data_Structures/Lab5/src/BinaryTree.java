@@ -66,21 +66,26 @@ public class BinaryTree {
 		displayPreOrder(subRoot.getLeft());
 		displayPreOrder(subRoot.getRight());
 	} //displayInOrder end
+
+
 	/**
 	 * search the key
-	 * @param searchKey number to find using recursive
+	 * @param searchKey number to find
 	 * @return true(found)/false(not found)
 	 */
 	public boolean search(int searchKey) { //have to set root as on top
 		BinaryTreeNode subRoot = search(searchKey, root);
-		if (subRoot != null) {
-			System.out.println("Searching for " + searchKey + " : found");
-			return true;
-		} //if end
+		while(subRoot != null) {
+			if (subRoot != null) {
+				System.out.println("Searching for " + searchKey + " : found");
+				return true;
+			} //if end
+		} //while end
 		System.out.println("Searching for " + searchKey + " : NOT found");
 		return false;
+		//move to the top root
 	} //searching end
-	
+
 	/**
 	 * searching tree to find searchKey
 	 * @param searchKey the number to find
