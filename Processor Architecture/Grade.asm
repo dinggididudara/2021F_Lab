@@ -16,51 +16,51 @@ C:      ds      1               ; Grade C will store in memory location F
 D:      ds      1               ; Grade D will store in memory location F
 F:      ds      1               ; Grade F will store in memory location F
 
-      	org     $1020
+        org     $1030
 Marks
 #include Marks.txt
 End_Marks
 
-				; Result will be:
-				; $103A $103B $103C $103D $103E $103E $103F
+                                ; Expected Result will be:
+                                ; $103A $103B $103C $103D $103E $103F
 
-
+; program code starts
         org     $2000           ; program starts
         lds     #$2000          ; initialize
-        ldx     #Marks         ; pointer x to beginning of Grades array
+        ldx     #Marks         	; pointer x to beginning of Grades array
         ldy     #$103A          ; pointer y to memory that sotres result
         ldab    #$00            ; load register b with $00
 
 Read    ldaa    1,x+            ;load register with pointer, increment x
-        ldaa    Marks   	; get temporary value
-        cmpa    90     		; greater than 90?
-        bhi     aa   		; if higher or same
+        ldaa    Marks           ; get temporary value
+        cmpa    90              ; greater than 90?
+        bhi     aa              ; if higher or same
 
-	cmpa    80     		; greater than 80?
-        bhi     bb   		; if higher than 80?
+        cmpa    80              ; greater than 80?
+        bhi     bb              ; if higher than 80?
 
-        cmpa    70     		; greater than 70?
-        bhi     cc   		; if higher or same
+        cmpa    70              ; greater than 70?
+        bhi     cc              ; if higher or same
 
-        cmpa    60     		; greater than 60?
-        bhi     dd   		; if higher or same
-        cmpa    60              ;
-        bls     ff		;
+        cmpa    60              ; greater than 60?
+        bhi     dd              ; if higher or same
+        cmpa    60              ; less than 60?
+        bls     ff              ;
 
-aa      inc     A
-        bra     Check
+aa      inc     A               ; increment at location A
+        bra     Check           ; go to check block
         
-bb      inc     B
-        bra     Check
+bb      inc     B               ; increment at location B
+        bra     Check           ; go to check block
 
-cc      inc     C
-        bra     Check
+cc      inc     C               ; increment at location C
+        bra     Check           ; go to check block
         
-dd      inc     D
-        bra     Check
+dd      inc     D               ; increment at location D
+        bra     Check           ; go to check block
 
-ff      inc     F
-        bra     Check
+ff      inc     F               ; increment at location F
+        bra     Check           ; go to check block
         
 Check   incb                    ; increment register b
         cmpb    #LEN            ; compare register b to len (length)

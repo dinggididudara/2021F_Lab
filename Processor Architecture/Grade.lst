@@ -10,7 +10,7 @@ as12, an absolute assembler for Motorola MCU's, version 1.2h
                         ;
                         ; Purpose:               Grade the marks in txt file
                         
-1030                    LEN     equ     End_Marks
+1040                    LEN     equ     End_Marks
                         
 1000                            org     $1000           ; starts at address 1000
 1000                    A:      ds      1               ; Grade A will store in memory location F
@@ -19,62 +19,62 @@ as12, an absolute assembler for Motorola MCU's, version 1.2h
 1003                    D:      ds      1               ; Grade D will store in memory location F
 1004                    F:      ds      1               ; Grade F will store in memory location F
                         
-1020                          	org     $1020
-1020                    Marks
+1030                            org     $1030
+1030                    Marks
                         #include Marks.txt
                         
-1020 4a 3a 35 57        		db	74, 58, 53, 87
-1024 64 54 43 56        		db	100, 84, 67, 86
-1028 3c 4f 37 2d        		db	60, 79, 55, 45
-102c 44 5e 5b 2f        		db	68, 94, 91, 47
+1030 4a 3a 35 57        		db	74, 58, 53, 87
+1034 64 54 43 56        		db	100, 84, 67, 86
+1038 3c 4f 37 2d        		db	60, 79, 55, 45
+103c 44 5e 5b 2f        		db	68, 94, 91, 47
                         #endinclude
 
-1030                    End_Marks
+1040                    End_Marks
                         
-                        				; Result will be:
-                        				; $103A $103B $103C $103D $103E $103E $103F
+                                                        ; Expected Result will be:
+                                                        ; $103A $103B $103C $103D $103E $103F
                         
-                        
+                        ; program code starts
 2000                            org     $2000           ; program starts
 2000 cf 20 00                   lds     #$2000          ; initialize
-2003 ce 10 20                   ldx     #Marks         ; pointer x to beginning of Grades array
+2003 ce 10 30                   ldx     #Marks         	; pointer x to beginning of Grades array
 2006 cd 10 3a                   ldy     #$103A          ; pointer y to memory that sotres result
 2009 c6 00                      ldab    #$00            ; load register b with $00
                         
 200b a6 30              Read    ldaa    1,x+            ;load register with pointer, increment x
-200d b6 10 20                   ldaa    Marks   	; get temporary value
-2010 91 5a                      cmpa    90     		; greater than 90?
-2012 22 10                      bhi     aa   		; if higher or same
+200d b6 10 30                   ldaa    Marks           ; get temporary value
+2010 91 5a                      cmpa    90              ; greater than 90?
+2012 22 10                      bhi     aa              ; if higher or same
                         
-2014 91 50              	cmpa    80     		; greater than 80?
-2016 22 11                      bhi     bb   		; if higher than 80?
+2014 91 50                      cmpa    80              ; greater than 80?
+2016 22 11                      bhi     bb              ; if higher than 80?
                         
-2018 91 46                      cmpa    70     		; greater than 70?
-201a 22 12                      bhi     cc   		; if higher or same
+2018 91 46                      cmpa    70              ; greater than 70?
+201a 22 12                      bhi     cc              ; if higher or same
                         
-201c 91 3c                      cmpa    60     		; greater than 60?
-201e 22 13                      bhi     dd   		; if higher or same
-2020 91 3c                      cmpa    60              ;
-2022 23 14                      bls     ff		;
+201c 91 3c                      cmpa    60              ; greater than 60?
+201e 22 13                      bhi     dd              ; if higher or same
+2020 91 3c                      cmpa    60              ; less than 60?
+2022 23 14                      bls     ff              ;
                         
-2024 72 10 00           aa      inc     A
-2027 20 14                      bra     Check
+2024 72 10 00           aa      inc     A               ; increment at location A
+2027 20 14                      bra     Check           ; go to check block
                                 
-2029 72 10 01           bb      inc     B
-202c 20 0f                      bra     Check
+2029 72 10 01           bb      inc     B               ; increment at location B
+202c 20 0f                      bra     Check           ; go to check block
                         
-202e 72 10 02           cc      inc     C
-2031 20 0a                      bra     Check
+202e 72 10 02           cc      inc     C               ; increment at location C
+2031 20 0a                      bra     Check           ; go to check block
                                 
-2033 72 10 03           dd      inc     D
-2036 20 05                      bra     Check
+2033 72 10 03           dd      inc     D               ; increment at location D
+2036 20 05                      bra     Check           ; go to check block
                         
-2038 72 10 04           ff      inc     F
-203b 20 00                      bra     Check
+2038 72 10 04           ff      inc     F               ; increment at location F
+203b 20 00                      bra     Check           ; go to check block
                                 
 203d 52                 Check   incb                    ; increment register b
 Grade.asm:66: Warning - Value too large and has been masked to 0xFF
-203e c1 30                      cmpb    #LEN            ; compare register b to len (length)
+203e c1 40                      cmpb    #LEN            ; compare register b to len (length)
 2040 26 c9                      bne     Read            ; go back to read block if not equal
                                 
 2042 b6 10 00                   ldaa    A               ; load register A
@@ -98,6 +98,6 @@ Grade.asm:66: Warning - Value too large and has been masked to 0xFF
                                 end
                                 
 
-Executed: Thu Nov 04 23:38:07 2021
+Executed: Thu Nov 11 15:16:08 2021
 Total cycles: 133, Total bytes: 123
 Total errors: 0, Total warnings: 1

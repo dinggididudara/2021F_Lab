@@ -7,9 +7,9 @@ cc         202e
 check      203d
 d          1003
 dd         2033
-end_marks  1030
+end_marks  1040
 f          1004
 ff         2038
-len        1030
-marks      1020
+len        1040
+marks      1030
 read       200b
