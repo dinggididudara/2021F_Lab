@@ -10,19 +10,20 @@
 LEN     equ     End_Marks
 
         org     $1000           ; starts at address 1000
+Marks
+#include Marks.txt
+End_Marks
+                                ; Expected Result will be:
+                                ; each array will be store at
+				; $1000 $1004 $1008 $100C
+
+        org     $1030
 A:      ds      1               ; Grade A will store in memory location F
 B:      ds      1               ; Grade B will store in memory location F
 C:      ds      1               ; Grade C will store in memory location F
 D:      ds      1               ; Grade D will store in memory location F
 F:      ds      1               ; Grade F will store in memory location F
 
-        org     $1030
-Marks
-#include Marks.txt
-End_Marks
-
-                                ; Expected Result will be:
-                                ; $103A $103B $103C $103D $103E $103F
 
 ; program code starts
         org     $2000           ; program starts
@@ -63,7 +64,7 @@ ff      inc     F               ; increment at location F
         bra     Check           ; go to check block
         
 Check   incb                    ; increment register b
-        cmpb    #LEN            ; compare register b to len (length)
+        cmpb    LEN            ; compare register b to len (length)
         bne     Read            ; go back to read block if not equal
         
         ldaa    A               ; load register A
