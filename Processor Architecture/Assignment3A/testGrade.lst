@@ -1,0 +1,100 @@
+
+as12, an absolute assembler for Motorola MCU's, version 1.2h
+
+0010                    LEN     equ     End_Grades-Grades       ; Grades array length
+                        
+1000                            org     $1000                   ; origin for program data
+1000                    Num_As: ds      1                       ; Number of 'A' in the file will be stored at memory location Num_As
+1001                    Num_Bs: ds      1                       ; Number of 'B' in the file will be stored at memory location Num_Bs
+1002                    Num_Cs: ds      1                       ; Number of 'C' in the file will be stored at memory location Num_Cs
+1003                    Num_Ds: ds      1                       ; Number of 'D' in the file will be stored at memory location Num_Ds
+1004                    Num_Fs: ds      1                       ; Number of 'F' in the file will be stored at memory location Num_Fs
+                        
+                        
+                        
+1020                            org     $1020                   ; file's data
+                        
+1020                    Grades
+                        #include Grades.txt                     ; Grades file supplied for assignment
+1020 41 42 43 44 46     	db	'A, 'B, 'C, 'D, 'F
+1025 43 42 41 43 41     	db	'C, 'B, 'A, 'C, 'A
+102a 41 43 42           	db	'A, 'C, 'B
+102d 46 41 43           	db	'F, 'A, 'C
+                        
+                        
+                        
+                        #endinclude
+
+1030                    End_Grades
+                        
+                        ; Expected Result
+                        ;              $103A $103B $103C $103D $103E  $103F
+                        ;                 5     3     2    3    NAP      3
+                        
+                        ; as shown in the sumulator
+                        
+                        
+                        
+2000                            org     $2000                    ; program code
+2000 cf 20 00                   lds     #$2000          `        ; Stack initialization
+2003 ce 10 20                   ldx     #Grades                  ; Pointer X points to the beginning of Grades array
+2006 cd 10 3a                   ldy     #$103A                   ; Pointer Y points to memory where the resulys will be stored
+2009 c6 00                      ldab    #$00                     ; load register b with $00 (counter to count the number of iterations)
+                        
+                        
+                        
+                        
+                        ;Read block
+200b a6 30              Read    ldaa    1,x+                     ; load register a with data pointed to by X then increment X
+200d 81 41                      cmpa    #$41                     ; compare register a value to A charachter
+200f 27 10                      beq     Inc_As                   ; brach if register a value is equal
+2011 81 42                      cmpa    #$42                     ; compare register a value to B charachter
+2013 27 11                      beq     Inc_Bs                   ; brach if register a value is equal
+2015 81 43                      cmpa    #$43                     ; compare register a value to C charachter
+2017 27 12                      beq     Inc_Cs                   ; brach if register a value is equal
+2019 81 44                      cmpa    #$44                     ; compare register a value to D charachter
+201b 27 13                      beq     Inc_Ds                   ; brach if register a value is equal
+201d 81 46                      cmpa    #$46                     ; compare register a value to F charachter
+201f 27 14                      beq     Inc_Fs                   ; brach if register a value is equal
+                        
+2021 72 10 00           Inc_As  inc     Num_As                   ; Increment content of memory locatiom Num_As
+2024 20 14                      bra     Check                    ; go to Check block
+2026 72 10 01           Inc_Bs  inc     Num_Bs                   ; Increment content of memory locatiom Num_Bs
+2029 20 0f                      bra     Check                    ; go to Check block
+202b 72 10 02           Inc_Cs  inc     Num_Cs                   ; Increment content of memory locatiom Num_Cs
+202e 20 0a                      bra     Check                    ; go to Check block
+2030 72 10 03           Inc_Ds  inc     Num_Ds                   ; Increment content of memory locatiom Num_Ds
+2033 20 05                      bra     Check                    ; go to Check block
+2035 72 10 04           Inc_Fs  inc     Num_Fs                   ; Increment content of memory locatiom Num_Fs
+2038 20 00                      bra     Check                    ; go to Check block
+                        
+                        ;Check block
+203a 52                 Check   incb                             ; Increment register b
+203b c1 10                      cmpb    #LEN                     ; compare register b to #LEN
+203d 26 cc                      bne     Read                     ; go back to read block if register b is not equal
+                        
+                        ;Continue after breaking the loops
+203f b6 10 00                   ldaa    Num_As                    ; load register a with content of Num_As
+2042 6a 70                      staa    1,y+                      ; store register a content at memory pointed by y then increment y
+2044 b6 10 01                   ldaa    Num_Bs                    ; load register a with content of Num_Bs
+2047 6a 70                      staa    1,y+                      ; store register a content at memory pointed by y then increment y
+2049 b6 10 02                   ldaa    Num_Cs                    ; load register a with content of Num_Cs
+204c 6a 70                      staa    1,y+                      ; store register a content at memory pointed by y then increment y
+204e b6 10 03                   ldaa    Num_Ds                    ; load register a with content of Num_Ds
+2051 6a 71                      staa    2,y+                      ; store register a content at memory pointed by y then increment y
+2053 b6 10 04                   ldaa    Num_Fs                    ; load register a with content of Num_Fs
+2056 6a 70                      staa    1,y+
+                        
+2058 79 10 00                   clr     Num_As                    ; clear memory location Num_As
+205b 79 10 01                   clr     Num_Bs                    ; clear memory location Num_Bs
+205e 79 10 02                   clr     Num_Cs                    ; clear memory location Num_Cs
+2061 79 10 03                   clr     Num_Ds                    ; clear memory location Num_Ds
+2064 79 10 04                   clr     Num_Fs                    ; clear memory location Num_Fs
+                        
+                        
+2067 3f                         swi                               ; forces program to quit executing in memory
+                                end
+
+Executed: Wed Nov 17 13:41:13 2021
+Total cycles: 124, Total bytes: 120
+Total errors: 0, Total warnings: 0

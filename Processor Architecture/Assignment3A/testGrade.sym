@@ -1,0 +1,15 @@
+check      203a
+end_grades 1030
+grades     1020
+inc_as     2021
+inc_bs     2026
+inc_cs     202b
+inc_ds     2030
+inc_fs     2035
+len        0010
+num_as     1000
+num_bs     1001
+num_cs     1002
+num_ds     1003
+num_fs     1004
+read       200b

@@ -1,0 +1,101 @@
+
+as12, an absolute assembler for Motorola MCU's, version 1.2h
+
+                        ; GradesII.asm
+                        ;
+                        ; Author:               Soomin Lee
+                        ; Course:               CST8216 Processor Architecture
+                        ; Student Number:       040899389
+                        ; Date:                 17-Nov-2021
+                        ;
+                        ; Purpose:              To Tally up the number of As, Bs, Cs, Ds and Fs
+                        ;                       from a Grades Array as per 21F Flowchart for GradesII
+                        ;                       which uses a Nested-IF structure
+                        
+0010                    LEN                    equ     End_Grades-Grades      ; Grades array length
+1000                                           org     $1000    ; origin
+1000                    Grades
+                        #include Grades.txt                     ; Grades.txt file
+1000 41 42 43 44 46     	db	'A, 'B, 'C, 'D, 'F
+1005 43 42 41 43 41     	db	'C, 'B, 'A, 'C, 'A
+100a 41 43 42           	db	'A, 'C, 'B
+100d 46 41 43           	db	'F, 'A, 'C
+                        
+                        
+                        
+                        #endinclude
+
+1010                    End_Grades
+                        
+                        
+1020                                    org     $1020
+1020                    Total_F:        ds      1               ; total of F in the file,$1000
+1021                    Total_D:        ds      1               ; total of D in the file,$1001
+1022                    Total_C:        ds      1               ; total of C in the file,$1002
+1023                    Total_B:        ds      1               ; total of B in the file,$1003
+1024                    Total_A:        ds      1               ; total of A in the file,$1004
+                        
+                        ; Expected Result
+                        ; $1000 $1005 $100a $100b
+                        ;  5      5     3     3
+                        ;
+                        ; $1020 $1021 $1022 $1023   $1024
+                        ;   F      D     C     B     A
+                        ; As shown in the simulator
+                        
+2000                                    org     $2000
+2000 cf 20 00                           lds     #$2000          ; stack
+2003 ce 10 00                           ldx     #Grades         ; pointer x is pointing Grades array
+2006 cd 10 30                           ldy     #$1030          ; pointer y is pointing the memory, result will be sotred
+2009 c6 00                              ldab    #$00            ; b, set to counter for counting the number (starting from zero)
+                                        
+200b a6 30              Read            ldaa    1,x+            ; load data pointer x then increment x
+200d 81 46                              cmpa    #$46            ; compare with character F
+200f 27 10                              beq     is_F            ; if eaqual F = is_F
+2011 81 44                              cmpa    #$44            ; compare with character D
+2013 27 11                              beq     is_D            ; if equal D = is_D
+2015 81 43                              cmpa    #$43            ; compare with character C
+2017 27 12                              beq     is_C            ; if equal C = is_C
+2019 81 42                              cmpa    #$42            ; compare with character B
+201b 27 13                              beq     is_B            ; if equal B = is_B
+201d 81 41                              cmpa    #$41            ; compare with character A
+201f 27 14                              beq     is_A            ; if equal A = is_A
+                                        
+2021 72 10 20           is_F            inc     Total_F         ; increment total number of F
+2024 20 14                              bra     Check           ; go to check block
+2026 72 10 21           is_D            inc     Total_D         ; increment total number of D
+2029 20 0f                              bra     Check           ; go to check block
+202b 72 10 22           is_C            inc     Total_C         ; increment total number of C
+202e 20 0a                              bra     Check           ; go to check block
+2030 72 10 23           is_B            inc     Total_B         ; increment total number of B
+2033 20 05                              bra     Check           ; go to check block
+2035 72 10 24           is_A            inc     Total_A         ; increment total number of A
+2038 20 00                              bra     Check           ; go to check block
+                                        
+203a 52                 Check           incb                    ; increment register b (counter)
+203b c1 10                              cmpb    #LEN                      ; compare if b is the end of array
+203d 26 cc                              bne     Read            ; go back if not euqal to end of array
+                                        
+203f b6 10 20                           ldaa    Total_F         ; load total number of F
+2042 6a 70                              staa    1,y+            ; store and increment pointer y
+2044 b6 10 21                           ldaa    Total_D         ; load total number of D
+2047 6a 70                              staa    1,y+            ; store and increment pointer y
+2049 b6 10 22                           ldaa    Total_C         ; load total number of C
+204c 6a 70                              staa    1,y+            ; store and increment pointer y
+204e b6 10 23                           ldaa    Total_B         ; load total number of B
+2051 6a 70                              staa    1,y+            ; store and increment pointer y
+2053 b6 10 24                           ldaa    Total_A         ; load total number of A
+2056 6a 70                              staa    1,y+            ; store and increment pointer y
+                                        
+2058 79 10 24                           clr    Total_A         ; clear memory
+205b 79 10 23                           clr    Total_B         ; clear memory
+205e 79 10 22                           clr    Total_C         ; clear memory
+2061 79 10 21                           clr    Total_D         ; clear memory
+2064 79 10 20                           clr    Total_F         ; clear memory
+                        
+2067 3f                                 swi                     ; quit
+                                        end
+
+Executed: Wed Nov 17 13:49:14 2021
+Total cycles: 124, Total bytes: 120
+Total errors: 0, Total warnings: 0

@@ -49,7 +49,7 @@ public class BinaryTreeTest {
  *						  /        \
  *						 /   		\
  *						/	     	 \
- *					  11		        38
+ *					  11		       38
  *					/	\	         /	   \
  *				   6    25 	       34         70
  *					   /          /  \     /     \
