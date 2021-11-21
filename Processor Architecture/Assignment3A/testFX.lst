@@ -1,0 +1,45 @@
+
+as12, an absolute assembler for Motorola MCU's, version 1.2h
+
+000a                    LEN     equ     End_Lookup-LookUp       ; Lookup array length
+0010                    OFFSET  equ     $10
+                        
+1000                            org     $1000                   ; origin for Lookup array data
+1000                    LookUp
+1000 05 08 0b 0e 11 14          db      5, 8, 11, 14, 17, 20, 23, 25, 29, 32
+     17 19 1d 20
+100a                    End_Lookup
+                        
+1010                            org     $1010                   ; origin for X_Values array data
+1010                    X_Values
+1010                            ds     End_Lookup-LookUp
+101a                    End_X_Values
+                        
+1020                            org     $1020                   ; origin for Results array data
+1020                    Results
+1020                            ds      End_Lookup-LookUp
+102a                    End_Results
+                        
+2000                            org     $2000                    ; program code
+2000 cf 20 00                   lds     #$2000          `        ; Stack initialization
+2003 ce 10 00                   ldx     #LookUp                  ; Pointer X points to the beginning of LookUp array
+2006 cd 10 10                   ldy     #X_Values                ; Pointer X points to the beginning of X_Values array
+                                                                 ; register
+                                                                 ; load register a with $00 (stores the array index)
+2009 86 00                      ldaa    #$00
+                        
+                        ;Loop block
+200b e6 e4              Loop    ldab    A,X                      ; load register b with data at index a of Lookup array
+200d 69 e4                      clr     A,X                      ; clear data at index a of Lookup array
+200f 6b e8 10                   stab    OFFSET,Y                 ; store register b content at memory location stored at register y + OFFSET
+2012 6a 70                      staa    1,Y+                     ; store register b content at memory location stored at register y then increment y
+2014 42                         inca                             ; increment register a
+2015 81 0a                      cmpa    #LEN                     ; compare register a to #LEN
+2017 26 f2                      bne     Loop                     ; go back to Loop block if register a is not equal
+                        
+2019 3f                         swi                             ; forces program to quit executing in memory
+                                end
+
+Executed: Wed Nov 17 14:56:02 2021
+Total cycles: 36, Total bytes: 36
+Total errors: 0, Total warnings: 0

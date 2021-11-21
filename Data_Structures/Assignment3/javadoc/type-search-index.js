@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"PostalCodeEntry"},{"p":"postalCodeMap","l":"PostalCodeEntry"},{"p":"<Unnamed>","l":"PostalCodeSearchTest"},{"p":"postalCodeMap","l":"PostalCodeSearchTest"},{"p":"postalCodeMap","l":"storePostalCode"},{"p":"postalCodeMap","l":"storePostalCodeTest"}];updateSearchResults();

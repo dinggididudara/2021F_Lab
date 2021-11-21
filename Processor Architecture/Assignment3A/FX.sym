@@ -1,4 +1,6 @@
-array_len  000a
+array      1000
+array_len  000a
+end_array  100a
 end_results 103a
 end_x_values 102a
 loop       200b
